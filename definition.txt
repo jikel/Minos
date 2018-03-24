@@ -1,0 +1,30 @@
+Définition
+----------
+affaire/dossier: ensemble de documents
+
+requerant: personne physique ou morale
+partie defenderesse: personne physique ou morale
+
+requete: 
+requete SFP: document
+note personnel: document
+
+utilisateur: 
+	redacteur juridique: utilisateur special
+
+juge
+
+jugement: document
+tribunal: lieu
+rendez-vous: date et lieu
+	audience: rdv dans un tribunal
+
+correspondance/piece inventaire: document
+	conclusion: piece inventaire speciale
+		rapport administratif: conclusion speciale
+		
+		
+		
+		
+d'abord mot de vocabulaire puis definition puis diagramme de classe
+attention role: le role n'est pas la personne (foot: equipe t-shirt rouge vs blanc >> ce qui importe c'est le joueur/personne et pas le t-shirt)
