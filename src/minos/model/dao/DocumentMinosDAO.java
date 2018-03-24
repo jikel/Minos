@@ -28,14 +28,13 @@ public class DocumentMinosDAO extends DAO<DocumentMinos> {
 		PreparedStatement prepareStatement;
 		try {
 			prepareStatement = this.connect.prepareStatement(
-					"INSERT INTO document (nom, type, contenu, date_effet, date_reception) VALUES (?, ?, ?, ?, ?)",
+					"INSERT INTO document (nom, type, contenu, date_reception) VALUES (?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			prepareStatement.setString(1, document.getNom());
 			prepareStatement.setString(2, document.getType().getDbValue());
 			prepareStatement.setBytes(3, document.getContenu());
 //			prepareStatement.setBlob(3, new ByteArrayInputStream(document.getContenu())); // pas nécessaire (pour l'instant du moins @ 24/03 - 22h28)
-			prepareStatement.setDate(4, Date.valueOf(document.getDateEffet()));
-			prepareStatement.setTimestamp(5, Timestamp.valueOf(document.getDateReception()));
+			prepareStatement.setTimestamp(4, Timestamp.valueOf(document.getDateReception()));
 			prepareStatement.execute();
 			ResultSet generatedKeys = prepareStatement.getGeneratedKeys();
 			generatedKeys.next();
@@ -86,9 +85,8 @@ public class DocumentMinosDAO extends DAO<DocumentMinos> {
 				}
 				
 				byte[] contenu = result.getBytes("contenu");
-				LocalDate dateEffet = result.getDate("date_effet").toLocalDate();
 				LocalDateTime dateReception = result.getTimestamp("date_reception").toLocalDateTime();
-				document = new DocumentMinos(id, nom, type, contenu, dateEffet, dateReception);
+				document = new DocumentMinos(id, nom, type, contenu, dateReception);
 			}
 			return document;
 		} catch (SQLException e) {

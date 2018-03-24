@@ -8,25 +8,22 @@ public class DocumentMinos {
 	private String nom;
 	private TypeDocumentMinos type;
 	private byte[] contenu;
-	private LocalDate dateEffet;
 	private LocalDateTime dateReception;
-	public DocumentMinos(long id, String nom, TypeDocumentMinos type, byte[] contenu, LocalDate dateEffet,
+	public DocumentMinos(long id, String nom, TypeDocumentMinos type, byte[] contenu, 
 			LocalDateTime dateReception) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.type = type;
 		this.contenu = contenu;
-		this.dateEffet = dateEffet;
 		this.dateReception = dateReception;
 	}
-	public DocumentMinos(String nom, TypeDocumentMinos type, byte[] contenu, LocalDate dateEffet,
+	public DocumentMinos(String nom, TypeDocumentMinos type, byte[] contenu, 
 			LocalDateTime dateReception) {
 		super();
 		this.nom = nom;
 		this.type = type;
 		this.contenu = contenu;
-		this.dateEffet = dateEffet;
 		this.dateReception = dateReception;
 	}
 	public long getId() {
@@ -53,12 +50,7 @@ public class DocumentMinos {
 	public void setContenu(byte[] contenu) {
 		this.contenu = contenu;
 	}
-	public LocalDate getDateEffet() {
-		return dateEffet;
-	}
-	public void setDateEffet(LocalDate dateEffet) {
-		this.dateEffet = dateEffet;
-	}
+	
 	public LocalDateTime getDateReception() {
 		return dateReception;
 	}

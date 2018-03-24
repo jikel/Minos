@@ -7,12 +7,14 @@ import java.time.LocalDateTime;
 import minos.model.bean.Adresse;
 import minos.model.bean.DocumentMinos;
 import minos.model.bean.Dossier;
+import minos.model.bean.Jugement;
 import minos.model.bean.Personne;
 import minos.model.bean.TypeDocumentMinos;
 import minos.model.bean.TypePersonne;
 import minos.model.dao.AdresseDAO;
 import minos.model.dao.DocumentMinosDAO;
 import minos.model.dao.DossierDAO;
+import minos.model.dao.JugementDAO;
 import minos.model.dao.MinosConnection;
 import minos.model.dao.PersonneDAO;
 
@@ -23,6 +25,9 @@ public class PopulateDB {
 	private PersonneDAO personneDAO;
 	private DocumentMinosDAO documentMinosDAO;
 	private DossierDAO dossierDAO;
+	private JugementDAO jugementDAO;
+	
+	private String la_bible = "Il était une fois une petite étoile de mer\net elle en avait bu trop de thé.";
 	
 	public PopulateDB() {
 		conn = MinosConnection.getInstance();
@@ -30,6 +35,7 @@ public class PopulateDB {
 		personneDAO = new PersonneDAO(conn);
 		documentMinosDAO = new DocumentMinosDAO(conn);
 		dossierDAO = new DossierDAO();
+		jugementDAO = new JugementDAO();
 	}
 	
 	
@@ -37,9 +43,9 @@ public class PopulateDB {
 		PopulateDB populateDB = new PopulateDB();
 //		populateDB.test1();
 //		populateDB.test2();
-		populateDB.test3();
+//		populateDB.test3();
+		populateDB.test4();
 	}
-
 
 	private void test1() {
 		Adresse adresse = new Adresse("chaussee de mons", "65", "truc", "7300", "belgique");
@@ -52,14 +58,24 @@ public class PopulateDB {
 	}
 	
 	private void test2() {
-		String la_bible = "Il était une fois une petite étoile de mer\net elle en avait bu trop de thé.";
-		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(), LocalDate.of(1200, 1, 3), LocalDateTime.now());
+		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(), LocalDateTime.now());
 		document = documentMinosDAO.create(document);
 		System.out.println(new String(document.getContenu()));
 	}
 	
 	private void test3(){
-		Dossier create = dossierDAO.create();
-		System.out.println(create);
+		Dossier dossier = dossierDAO.create();
+		System.out.println(dossier);
+		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(), LocalDateTime.now());
+		document = documentMinosDAO.create(document);
 	}
+	
+	private void test4() {
+		Dossier dossier = dossierDAO.create();
+		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(), LocalDateTime.now());
+		document = documentMinosDAO.create(document);
+		Jugement jugement = new Jugement(dossier.getId(), document.getId(), LocalDate.now(), "recevable", "pas fonde");
+		jugementDAO.create(jugement);
+	}
+
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 24 mars 2018 à 22:06
+-- Généré le :  sam. 24 mars 2018 à 22:55
 -- Version du serveur :  5.7.18-log
 -- Version de PHP :  5.6.31
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `adresse` (
   `code_postal` varchar(255) NOT NULL,
   `pays` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -70,10 +70,9 @@ CREATE TABLE IF NOT EXISTS `document` (
   `nom` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `contenu` longblob NOT NULL,
-  `date_effet` date NOT NULL,
   `date_reception` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -85,7 +84,7 @@ DROP TABLE IF EXISTS `dossier`;
 CREATE TABLE IF NOT EXISTS `dossier` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -112,12 +111,13 @@ CREATE TABLE IF NOT EXISTS `jugement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_dossier` int(11) NOT NULL,
   `id_document` int(11) NOT NULL,
+  `date_effet` date NOT NULL,
   `recevable` varchar(255) NOT NULL,
   `fonde` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_id_jugement_document` (`id_document`),
   KEY `fk_id_jugement_dossier` (`id_dossier`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `personne` (
   `id_adresse` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_id_personne_adresse` (`id_adresse`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -166,6 +166,7 @@ CREATE TABLE IF NOT EXISTS `requete` (
   `id_dossier` int(11) NOT NULL,
   `id_personne` int(11) NOT NULL,
   `id_document` int(11) NOT NULL,
+  `date_effet` date NOT NULL,
   `numero_role` varchar(255) NOT NULL,
   `numero_rg` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
