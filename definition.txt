@@ -33,6 +33,8 @@ ecrire les modeles, les DAO puis script populateDB
 
 stream = metaphore du ballon rempli de qqch >> une fois que le qqch sort, on ne peut plus le remettre dedans. c'est consomme
 
+!! explication de l'analyse: les noms de documents ne sont pas uniques au sein d'un meme dossier : ex: un doc fait partie de plusieurs dossiers mais il y a déjà un document du même nom dans un des dossiers >> problème
+	>> pas nécessaire d'avoir un index sur nom des documents dans la DB
 
 Traduction:
 Dossier = file

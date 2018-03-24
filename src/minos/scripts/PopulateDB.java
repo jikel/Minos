@@ -6,11 +6,13 @@ import java.time.LocalDateTime;
 
 import minos.model.bean.Adresse;
 import minos.model.bean.DocumentMinos;
+import minos.model.bean.Dossier;
 import minos.model.bean.Personne;
 import minos.model.bean.TypeDocumentMinos;
 import minos.model.bean.TypePersonne;
 import minos.model.dao.AdresseDAO;
 import minos.model.dao.DocumentMinosDAO;
+import minos.model.dao.DossierDAO;
 import minos.model.dao.MinosConnection;
 import minos.model.dao.PersonneDAO;
 
@@ -20,19 +22,22 @@ public class PopulateDB {
 	private AdresseDAO adresseDAO;
 	private PersonneDAO personneDAO;
 	private DocumentMinosDAO documentMinosDAO;
+	private DossierDAO dossierDAO;
 	
 	public PopulateDB() {
 		conn = MinosConnection.getInstance();
 		adresseDAO = new AdresseDAO(conn);
 		personneDAO = new PersonneDAO(conn);
 		documentMinosDAO = new DocumentMinosDAO(conn);
+		dossierDAO = new DossierDAO();
 	}
 	
 	
 	public static void main(String[] args) {
 		PopulateDB populateDB = new PopulateDB();
 //		populateDB.test1();
-		populateDB.test2();
+//		populateDB.test2();
+		populateDB.test3();
 	}
 
 
@@ -51,5 +56,10 @@ public class PopulateDB {
 		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(), LocalDate.of(1200, 1, 3), LocalDateTime.now());
 		document = documentMinosDAO.create(document);
 		System.out.println(new String(document.getContenu()));
+	}
+	
+	private void test3(){
+		Dossier create = dossierDAO.create();
+		System.out.println(create);
 	}
 }
