@@ -1,6 +1,6 @@
 Définition
 ----------
-affaire/dossier: ensemble de documents
+affaire/dossier: ensemble de documents, un historique des tribunaux
 
 requerant: personne physique ou morale
 partie defenderesse: personne physique ou morale
@@ -28,3 +28,15 @@ correspondance/piece inventaire: document
 		
 d'abord mot de vocabulaire puis definition puis diagramme de classe
 attention role: le role n'est pas la personne (foot: equipe t-shirt rouge vs blanc >> ce qui importe c'est le joueur/personne et pas le t-shirt)
+penser a comment modeliser les relations d'heritage avant de faire les tables
+ecrire les modeles, les DAO puis script populateDB
+
+
+Traduction:
+Dossier = file
+requete = request
+document = document
+jugement = judgement
+date = date
+piece d'inventaire = inventory item
+requerant = suer
