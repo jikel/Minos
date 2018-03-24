@@ -76,7 +76,7 @@ public class PersonneDAO extends DAO<Personne> {
 				String typeString = result.getString("type");
 				TypePersonne typePersonne;
 				String nom = result.getString("nom");
-				if (typeString.equals("m")) {
+				if (typeString.equals(TypePersonne.morale.getDbValue())) {
 					typePersonne = TypePersonne.morale;
 					personne = new Personne(id, typePersonne, nom, adresse);
 				} else {

@@ -31,6 +31,8 @@ attention role: le role n'est pas la personne (foot: equipe t-shirt rouge vs bla
 penser a comment modeliser les relations d'heritage avant de faire les tables
 ecrire les modeles, les DAO puis script populateDB
 
+stream = metaphore du ballon rempli de qqch >> une fois que le qqch sort, on ne peut plus le remettre dedans. c'est consomme
+
 
 Traduction:
 Dossier = file
