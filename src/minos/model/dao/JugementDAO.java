@@ -15,13 +15,14 @@ public class JugementDAO {
 		PreparedStatement prepareStatement;
 		try {
 			prepareStatement = MinosConnection.getInstance().prepareStatement(
-					"INSERT INTO jugement (id_dossier, id_document, date_effet, recevable, fonde) VALUES (?, ?, ?, ?, ?)",
+					"INSERT INTO jugement (id_dossier, id_document, id_juge, date_effet, recevable, fonde) VALUES (?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			prepareStatement.setLong(1, jugement.getIdDossier());
 			prepareStatement.setLong(2, jugement.getIdDocument());
-			prepareStatement.setDate(3, Date.valueOf(jugement.getDateEffet()));
-			prepareStatement.setString(4, jugement.getRecevable());
-			prepareStatement.setString(5, jugement.getFonde());
+			prepareStatement.setLong(3, jugement.getIdJuge());
+			prepareStatement.setDate(4, Date.valueOf(jugement.getDateEffet()));
+			prepareStatement.setString(5, jugement.getRecevable());
+			prepareStatement.setString(6, jugement.getFonde());
 			prepareStatement.execute();
 			ResultSet generatedKeys = prepareStatement.getGeneratedKeys();
 			generatedKeys.next();
@@ -42,10 +43,11 @@ public class JugementDAO {
 					.executeQuery("SELECT * FROM jugement WHERE id = " + id);
 			if (result.next()) {
 				long idDocument = result.getLong("id_document");
+				long idJuge = result.getLong("id_juge");
 				LocalDate dateEffet = result.getDate("date_effet").toLocalDate();
 				String recevable = result.getString("recevable");
 				String fonde = result.getString("fonde");
-				new Jugement(id, idDocument, dateEffet, recevable, fonde);
+				new Jugement(id, idDocument, idJuge, dateEffet, recevable, fonde);
 			}
 			return jugement;
 		} catch (SQLException e) {

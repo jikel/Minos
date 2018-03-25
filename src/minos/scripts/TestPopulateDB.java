@@ -10,6 +10,7 @@ import minos.model.bean.Dossier;
 import minos.model.bean.Jugement;
 import minos.model.bean.Personne;
 import minos.model.bean.Requete;
+import minos.model.bean.RoleAdresse;
 import minos.model.bean.TypeDocumentMinos;
 import minos.model.bean.TypePersonne;
 import minos.model.dao.AdresseDAO;
@@ -19,8 +20,9 @@ import minos.model.dao.JugementDAO;
 import minos.model.dao.MinosConnection;
 import minos.model.dao.PersonneDAO;
 import minos.model.dao.RequeteDAO;
+import minos.model.dao.RoleAdresseDAO;
 
-public class PopulateDB {
+public class TestPopulateDB {
 	
 	private Connection conn;
 	private AdresseDAO adresseDAO;
@@ -29,10 +31,11 @@ public class PopulateDB {
 	private DossierDAO dossierDAO;
 	private JugementDAO jugementDAO;
 	private RequeteDAO requeteDAO;
+	private RoleAdresseDAO roleAdresseDAO;
 	
 	private String la_bible = "Il était une fois une petite étoile de mer\net elle en avait bu trop de thé.";
 	
-	public PopulateDB() {
+	public TestPopulateDB() {
 		conn = MinosConnection.getInstance();
 		adresseDAO = new AdresseDAO(conn);
 		personneDAO = new PersonneDAO(conn);
@@ -40,19 +43,21 @@ public class PopulateDB {
 		dossierDAO = new DossierDAO();
 		jugementDAO = new JugementDAO();
 		requeteDAO = new RequeteDAO();
+		roleAdresseDAO = new RoleAdresseDAO();
 	}
 	
 	
 	public static void main(String[] args) {
-		PopulateDB populateDB = new PopulateDB();
-//		populateDB.test1();
-//		populateDB.test2();
-//		populateDB.test3();
-//		populateDB.test4();
-		populateDB.test5();
+		TestPopulateDB populateDB = new TestPopulateDB();
+//		populateDB.testAdresseEtPersonne();
+//		populateDB.testDocumentDAO();
+//		populateDB.testDossierAvecDocument();
+//		populateDB.testJugementDAO();
+//		populateDB.testRequeteDAO();
+		populateDB.testRoleAdresse();
 	}
 
-	private void test1() {
+	private void testAdresseEtPersonne() {
 		Adresse adresse = new Adresse("chaussee de mons", "65", "truc", "7300", "belgique");
 		adresse = adresseDAO.create(adresse);
 		Personne simon = new Personne(TypePersonne.physique, "Dubois", "Simon", "12345678901", adresse);
@@ -62,27 +67,32 @@ public class PopulateDB {
 		personneDAO.create(simonSA);
 	}
 	
-	private void test2() {
+	private void testDocumentDAO() {
 		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(), LocalDateTime.now());
 		document = documentMinosDAO.create(document);
 		System.out.println(new String(document.getContenu()));
 	}
 	
-	private void test3(){
+	private void testDossierAvecDocument(){
 		Dossier dossier = dossierDAO.create();
 		System.out.println(dossier);
 		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(), LocalDateTime.now());
 		document = documentMinosDAO.create(document);
 	}
 	
-	private void test4() {
+	private void testJugementDAO() {
 		Dossier dossier = dossierDAO.create();
 		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(), LocalDateTime.now());
 		document = documentMinosDAO.create(document);
-		Jugement jugement = new Jugement(dossier.getId(), document.getId(), LocalDate.now(), "recevable", "pas fonde");
+		
+		Personne juge = new Personne(TypePersonne.physique, "hubain", "roger", null, null);
+		juge = personneDAO.create(juge);
+		Jugement jugement = new Jugement(dossier.getId(), document.getId(), juge.getId(), LocalDate.now(), "recevable", "pas fonde");
+
 		jugementDAO.create(jugement);
 	}
-	private void test5() {
+	
+	private void testRequeteDAO() {
 		Dossier dossier = dossierDAO.create();
 		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(), LocalDateTime.now());
 		document = documentMinosDAO.create(document);
@@ -92,6 +102,21 @@ public class PopulateDB {
 		simonSA = personneDAO.create(simonSA);
 		Requete requete = new Requete(dossier.getId(), simonSA.getId(), document.getId(), LocalDate.now(), "54564/151", "RG 56+556");
 		requeteDAO.create(requete);
+	}
+	
+	private void testRoleAdresse() {
+		Adresse adresse = new Adresse("chaussee de mons", "65", "truc", "7300", "belgique");
+		adresse = adresseDAO.create(adresse);
+		String nom = "domicile marcel";
+		String niveauTribunal = null;
+		RoleAdresse roleAdresseNonTribunal = new RoleAdresse(adresse, nom, niveauTribunal);
+		roleAdresseNonTribunal = roleAdresseDAO.create(roleAdresseNonTribunal);
+		
+		nom = "Tribunal de bruxelles";
+		niveauTribunal = "Tribunal du travail";
+		RoleAdresse roleAdresseTribunal = new RoleAdresse(adresse, nom, niveauTribunal);
+		roleAdresseTribunal = roleAdresseDAO.create(roleAdresseTribunal);	
+		
 	}
 	
 

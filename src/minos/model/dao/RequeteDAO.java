@@ -16,10 +16,10 @@ public class RequeteDAO {
 		PreparedStatement prepareStatement;
 		try {
 			prepareStatement = MinosConnection.getInstance().prepareStatement(
-					"INSERT INTO requete (id_dossier, id_personne, id_document, date_effet, numero_role, numero_rg) VALUES (?, ?, ?, ?, ?, ?)",
+					"INSERT INTO requete (id_dossier, id_requerant, id_document, date_effet, numero_role, numero_rg) VALUES (?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			prepareStatement.setLong(1, requete.getIdDossier());
-			prepareStatement.setLong(2, requete.getIdPersonne());
+			prepareStatement.setLong(2, requete.getIdRequerant());
 			prepareStatement.setLong(3, requete.getIdDocument());
 			prepareStatement.setDate(4, Date.valueOf(requete.getDateEffet()));
 			prepareStatement.setString(5, requete.getNumeroRole());
@@ -44,12 +44,12 @@ public class RequeteDAO {
 					.executeQuery("SELECT * FROM requete WHERE id = " + id);
 			if (result.next()) {
 				long idDossier = result.getLong("id_dossier");
-				long idPersonne = result.getLong("id_personne");
+				long idRequerant = result.getLong("id_requerant");
 				long idDocument = result.getLong("id_document");
 				LocalDate dateEffet = result.getDate("date_effet").toLocalDate();
 				String numeroRole = result.getString("numero_role");
 				String numeroRG = result.getString("numero_rg");
-				requete = new Requete(id, idDossier, idPersonne, idDocument, dateEffet, numeroRole, numeroRG);
+				requete = new Requete(id, idDossier, idRequerant, idDocument, dateEffet, numeroRole, numeroRG);
 			}
 			return requete;
 		} catch (SQLException e) {

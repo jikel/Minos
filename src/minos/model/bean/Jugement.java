@@ -6,24 +6,28 @@ public class Jugement {
 	private long id;
 	private long idDossier;
 	private long idDocument;
+	private long idJuge;
 	private LocalDate dateEffet;
 	private String recevable;
 	private String fonde;
 
-	public Jugement(long id, long idDossier, long idDocument, LocalDate dateEffet, String recevable, String fonde) {
+	public Jugement(long id, long idDossier, long idDocument, long idJuge, LocalDate dateEffet, String recevable,
+			String fonde) {
 		super();
 		this.id = id;
 		this.idDossier = idDossier;
 		this.idDocument = idDocument;
+		this.idJuge = idJuge;
 		this.dateEffet = dateEffet;
 		this.recevable = recevable;
 		this.fonde = fonde;
 	}
 
-	public Jugement(long idDossier, long idDocument, LocalDate dateEffet, String recevable, String fonde) {
+	public Jugement(long idDossier, long idDocument, long idJuge, LocalDate dateEffet, String recevable, String fonde) {
 		super();
 		this.idDossier = idDossier;
 		this.idDocument = idDocument;
+		this.idJuge = idJuge;
 		this.dateEffet = dateEffet;
 		this.recevable = recevable;
 		this.fonde = fonde;
@@ -51,6 +55,14 @@ public class Jugement {
 
 	public void setIdDocument(long idDocument) {
 		this.idDocument = idDocument;
+	}
+
+	public long getIdJuge() {
+		return idJuge;
+	}
+
+	public void setIdJuge(long idJuge) {
+		this.idJuge = idJuge;
 	}
 
 	public LocalDate getDateEffet() {

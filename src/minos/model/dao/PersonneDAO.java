@@ -25,23 +25,29 @@ public class PersonneDAO extends DAO<Personne> {
 
 		try {
 			if (personne.getTypePersonne().equals(TypePersonne.physique)) {
-				prepareStatement = this.connect.prepareStatement(
-						"INSERT INTO personne (type, nom, prenom, niss, id_adresse) VALUES (?, ?, ?, ?, ?)",
-						Statement.RETURN_GENERATED_KEYS);
+				if (personne.getAdresse() != null) {
+					prepareStatement = this.connect.prepareStatement(
+							"INSERT INTO personne (type, nom, prenom, niss, id_adresse) VALUES (?, ?, ?, ?, ?)",
+							Statement.RETURN_GENERATED_KEYS);
+				} else {
+					prepareStatement = this.connect.prepareStatement(
+							"INSERT INTO personne (type, nom, prenom, niss) VALUES (?, ?, ?, ?)",
+							Statement.RETURN_GENERATED_KEYS);
+				}
 				prepareStatement.setString(1, personne.getTypePersonne().getDbValue());
 				prepareStatement.setString(2, personne.getNom());
 				prepareStatement.setString(3, personne.getPrenom());
 				prepareStatement.setString(4, personne.getNiss());
-				prepareStatement.setLong(5, personne.getAdresse().getId());
+				if (personne.getAdresse() != null) {
+					prepareStatement.setLong(5, personne.getAdresse().getId());
+				}
 			} else {
 				prepareStatement = this.connect.prepareStatement(
 						"INSERT INTO personne (type, nom, id_adresse) VALUES (?, ?, ?)",
 						Statement.RETURN_GENERATED_KEYS);
 				prepareStatement.setString(1, personne.getTypePersonne().getDbValue());
 				prepareStatement.setString(2, personne.getNom());
-				;
 				prepareStatement.setLong(3, personne.getAdresse().getId());
-				;
 			}
 
 			prepareStatement.execute();
@@ -72,7 +78,10 @@ public class PersonneDAO extends DAO<Personne> {
 					.executeQuery("SELECT * FROM personne WHERE id = " + id);
 			if (result.first()) {
 				long idAdresse = result.getLong("id_adresse");
-				Adresse adresse = adresseDAO.find(idAdresse);
+				Adresse adresse = null;
+				if (idAdresse != 0) {
+					adresse = adresseDAO.find(idAdresse);
+				}
 				String typeString = result.getString("type");
 				TypePersonne typePersonne;
 				String nom = result.getString("nom");

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 24 mars 2018 à 22:55
+-- Généré le :  Dim 25 mars 2018 à 10:16
 -- Version du serveur :  5.7.18-log
 -- Version de PHP :  5.6.31
 
@@ -61,6 +61,20 @@ CREATE TABLE IF NOT EXISTS `assignation_tribunal` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `corr_dossier_document`
+--
+
+DROP TABLE IF EXISTS `corr_dossier_document`;
+CREATE TABLE IF NOT EXISTS `corr_dossier_document` (
+  `id_dossier` int(11) NOT NULL,
+  `id_document` int(11) NOT NULL,
+  KEY `fk_id_dossier_document_document` (`id_document`),
+  KEY `fk_id_dossier_document_dossier` (`id_dossier`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `document`
 --
 
@@ -72,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `document` (
   `contenu` longblob NOT NULL,
   `date_reception` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -84,20 +98,6 @@ DROP TABLE IF EXISTS `dossier`;
 CREATE TABLE IF NOT EXISTS `dossier` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `dossier_document`
---
-
-DROP TABLE IF EXISTS `dossier_document`;
-CREATE TABLE IF NOT EXISTS `dossier_document` (
-  `id_dossier` int(11) NOT NULL,
-  `id_document` int(11) NOT NULL,
-  KEY `fk_id_dossier_document_document` (`id_document`),
-  KEY `fk_id_dossier_document_dossier` (`id_dossier`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -111,13 +111,15 @@ CREATE TABLE IF NOT EXISTS `jugement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_dossier` int(11) NOT NULL,
   `id_document` int(11) NOT NULL,
+  `id_juge` int(11) NOT NULL,
   `date_effet` date NOT NULL,
   `recevable` varchar(255) NOT NULL,
   `fonde` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_id_jugement_document` (`id_document`),
-  KEY `fk_id_jugement_dossier` (`id_dossier`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  KEY `fk_id_jugement_dossier` (`id_dossier`),
+  KEY `fk_id_juge` (`id_juge`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -132,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `personne` (
   `nom` varchar(500) NOT NULL,
   `prenom` varchar(500) DEFAULT NULL,
   `niss` varchar(255) DEFAULT NULL,
-  `id_adresse` int(11) NOT NULL,
+  `id_adresse` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_id_personne_adresse` (`id_adresse`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -164,7 +166,7 @@ DROP TABLE IF EXISTS `requete`;
 CREATE TABLE IF NOT EXISTS `requete` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_dossier` int(11) NOT NULL,
-  `id_personne` int(11) NOT NULL,
+  `id_requerant` int(11) NOT NULL,
   `id_document` int(11) NOT NULL,
   `date_effet` date NOT NULL,
   `numero_role` varchar(255) NOT NULL,
@@ -172,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `requete` (
   PRIMARY KEY (`id`),
   KEY `fk_id_requete_dossier` (`id_dossier`),
   KEY `fk_id_requete_document` (`id_document`),
-  KEY `fk_id_requete_personne` (`id_personne`)
+  KEY `fk_id_requete_personne` (`id_requerant`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -186,36 +188,9 @@ CREATE TABLE IF NOT EXISTS `role_adresse` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_adresse` int(11) NOT NULL,
   `nom` varchar(500) NOT NULL,
+  `niveau_tribunal` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_id_adresse` (`id_adresse`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `role_personne`
---
-
-DROP TABLE IF EXISTS `role_personne`;
-CREATE TABLE IF NOT EXISTS `role_personne` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `tribunal`
---
-
-DROP TABLE IF EXISTS `tribunal`;
-CREATE TABLE IF NOT EXISTS `tribunal` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_role_adresse` int(11) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_id_role_adresse` (`id_role_adresse`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -228,12 +203,12 @@ CREATE TABLE IF NOT EXISTS `tribunal` (
 ALTER TABLE `assignation_tribunal`
   ADD CONSTRAINT `fk_id_assignation_tribunal_document` FOREIGN KEY (`id_document`) REFERENCES `document` (`id`),
   ADD CONSTRAINT `fk_id_assignation_tribunal_dossier` FOREIGN KEY (`id_dossier`) REFERENCES `dossier` (`id`),
-  ADD CONSTRAINT `fk_id_assignation_tribunal_tribunal` FOREIGN KEY (`id_tribunal`) REFERENCES `tribunal` (`id`);
+  ADD CONSTRAINT `fk_id_assignation_tribunal_tribunal` FOREIGN KEY (`id_tribunal`) REFERENCES `role_adresse` (`id`);
 
 --
--- Contraintes pour la table `dossier_document`
+-- Contraintes pour la table `corr_dossier_document`
 --
-ALTER TABLE `dossier_document`
+ALTER TABLE `corr_dossier_document`
   ADD CONSTRAINT `fk_id_dossier_document_document` FOREIGN KEY (`id_document`) REFERENCES `document` (`id`),
   ADD CONSTRAINT `fk_id_dossier_document_dossier` FOREIGN KEY (`id_dossier`) REFERENCES `dossier` (`id`);
 
@@ -241,6 +216,7 @@ ALTER TABLE `dossier_document`
 -- Contraintes pour la table `jugement`
 --
 ALTER TABLE `jugement`
+  ADD CONSTRAINT `fk_id_juge` FOREIGN KEY (`id_juge`) REFERENCES `personne` (`id`),
   ADD CONSTRAINT `fk_id_jugement_document` FOREIGN KEY (`id_document`) REFERENCES `document` (`id`),
   ADD CONSTRAINT `fk_id_jugement_dossier` FOREIGN KEY (`id_dossier`) REFERENCES `dossier` (`id`);
 
@@ -263,19 +239,13 @@ ALTER TABLE `rendez_vous`
 ALTER TABLE `requete`
   ADD CONSTRAINT `fk_id_requete_document` FOREIGN KEY (`id_document`) REFERENCES `document` (`id`),
   ADD CONSTRAINT `fk_id_requete_dossier` FOREIGN KEY (`id_dossier`) REFERENCES `dossier` (`id`),
-  ADD CONSTRAINT `fk_id_requete_personne` FOREIGN KEY (`id_personne`) REFERENCES `personne` (`id`);
+  ADD CONSTRAINT `fk_id_requete_personne` FOREIGN KEY (`id_requerant`) REFERENCES `personne` (`id`);
 
 --
 -- Contraintes pour la table `role_adresse`
 --
 ALTER TABLE `role_adresse`
   ADD CONSTRAINT `fk_id_adresse` FOREIGN KEY (`id_adresse`) REFERENCES `adresse` (`id`);
-
---
--- Contraintes pour la table `tribunal`
---
-ALTER TABLE `tribunal`
-  ADD CONSTRAINT `fk_id_role_adresse` FOREIGN KEY (`id_role_adresse`) REFERENCES `role_adresse` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
