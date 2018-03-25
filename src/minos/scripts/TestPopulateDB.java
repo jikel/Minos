@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 
 import minos.model.bean.Adresse;
+import minos.model.bean.AssignationTribunal;
 import minos.model.bean.DocumentMinos;
 import minos.model.bean.Dossier;
 import minos.model.bean.Jugement;
@@ -15,6 +16,7 @@ import minos.model.bean.RoleAdresse;
 import minos.model.bean.TypeDocumentMinos;
 import minos.model.bean.TypePersonne;
 import minos.model.dao.AdresseDAO;
+import minos.model.dao.AssignationTribunalDAO;
 import minos.model.dao.DocumentMinosDAO;
 import minos.model.dao.DossierDAO;
 import minos.model.dao.JugementDAO;
@@ -32,9 +34,10 @@ public class TestPopulateDB {
 	private JugementDAO jugementDAO;
 	private RequeteDAO requeteDAO;
 	private RoleAdresseDAO roleAdresseDAO;
+	private RendezVousDAO rendezVousDAO;
+	private AssignationTribunalDAO assignationTribunalDAO;
 
 	private String la_bible = "Il était une fois une petite étoile de mer\net elle en avait bu trop de thé.";
-	private RendezVousDAO rendezVousDAO;
 
 	public TestPopulateDB() {
 		adresseDAO = new AdresseDAO();
@@ -45,6 +48,7 @@ public class TestPopulateDB {
 		requeteDAO = new RequeteDAO();
 		roleAdresseDAO = new RoleAdresseDAO();
 		rendezVousDAO = new RendezVousDAO();
+		assignationTribunalDAO = new AssignationTribunalDAO();
 	}
 
 	public static void main(String[] args) {
@@ -57,7 +61,8 @@ public class TestPopulateDB {
 		// populateDB.testRendezVous();
 //		populateDB.testDossierAvecDocument();
 //		populateDB.testDossierAvecJugements();
-		populateDB.testDossierAvecRequete();
+//		populateDB.testDossierAvecRequete();
+		populateDB.testAssignationTribunal();
 	}
 
 	private void testAdresseEtPersonne() {
@@ -194,6 +199,7 @@ public class TestPopulateDB {
 		}
 		System.out.println(" -- ");
 	}
+	
 	private void testDossierAvecRequete() {
 		Dossier dossier = dossierDAO.create();
 
@@ -223,5 +229,23 @@ public class TestPopulateDB {
 			System.out.println(requete.getId());
 		}
 		System.out.println(" -- ");
+	}
+	
+	private void testAssignationTribunal() {
+		Dossier dossier = dossierDAO.create();
+		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.requeteSFP, la_bible.getBytes(),
+				LocalDateTime.now());
+		document = documentMinosDAO.create(document);
+		
+		Adresse adresse = new Adresse("chaussee de mons", "65", "truc", "7300", "belgique");
+		adresse = adresseDAO.create(adresse);
+		String nom = "Tribunal de bruxelles";
+		String niveauTribunal = "Tribunal du travail";
+		RoleAdresse roleAdresseTribunal = new RoleAdresse(adresse, nom, niveauTribunal);
+		roleAdresseTribunal = roleAdresseDAO.create(roleAdresseTribunal);
+
+		LocalDate date = LocalDate.now();
+		AssignationTribunal assignationTribunal = new AssignationTribunal(dossier.getId(), document.getId(), date, roleAdresseTribunal);
+		assignationTribunal = assignationTribunalDAO.create(assignationTribunal);		
 	}
 }

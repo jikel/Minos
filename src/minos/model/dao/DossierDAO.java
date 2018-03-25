@@ -4,20 +4,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import minos.model.bean.Dossier;
 import minos.model.bean.Jugement;
 import minos.model.bean.Requete;
+import minos.model.bean.RoleAdresse;
 
 public class DossierDAO {
-	
+
 	private JugementDAO jugementDAO;
 	private RequeteDAO requeteDAO;
-
-
 
 	public DossierDAO() {
 		jugementDAO = new JugementDAO();
@@ -66,15 +68,14 @@ public class DossierDAO {
 		}
 	}
 
-
 	public Dossier find(long idDossier) {
 		Dossier dossier = new Dossier(idDossier);
 
 		// ajout de tous les jugements dans le dossier
-		Collection <Jugement> jugements = jugementDAO.findJugementsForDossier(idDossier) ;
+		Collection<Jugement> jugements = jugementDAO.findJugementsForDossier(idDossier);
 		dossier.setJugements(jugements);
 
-		Collection <Requete> requetes = requeteDAO.findRequetesForDossier(idDossier);
+		Collection<Requete> requetes = requeteDAO.findRequetesForDossier(idDossier);
 		dossier.setRequetes(requetes);
 
 		ResultSet result;
