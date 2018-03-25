@@ -1,6 +1,5 @@
 package minos.model.bean;
 
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Map;
 
