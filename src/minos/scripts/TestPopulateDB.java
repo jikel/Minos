@@ -9,6 +9,7 @@ import minos.model.bean.DocumentMinos;
 import minos.model.bean.Dossier;
 import minos.model.bean.Jugement;
 import minos.model.bean.Personne;
+import minos.model.bean.RendezVous;
 import minos.model.bean.Requete;
 import minos.model.bean.RoleAdresse;
 import minos.model.bean.TypeDocumentMinos;
@@ -19,6 +20,7 @@ import minos.model.dao.DossierDAO;
 import minos.model.dao.JugementDAO;
 import minos.model.dao.MinosConnection;
 import minos.model.dao.PersonneDAO;
+import minos.model.dao.RendezVousDAO;
 import minos.model.dao.RequeteDAO;
 import minos.model.dao.RoleAdresseDAO;
 
@@ -34,6 +36,7 @@ public class TestPopulateDB {
 	private RoleAdresseDAO roleAdresseDAO;
 	
 	private String la_bible = "Il était une fois une petite étoile de mer\net elle en avait bu trop de thé.";
+	private RendezVousDAO rendezVousDAO;
 	
 	public TestPopulateDB() {
 		conn = MinosConnection.getInstance();
@@ -44,6 +47,7 @@ public class TestPopulateDB {
 		jugementDAO = new JugementDAO();
 		requeteDAO = new RequeteDAO();
 		roleAdresseDAO = new RoleAdresseDAO();
+		rendezVousDAO = new RendezVousDAO();
 	}
 	
 	
@@ -54,7 +58,8 @@ public class TestPopulateDB {
 //		populateDB.testDossierAvecDocument();
 //		populateDB.testJugementDAO();
 //		populateDB.testRequeteDAO();
-		populateDB.testRoleAdresse();
+//		populateDB.testRoleAdresse();
+		populateDB.testRendezVous();
 	}
 
 	private void testAdresseEtPersonne() {
@@ -116,7 +121,23 @@ public class TestPopulateDB {
 		niveauTribunal = "Tribunal du travail";
 		RoleAdresse roleAdresseTribunal = new RoleAdresse(adresse, nom, niveauTribunal);
 		roleAdresseTribunal = roleAdresseDAO.create(roleAdresseTribunal);	
+	}
+	
+	private void testRendezVous() {
+		Dossier dossier = dossierDAO.create();
+		long dossierId = dossier.getId();
+
+		Adresse adresse = new Adresse("chaussee de mons", "65", "truc", "7300", "belgique");
+		adresse = adresseDAO.create(adresse);
+		String nom = "Tribunal de bruxelles";
+		String niveauTribunal = "Tribunal du travail";
+		RoleAdresse roleAdresseTribunal = new RoleAdresse(adresse, nom, niveauTribunal);
+		roleAdresseTribunal = roleAdresseDAO.create(roleAdresseTribunal);
 		
+		
+		LocalDateTime dateHeure = LocalDateTime.now();
+		RendezVous rendezVous = new RendezVous(dossierId, roleAdresseTribunal, dateHeure);
+		rendezVous = rendezVousDAO.create(rendezVous);
 	}
 	
 

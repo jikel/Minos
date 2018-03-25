@@ -5,21 +5,21 @@ import java.time.LocalDateTime;
 public class RendezVous {
 	private long id;
 	private long idDossier;
-	private long idRoleAdresse;
+	private RoleAdresse roleAdresse;
 	private LocalDateTime dateHeure;
 
-	public RendezVous(long id, long idDossier, long idRoleAdresse, LocalDateTime dateHeure) {
+	public RendezVous(long id, long idDossier, RoleAdresse roleAdresse, LocalDateTime dateHeure) {
 		super();
 		this.id = id;
 		this.idDossier = idDossier;
-		this.idRoleAdresse = idRoleAdresse;
+		this.roleAdresse = roleAdresse;
 		this.dateHeure = dateHeure;
 	}
 
-	public RendezVous(long idDossier, long idRoleAdresse, LocalDateTime dateHeure) {
+	public RendezVous(long idDossier, RoleAdresse roleAdresse, LocalDateTime dateHeure) {
 		super();
 		this.idDossier = idDossier;
-		this.idRoleAdresse = idRoleAdresse;
+		this.roleAdresse = roleAdresse;
 		this.dateHeure = dateHeure;
 	}
 
@@ -39,12 +39,12 @@ public class RendezVous {
 		this.idDossier = idDossier;
 	}
 
-	public long getIdRoleAdresse() {
-		return idRoleAdresse;
+	public RoleAdresse getRoleAdresse() {
+		return roleAdresse;
 	}
 
-	public void setIdRoleAdresse(long idRoleAdresse) {
-		this.idRoleAdresse = idRoleAdresse;
+	public void setRoleAdresse(RoleAdresse roleAdresse) {
+		this.roleAdresse = roleAdresse;
 	}
 
 	public LocalDateTime getDateHeure() {
