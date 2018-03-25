@@ -1,15 +1,11 @@
 package minos.model.dao;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 
 import minos.model.bean.Adresse;
-import minos.model.bean.Jugement;
-import minos.model.bean.Requete;
 import minos.model.bean.RoleAdresse;
 
 public class RoleAdresseDAO {
@@ -17,7 +13,7 @@ public class RoleAdresseDAO {
 	private AdresseDAO adresseDAO;
 
 	public RoleAdresseDAO() {
-		adresseDAO = new AdresseDAO(MinosConnection.getInstance());
+		adresseDAO = new AdresseDAO();
 	}
 
 	public RoleAdresse create(RoleAdresse roleAdresse) {

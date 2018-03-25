@@ -1,6 +1,5 @@
 package minos.model.bean;
 
-import java.util.Collection;
 import java.util.Map;
 
 public class Dossier {
@@ -28,6 +27,5 @@ public class Dossier {
 	public void setDocuments(Map<Long, String> documents) {
 		this.documents = documents;
 	}
-	
 
 }

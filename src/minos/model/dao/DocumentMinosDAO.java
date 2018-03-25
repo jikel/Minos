@@ -1,33 +1,21 @@
 package minos.model.dao;
 
-import java.io.ByteArrayInputStream;
-import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import minos.model.bean.Adresse;
 import minos.model.bean.DocumentMinos;
-import minos.model.bean.Personne;
 import minos.model.bean.TypeDocumentMinos;
-import minos.model.bean.TypePersonne;
 
-public class DocumentMinosDAO extends DAO<DocumentMinos> {
+public class DocumentMinosDAO {
 
-	public DocumentMinosDAO(Connection conn) {
-		super(conn);
-	}
-
-	@Override
 	public DocumentMinos create(DocumentMinos document) {
 		PreparedStatement prepareStatement;
 		try {
-			prepareStatement = this.connect.prepareStatement(
+			prepareStatement = MinosConnection.getInstance().prepareStatement(
 					"INSERT INTO document (nom, type, contenu, date_reception) VALUES (?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			prepareStatement.setString(1, document.getNom());
@@ -45,21 +33,11 @@ public class DocumentMinosDAO extends DAO<DocumentMinos> {
 		}
 	}
 
-	@Override
-	public void delete(DocumentMinos obj) {
-	}
-
-	@Override
-	public DocumentMinos update(DocumentMinos obj) {
-		return null;
-	}
-
-	@Override
 	public DocumentMinos find(long id) {
 		DocumentMinos document = null;
 		ResultSet result;
 		try {
-			result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+			result = MinosConnection.getInstance().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
 					.executeQuery("SELECT * FROM document WHERE id = " + id);
 			if (result.first()) {
 				String nom = result.getString("nom");

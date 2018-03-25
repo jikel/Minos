@@ -1,6 +1,5 @@
 package minos.model.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,17 +7,12 @@ import java.sql.Statement;
 
 import minos.model.bean.Adresse;
 
-public class AdresseDAO extends DAO<Adresse> {
+public class AdresseDAO {
 
-	public AdresseDAO(Connection conn) {
-		super(conn);
-	}
-
-	@Override
 	public Adresse create(Adresse adresse) {
 		PreparedStatement prepareStatement;
 		try {
-			prepareStatement = this.connect.prepareStatement(
+			prepareStatement = MinosConnection.getInstance().prepareStatement(
 					"INSERT INTO adresse (rue, numero, boite, code_postal, pays) VALUES (?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			prepareStatement.setString(1, adresse.getRue());
@@ -36,22 +30,11 @@ public class AdresseDAO extends DAO<Adresse> {
 		}
 	}
 
-	@Override
-	public void delete(Adresse obj) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public Adresse update(Adresse obj) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public Adresse find(long id) {
 		Adresse adresse = null;
 		ResultSet result;
 		try {
-			result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+			result = MinosConnection.getInstance().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
 					.executeQuery("SELECT * FROM adresse WHERE id = " + id);
 			if (result.first()) {
 				String rue = result.getString("rue");

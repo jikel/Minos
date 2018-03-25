@@ -1,16 +1,11 @@
 package minos.model.dao;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 
-import minos.model.bean.Adresse;
 import minos.model.bean.Dossier;
-import minos.model.bean.Personne;
-import minos.model.bean.TypePersonne;
 
 public class DossierDAO {
 

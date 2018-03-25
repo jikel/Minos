@@ -1,6 +1,5 @@
 package minos.scripts;
 
-import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -18,7 +17,6 @@ import minos.model.dao.AdresseDAO;
 import minos.model.dao.DocumentMinosDAO;
 import minos.model.dao.DossierDAO;
 import minos.model.dao.JugementDAO;
-import minos.model.dao.MinosConnection;
 import minos.model.dao.PersonneDAO;
 import minos.model.dao.RendezVousDAO;
 import minos.model.dao.RequeteDAO;
@@ -26,7 +24,6 @@ import minos.model.dao.RoleAdresseDAO;
 
 public class TestPopulateDB {
 	
-	private Connection conn;
 	private AdresseDAO adresseDAO;
 	private PersonneDAO personneDAO;
 	private DocumentMinosDAO documentMinosDAO;
@@ -39,10 +36,9 @@ public class TestPopulateDB {
 	private RendezVousDAO rendezVousDAO;
 	
 	public TestPopulateDB() {
-		conn = MinosConnection.getInstance();
-		adresseDAO = new AdresseDAO(conn);
-		personneDAO = new PersonneDAO(conn);
-		documentMinosDAO = new DocumentMinosDAO(conn);
+		adresseDAO = new AdresseDAO();
+		personneDAO = new PersonneDAO();
+		documentMinosDAO = new DocumentMinosDAO();
 		dossierDAO = new DossierDAO();
 		jugementDAO = new JugementDAO();
 		requeteDAO = new RequeteDAO();
@@ -53,12 +49,12 @@ public class TestPopulateDB {
 	
 	public static void main(String[] args) {
 		TestPopulateDB populateDB = new TestPopulateDB();
-//		populateDB.testAdresseEtPersonne();
-//		populateDB.testDocumentDAO();
-//		populateDB.testDossierAvecDocument();
-//		populateDB.testJugementDAO();
-//		populateDB.testRequeteDAO();
-//		populateDB.testRoleAdresse();
+		populateDB.testAdresseEtPersonne();
+		populateDB.testDocumentDAO();
+		populateDB.testDossierAvecDocument();
+		populateDB.testJugementDAO();
+		populateDB.testRequeteDAO();
+		populateDB.testRoleAdresse();
 		populateDB.testRendezVous();
 	}
 

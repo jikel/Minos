@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 
-import minos.model.bean.Jugement;
 import minos.model.bean.Requete;
 
 public class RequeteDAO {

@@ -1,6 +1,5 @@
 package minos.model.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,27 +9,25 @@ import minos.model.bean.Adresse;
 import minos.model.bean.Personne;
 import minos.model.bean.TypePersonne;
 
-public class PersonneDAO extends DAO<Personne> {
+public class PersonneDAO {
 
 	private AdresseDAO adresseDAO;
 
-	public PersonneDAO(Connection conn) {
-		super(conn);
-		adresseDAO = new AdresseDAO(conn);
+	public PersonneDAO() {
+		adresseDAO = new AdresseDAO();
 	}
 
-	@Override
 	public Personne create(Personne personne) {
 		PreparedStatement prepareStatement;
 
 		try {
 			if (personne.getTypePersonne().equals(TypePersonne.physique)) {
 				if (personne.getAdresse() != null) {
-					prepareStatement = this.connect.prepareStatement(
+					prepareStatement = MinosConnection.getInstance().prepareStatement(
 							"INSERT INTO personne (type, nom, prenom, niss, id_adresse) VALUES (?, ?, ?, ?, ?)",
 							Statement.RETURN_GENERATED_KEYS);
 				} else {
-					prepareStatement = this.connect.prepareStatement(
+					prepareStatement = MinosConnection.getInstance().prepareStatement(
 							"INSERT INTO personne (type, nom, prenom, niss) VALUES (?, ?, ?, ?)",
 							Statement.RETURN_GENERATED_KEYS);
 				}
@@ -42,7 +39,7 @@ public class PersonneDAO extends DAO<Personne> {
 					prepareStatement.setLong(5, personne.getAdresse().getId());
 				}
 			} else {
-				prepareStatement = this.connect.prepareStatement(
+				prepareStatement = MinosConnection.getInstance().prepareStatement(
 						"INSERT INTO personne (type, nom, id_adresse) VALUES (?, ?, ?)",
 						Statement.RETURN_GENERATED_KEYS);
 				prepareStatement.setString(1, personne.getTypePersonne().getDbValue());
@@ -59,22 +56,12 @@ public class PersonneDAO extends DAO<Personne> {
 			throw new RuntimeException(e);
 		}
 	}
-
-	@Override
-	public void delete(Personne obj) {
-	}
-
-	@Override
-	public Personne update(Personne obj) {
-		return null;
-	}
-
-	@Override
+	
 	public Personne find(long id) {
 		Personne personne = null;
 		ResultSet result;
 		try {
-			result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+			result = MinosConnection.getInstance().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
 					.executeQuery("SELECT * FROM personne WHERE id = " + id);
 			if (result.first()) {
 				long idAdresse = result.getLong("id_adresse");
