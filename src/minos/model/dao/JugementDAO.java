@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import minos.model.bean.Jugement;
 
@@ -42,14 +44,33 @@ public class JugementDAO {
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
 					.executeQuery("SELECT * FROM jugement WHERE id = " + id);
 			if (result.next()) {
+				long idDossier = result.getLong("id_dossier");
 				long idDocument = result.getLong("id_document");
 				long idJuge = result.getLong("id_juge");
 				LocalDate dateEffet = result.getDate("date_effet").toLocalDate();
 				String recevable = result.getString("recevable");
 				String fonde = result.getString("fonde");
-				new Jugement(id, idDocument, idJuge, dateEffet, recevable, fonde);
+				jugement = new Jugement(id, idDossier, idDocument, idJuge, dateEffet, recevable, fonde);
 			}
 			return jugement;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public Collection<Jugement> findJugementsForDossier(long idDossier) {
+		ResultSet result;
+		try {
+			result = MinosConnection.getInstance()
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT id FROM jugement WHERE id_dossier = " + idDossier);
+			Collection <Jugement> jugements = new ArrayList<>();
+			while (result.next()){
+				long idJugement = result.getLong("id");
+				Jugement jugement = find(idJugement);
+				jugements.add(jugement);
+			}
+			return jugements;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

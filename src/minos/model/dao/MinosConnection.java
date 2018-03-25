@@ -30,7 +30,7 @@ public class MinosConnection {
 			new MinosConnection();
 			System.out.println("INSTANCIATION DE LA CONNEXION SQL ! ");
 		} else {
-			System.out.println("CONNEXION SQL EXISTANTE ! ");
+//			System.out.println("CONNEXION SQL EXISTANTE ! ");
 		}
 		return connect;
 	}

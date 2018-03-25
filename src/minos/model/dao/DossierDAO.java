@@ -4,12 +4,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import minos.model.bean.Dossier;
+import minos.model.bean.Jugement;
+import minos.model.bean.Requete;
 
 public class DossierDAO {
+	
+	private JugementDAO jugementDAO;
+	private RequeteDAO requeteDAO;
+
+
+
+	public DossierDAO() {
+		jugementDAO = new JugementDAO();
+		requeteDAO = new RequeteDAO();
+	}
 
 	public Dossier create() {
 		PreparedStatement prepareStatement;
@@ -26,14 +39,20 @@ public class DossierDAO {
 		}
 	}
 
-	public Dossier update(Dossier dossier) {
+	public Dossier updateAll(Dossier dossier) {
+		updateNomsDocument(dossier);
+		return find(dossier.getId());
+	}
+
+	public void updateNomsDocument(Dossier dossier) {
 		try {
 			PreparedStatement deleteStatement = MinosConnection.getInstance()
 					.prepareStatement("DELETE FROM corr_dossier_document WHERE id_dossier = ?");
 			deleteStatement.setLong(1, dossier.getId());
 			deleteStatement.execute();
 
-			// pour le keyset, on recupere l'equivalent de tous les numeros de tiroir
+			// pour le keyset, on recupere l'equivalent de tous les numeros de
+			// tiroir
 			for (long idDocument : dossier.getNomsDocument().keySet()) {
 				PreparedStatement insertStatement = MinosConnection.getInstance()
 						.prepareStatement("INSERT INTO corr_dossier_document (id_dossier, id_document) VALUES (?, ?)");
@@ -42,14 +61,21 @@ public class DossierDAO {
 				insertStatement.execute();
 
 			}
-			return find(dossier.getId());
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
+
 	public Dossier find(long idDossier) {
 		Dossier dossier = new Dossier(idDossier);
+
+		// ajout de tous les jugements dans le dossier
+		Collection <Jugement> jugements = jugementDAO.findJugementsForDossier(idDossier) ;
+		dossier.setJugements(jugements);
+
+		Collection <Requete> requetes = requeteDAO.findRequetesForDossier(idDossier);
+		dossier.setRequetes(requetes);
 
 		ResultSet result;
 		try {

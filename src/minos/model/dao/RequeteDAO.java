@@ -6,7 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 
+import minos.model.bean.Jugement;
 import minos.model.bean.Requete;
 
 public class RequeteDAO {
@@ -55,5 +58,24 @@ public class RequeteDAO {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public Collection<Requete> findRequetesForDossier(long idDossier) {
+		ResultSet result;
+		try {
+			result = MinosConnection.getInstance()
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT id FROM requete WHERE id_dossier = " + idDossier);
+			Collection <Requete> requetes = new ArrayList<>();
+			while (result.next()){
+				long idRequete = result.getLong("id");
+				Requete requete = find(idRequete);
+				requetes.add(requete);
+			}
+			return requetes;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 
 }
