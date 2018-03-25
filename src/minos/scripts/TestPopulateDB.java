@@ -2,6 +2,7 @@ package minos.scripts;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 import minos.model.bean.Adresse;
 import minos.model.bean.DocumentMinos;
@@ -49,13 +50,13 @@ public class TestPopulateDB {
 	
 	public static void main(String[] args) {
 		TestPopulateDB populateDB = new TestPopulateDB();
-		populateDB.testAdresseEtPersonne();
-		populateDB.testDocumentDAO();
+//		populateDB.testAdresseEtPersonne();
+//		populateDB.testDocumentDAO();
+//		populateDB.testJugementDAO();
+//		populateDB.testRequeteDAO();
+//		populateDB.testRoleAdresse();
+//		populateDB.testRendezVous();
 		populateDB.testDossierAvecDocument();
-		populateDB.testJugementDAO();
-		populateDB.testRequeteDAO();
-		populateDB.testRoleAdresse();
-		populateDB.testRendezVous();
 	}
 
 	private void testAdresseEtPersonne() {
@@ -74,12 +75,6 @@ public class TestPopulateDB {
 		System.out.println(new String(document.getContenu()));
 	}
 	
-	private void testDossierAvecDocument(){
-		Dossier dossier = dossierDAO.create();
-		System.out.println(dossier);
-		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(), LocalDateTime.now());
-		document = documentMinosDAO.create(document);
-	}
 	
 	private void testJugementDAO() {
 		Dossier dossier = dossierDAO.create();
@@ -134,6 +129,29 @@ public class TestPopulateDB {
 		LocalDateTime dateHeure = LocalDateTime.now();
 		RendezVous rendezVous = new RendezVous(dossierId, roleAdresseTribunal, dateHeure);
 		rendezVous = rendezVousDAO.create(rendezVous);
+	}
+	private void testDossierAvecDocument(){
+		Dossier dossier = dossierDAO.create();
+		
+		Collection <String> nomsDocument = dossier.getNomsDocument().values();
+		System.out.println("Documents présents : ");
+		for (String nomDocument : nomsDocument){
+			System.out.println(nomDocument);
+		}
+		System.out.println(" -- ");
+
+		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(), LocalDateTime.now());
+		document = documentMinosDAO.create(document);
+		dossier.getNomsDocument().put(document.getId(), document.getNom());
+
+		dossier = dossierDAO.update(dossier);
+
+		nomsDocument = dossier.getNomsDocument().values();
+		System.out.println("Documents présents : ");
+		for (String nomDocument : nomsDocument){
+			System.out.println(nomDocument);
+		}
+		System.out.println(" -- ");
 	}
 	
 

@@ -5,7 +5,7 @@ import java.util.Map;
 public class Dossier {
 	private long id;
 	// representation de la relation dossier_document en DB
-	private Map<Long, String> documents;
+	private Map<Long, String> nomsDocument; 
 
 	public Dossier(long id) {
 		super();
@@ -20,12 +20,12 @@ public class Dossier {
 		this.id = id;
 	}
 
-	public Map<Long, String> getDocuments() {
-		return documents;
+	public Map<Long, String> getNomsDocument() {
+		return nomsDocument;
 	}
 
-	public void setDocuments(Map<Long, String> documents) {
-		this.documents = documents;
+	public void setNomsDocument(Map<Long, String> documents) {
+		this.nomsDocument = documents;
 	}
 
 }
