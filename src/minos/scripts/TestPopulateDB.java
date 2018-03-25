@@ -62,7 +62,8 @@ public class TestPopulateDB {
 //		populateDB.testDossierAvecDocument();
 //		populateDB.testDossierAvecJugements();
 //		populateDB.testDossierAvecRequete();
-		populateDB.testAssignationTribunal();
+//		populateDB.testAssignationTribunal();
+		populateDB.testDossierAvecAssignationsTribunal();
 	}
 
 	private void testAdresseEtPersonne() {
@@ -247,5 +248,40 @@ public class TestPopulateDB {
 		LocalDate date = LocalDate.now();
 		AssignationTribunal assignationTribunal = new AssignationTribunal(dossier.getId(), document.getId(), date, roleAdresseTribunal);
 		assignationTribunal = assignationTribunalDAO.create(assignationTribunal);		
+	}
+	
+	private void testDossierAvecAssignationsTribunal() {
+		Dossier dossier = dossierDAO.create();
+
+		Collection<AssignationTribunal> assignationsTribunal = dossier.getAssignationsTribunal();
+		System.out.println("collection requete vide :");
+		for (AssignationTribunal assignationTribunal : assignationsTribunal) {
+			System.out.println(assignationTribunal.getId());
+		}
+		System.out.println(" -- ");
+
+		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.requeteSFP, la_bible.getBytes(),
+				LocalDateTime.now());
+		document = documentMinosDAO.create(document);
+		
+		Adresse adresse = new Adresse("chaussee de mons", "65", "truc", "7300", "belgique");
+		adresse = adresseDAO.create(adresse);
+		String nom = "Tribunal de bruxelles";
+		String niveauTribunal = "Tribunal du travail";
+		RoleAdresse roleAdresseTribunal = new RoleAdresse(adresse, nom, niveauTribunal);
+		roleAdresseTribunal = roleAdresseDAO.create(roleAdresseTribunal);
+		LocalDate date = LocalDate.now();
+		AssignationTribunal assignationTribunalMaintenant = new AssignationTribunal(dossier.getId(), document.getId(), date, roleAdresseTribunal);
+		assignationTribunalMaintenant = assignationTribunalDAO.create(assignationTribunalMaintenant);	
+
+		System.out.println(" -- ");
+
+		dossier = dossierDAO.find(dossier.getId());
+		assignationsTribunal = dossier.getAssignationsTribunal();
+		System.out.println("collection requete vide :");
+		for (AssignationTribunal assignationTribunal : assignationsTribunal) {
+			System.out.println(assignationTribunal.getId());
+		}
+		System.out.println(" -- ");
 	}
 }

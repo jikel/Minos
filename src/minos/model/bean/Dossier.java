@@ -10,6 +10,7 @@ public class Dossier {
 	private Map<Long, String> nomsDocument;
 	private Collection<Jugement> jugements;
 	private Collection<Requete> requetes;
+	private Collection<AssignationTribunal> assignationsTribunal;
 
 	public Dossier(long id) {
 		super();
@@ -39,12 +40,20 @@ public class Dossier {
 	public void setJugements(Collection<Jugement> jugements) {
 		this.jugements = jugements;
 	}
+
 	public Collection<Requete> getRequetes() {
 		return requetes;
 	}
+
 	public void setRequetes(Collection<Requete> requetes) {
 		this.requetes = requetes;
 	}
-	
-	
+
+	public Collection<AssignationTribunal> getAssignationsTribunal() {
+		return assignationsTribunal;
+	}
+
+	public void setAssignationsTribunal(Collection<AssignationTribunal> assignationsTribunal) {
+		this.assignationsTribunal = assignationsTribunal;
+	}
 }

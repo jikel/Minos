@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import minos.model.bean.AssignationTribunal;
 import minos.model.bean.Dossier;
 import minos.model.bean.Jugement;
 import minos.model.bean.Requete;
@@ -20,10 +21,12 @@ public class DossierDAO {
 
 	private JugementDAO jugementDAO;
 	private RequeteDAO requeteDAO;
+	private AssignationTribunalDAO assignationTribunalDAO;
 
 	public DossierDAO() {
 		jugementDAO = new JugementDAO();
 		requeteDAO = new RequeteDAO();
+		assignationTribunalDAO = new AssignationTribunalDAO();
 	}
 
 	public Dossier create() {
@@ -77,6 +80,9 @@ public class DossierDAO {
 
 		Collection<Requete> requetes = requeteDAO.findRequetesForDossier(idDossier);
 		dossier.setRequetes(requetes);
+		
+		Collection<AssignationTribunal> assignationsTribunals = assignationTribunalDAO.findAssignationsTribunalForDossier(idDossier);
+		dossier.setAssignationsTribunal(assignationsTribunals);
 
 		ResultSet result;
 		try {

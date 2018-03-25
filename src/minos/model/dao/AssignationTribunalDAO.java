@@ -7,13 +7,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import minos.model.bean.Adresse;
 import minos.model.bean.AssignationTribunal;
+import minos.model.bean.Jugement;
 import minos.model.bean.RoleAdresse;
 
 public class AssignationTribunalDAO {
-	
+
 	private RoleAdresseDAO roleAdresseDAO;
 
 	public AssignationTribunalDAO() {
@@ -57,6 +60,24 @@ public class AssignationTribunalDAO {
 				assignationTribunal = new AssignationTribunal(id, idDossier, idDocument, date, tribunal);
 			}
 			return assignationTribunal;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public Collection<AssignationTribunal> findAssignationsTribunalForDossier(long idDossier) {
+		ResultSet result;
+		try {
+			result = MinosConnection.getInstance()
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT id FROM assignation_tribunal WHERE id_dossier = " + idDossier);
+			Collection<AssignationTribunal> assignationsTribunal = new ArrayList<>();
+			while (result.next()) {
+				long idAssignationTribunal = result.getLong("id");
+				AssignationTribunal assignationTribunal = find(idAssignationTribunal);
+				assignationsTribunal.add(assignationTribunal);
+			}
+			return assignationsTribunal;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
