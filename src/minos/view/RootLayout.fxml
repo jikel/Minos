@@ -3,15 +3,16 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.view.RootLayoutController">
+   <children>
+      <MenuBar layoutX="58.0" layoutY="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" onAction="#ajoutNouveauDossier" text="Nouveau dossier" />
+                  <MenuItem mnemonicParsing="false" onAction="#quitterMinos" text="Quitter" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -26,13 +27,11 @@
           </Menu>
         </menus>
       </MenuBar>
-   </top>
-   <center>
-      <SplitPane dividerPositions="0.48120300751879697" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.48494983277591974" layoutY="40.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+          <AnchorPane fx:id="personnePane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+          <AnchorPane fx:id="requetePane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
         </items>
       </SplitPane>
-   </center>
-</BorderPane>
+   </children>
+</AnchorPane>

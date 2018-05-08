@@ -53,7 +53,7 @@ public class TestPopulateDB {
 
 	public static void main(String[] args) {
 		TestPopulateDB populateDB = new TestPopulateDB();
-		populateDB.testAdresseEtPersonne();
+//		populateDB.testAdresseEtPersonne();
 		// populateDB.testDocumentDAO();
 		// populateDB.testJugementDAO();
 		// populateDB.testRequeteDAO();
@@ -61,7 +61,7 @@ public class TestPopulateDB {
 		// populateDB.testRendezVous();
 		// populateDB.testDossierAvecDocument();
 		// populateDB.testDossierAvecJugements();
-		// populateDB.testDossierAvecRequete();
+		 populateDB.testDossierAvecRequete();
 		// populateDB.testAssignationTribunal();
 		// populateDB.testDossierAvecAssignationsTribunal();
 	}

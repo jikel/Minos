@@ -26,7 +26,7 @@
             <TextField fx:id="serviceBureau" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button layoutX="334.0" layoutY="261.0" mnemonicParsing="false" onAction="#annulerRequete" text="Annuler" AnchorPane.rightAnchor="20.0" />
+      <Button fx:id="annuler" layoutX="334.0" layoutY="261.0" mnemonicParsing="false" onAction="#annulerRequete" text="Annuler" AnchorPane.rightAnchor="20.0" />
       <Button layoutX="263.0" layoutY="261.0" mnemonicParsing="false" onAction="#ajoutRequeteDB" text="OK" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="100.0" />
    </children>
 </AnchorPane>

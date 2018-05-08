@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class NouvelleRequeteDialogController implements Initializable {
 
@@ -21,6 +22,9 @@ public class NouvelleRequeteDialogController implements Initializable {
 	
 	@FXML
 	private Button ok;
+	
+	@FXML
+	private Button annuler;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -42,6 +46,8 @@ public class NouvelleRequeteDialogController implements Initializable {
 	@FXML
 	private void annulerRequete() {
 		System.out.println("annuler");
+		Stage stage = (Stage) annuler.getScene().getWindow();
+		stage.close();
 	}
 
 	

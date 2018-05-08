@@ -12,9 +12,8 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
 	private Stage primaryStage;
-	private BorderPane rootLayout;
 	
-	private AnchorPane testLayout;
+	private AnchorPane rootLayout;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -32,15 +31,12 @@ public class MainApp extends Application {
 	            FXMLLoader loader = new FXMLLoader();
 	            // ajout d'un ressources bundle pour les tag des versions multilangues
 	            
-	          //  loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
-	            loader.setLocation(MainApp.class.getResource("view/TestLayout.fxml"));
+	            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
 	            
-	          //  rootLayout = (BorderPane) loader.load();
-	            testLayout = (AnchorPane) loader.load();
+	            rootLayout = (AnchorPane) loader.load();
 
 	            // Show the scene containing the root layout.
-	           // Scene scene = new Scene(rootLayout);
-	            Scene scene = new Scene(testLayout);
+	            Scene scene = new Scene(rootLayout);
 	            primaryStage.setScene(scene);
 	            primaryStage.show();
 	        } catch (IOException e) {
@@ -56,10 +52,6 @@ public class MainApp extends Application {
 	            loader.setLocation(MainApp.class.getResource("view/PersonneOverview.fxml"));
 	            AnchorPane personneOverview = (AnchorPane) loader.load();
 
-	            // Set person overview into the center of root layout.
-	           // rootLayout.setCenter(personneOverview);
-	            
-	            
 	            
 	        } catch (IOException e) {
 	            e.printStackTrace();

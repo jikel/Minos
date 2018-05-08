@@ -7,10 +7,14 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import minos.MainApp;
+import minos.model.bean.Personne;
 
-public class TestLayoutController implements Initializable{
+public class RootLayoutController implements Initializable{
 	
 	@FXML
 	private AnchorPane personnePane;
@@ -23,7 +27,6 @@ public class TestLayoutController implements Initializable{
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(MainApp.class.getResource("view/PersonneOverview.fxml"));
 
-//		AnchorPane personneLayout = new AnchorPane();
 		AnchorPane personneLayout = (AnchorPane) loader.load();
 		
 		// il est nécessaire d'avoir un FXMLLoader pour chaque vue
@@ -41,6 +44,34 @@ public class TestLayoutController implements Initializable{
 		} catch (IOException e){
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML 
+	public void ajoutNouveauDossier(){
+		// ouverture d'une nouvelle fenetre
+		AnchorPane nouvelleRequetePane;
+		Stage stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		try{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/NouvelleRequeteDialog.fxml"));
+			
+			nouvelleRequetePane = (AnchorPane) loader.load();
+			
+			Scene scene = new Scene(nouvelleRequetePane);
+			stage.setScene(scene);
+			stage.setTitle("Ajout nouvelle requête");
+			stage.show();
+			
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@FXML
+	public void quitterMinos(){
+		System.exit(0);
 	}
 
 }
