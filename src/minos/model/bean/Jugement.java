@@ -23,6 +23,7 @@ public class Jugement {
 		this.fonde = fonde;
 	}
 
+	// à remplacer par (dans JugementDAO): Jugement create(long idDossier, long idDocument, long idJuge, LocalDate dateEffet, String recevable, String fonde)" 
 	public Jugement(long idDossier, long idDocument, long idJuge, LocalDate dateEffet, String recevable, String fonde) {
 		super();
 		this.idDossier = idDossier;

@@ -53,17 +53,17 @@ public class TestPopulateDB {
 
 	public static void main(String[] args) {
 		TestPopulateDB populateDB = new TestPopulateDB();
-		// populateDB.testAdresseEtPersonne();
+		populateDB.testAdresseEtPersonne();
 		// populateDB.testDocumentDAO();
 		// populateDB.testJugementDAO();
 		// populateDB.testRequeteDAO();
 		// populateDB.testRoleAdresse();
 		// populateDB.testRendezVous();
-//		populateDB.testDossierAvecDocument();
-//		populateDB.testDossierAvecJugements();
-//		populateDB.testDossierAvecRequete();
-//		populateDB.testAssignationTribunal();
-		populateDB.testDossierAvecAssignationsTribunal();
+		// populateDB.testDossierAvecDocument();
+		// populateDB.testDossierAvecJugements();
+		// populateDB.testDossierAvecRequete();
+		// populateDB.testAssignationTribunal();
+		// populateDB.testDossierAvecAssignationsTribunal();
 	}
 
 	private void testAdresseEtPersonne() {
@@ -155,8 +155,9 @@ public class TestPopulateDB {
 				LocalDateTime.now());
 		bibleDocument = documentMinosDAO.create(bibleDocument);
 		dossier.getNomsDocument().put(bibleDocument.getId(), bibleDocument.getNom());
-		
-		DocumentMinos journal = new DocumentMinos("journal", TypeDocumentMinos.pieceInventaire, "contenu journal".getBytes(), LocalDateTime.now());
+
+		DocumentMinos journal = new DocumentMinos("journal", TypeDocumentMinos.pieceInventaire,
+				"contenu journal".getBytes(), LocalDateTime.now());
 		journal = documentMinosDAO.create(journal);
 		dossier.getNomsDocument().put(journal.getId(), journal.getNom());
 
@@ -186,13 +187,15 @@ public class TestPopulateDB {
 
 		Personne juge = new Personne(TypePersonne.physique, "hubain", "roger", null, null);
 		juge = personneDAO.create(juge);
-		Jugement jugement156 = new Jugement(dossier.getId(), document.getId(), juge.getId(), LocalDate.now(), "recevable",
-				"pas fonde");
+		Jugement jugement156 = new Jugement(dossier.getId(), document.getId(), juge.getId(), LocalDate.now(),
+				"recevable", "pas fonde");
 
 		jugement156 = jugementDAO.create(jugement156);
 		System.out.println(" -- ");
 
-		// on recharge le dossier pour mettre a jour la collection de jugement >> ATTENTION IL FAUDRA EGALEMENT RAFRAICHIR LE DOSSIER POUR LA GUI A CHAQUE FOIS QUE L'ON CREE QQCH
+		// on recharge le dossier pour mettre a jour la collection de jugement
+		// >> ATTENTION IL FAUDRA EGALEMENT RAFRAICHIR LE DOSSIER POUR LA GUI A
+		// CHAQUE FOIS QUE L'ON CREE QQCH
 		dossier = dossierDAO.find(dossier.getId());
 		jugements = dossier.getJugements();
 		for (Jugement jugement : jugements) {
@@ -200,7 +203,7 @@ public class TestPopulateDB {
 		}
 		System.out.println(" -- ");
 	}
-	
+
 	private void testDossierAvecRequete() {
 		Dossier dossier = dossierDAO.create();
 
@@ -217,13 +220,15 @@ public class TestPopulateDB {
 
 		Personne requerant = new Personne(TypePersonne.physique, "hubain", "roger", null, null);
 		requerant = personneDAO.create(requerant);
-		Requete requete1 = new Requete(dossier.getId(), requerant.getId(), document.getId(), LocalDate.now(), "54564/151",
-				"RG 56+556");
+		Requete requete1 = new Requete(dossier.getId(), requerant.getId(), document.getId(), LocalDate.now(),
+				"54564/151", "RG 56+556");
 
 		requete1 = requeteDAO.create(requete1);
 		System.out.println(" -- ");
 
-		// on recharge le dossier pour mettre a jour la collection de requete >> ATTENTION IL FAUDRA EGALEMENT RAFRAICHIR LE DOSSIER POUR LA GUI A CHAQUE FOIS QUE L'ON CREE QQCH
+		// on recharge le dossier pour mettre a jour la collection de requete >>
+		// ATTENTION IL FAUDRA EGALEMENT RAFRAICHIR LE DOSSIER POUR LA GUI A
+		// CHAQUE FOIS QUE L'ON CREE QQCH
 		dossier = dossierDAO.find(dossier.getId());
 		requetes = dossier.getRequetes();
 		for (Requete requete : requetes) {
@@ -231,13 +236,13 @@ public class TestPopulateDB {
 		}
 		System.out.println(" -- ");
 	}
-	
+
 	private void testAssignationTribunal() {
 		Dossier dossier = dossierDAO.create();
 		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.requeteSFP, la_bible.getBytes(),
 				LocalDateTime.now());
 		document = documentMinosDAO.create(document);
-		
+
 		Adresse adresse = new Adresse("chaussee de mons", "65", "truc", "7300", "belgique");
 		adresse = adresseDAO.create(adresse);
 		String nom = "Tribunal de bruxelles";
@@ -246,10 +251,11 @@ public class TestPopulateDB {
 		roleAdresseTribunal = roleAdresseDAO.create(roleAdresseTribunal);
 
 		LocalDate date = LocalDate.now();
-		AssignationTribunal assignationTribunal = new AssignationTribunal(dossier.getId(), document.getId(), date, roleAdresseTribunal);
-		assignationTribunal = assignationTribunalDAO.create(assignationTribunal);		
+		AssignationTribunal assignationTribunal = new AssignationTribunal(dossier.getId(), document.getId(), date,
+				roleAdresseTribunal);
+		assignationTribunal = assignationTribunalDAO.create(assignationTribunal);
 	}
-	
+
 	private void testDossierAvecAssignationsTribunal() {
 		Dossier dossier = dossierDAO.create();
 
@@ -263,7 +269,7 @@ public class TestPopulateDB {
 		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.requeteSFP, la_bible.getBytes(),
 				LocalDateTime.now());
 		document = documentMinosDAO.create(document);
-		
+
 		Adresse adresse = new Adresse("chaussee de mons", "65", "truc", "7300", "belgique");
 		adresse = adresseDAO.create(adresse);
 		String nom = "Tribunal de bruxelles";
@@ -271,8 +277,9 @@ public class TestPopulateDB {
 		RoleAdresse roleAdresseTribunal = new RoleAdresse(adresse, nom, niveauTribunal);
 		roleAdresseTribunal = roleAdresseDAO.create(roleAdresseTribunal);
 		LocalDate date = LocalDate.now();
-		AssignationTribunal assignationTribunalMaintenant = new AssignationTribunal(dossier.getId(), document.getId(), date, roleAdresseTribunal);
-		assignationTribunalMaintenant = assignationTribunalDAO.create(assignationTribunalMaintenant);	
+		AssignationTribunal assignationTribunalMaintenant = new AssignationTribunal(dossier.getId(), document.getId(),
+				date, roleAdresseTribunal);
+		assignationTribunalMaintenant = assignationTribunalDAO.create(assignationTribunalMaintenant);
 
 		System.out.println(" -- ");
 

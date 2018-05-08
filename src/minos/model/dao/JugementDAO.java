@@ -34,6 +34,30 @@ public class JugementDAO {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public Jugement createV2(long idDossier, long idDocument, long idJuge, LocalDate dateEffet, String recevable, String fonde) {
+		PreparedStatement prepareStatement;
+		try {
+			prepareStatement = MinosConnection.getInstance().prepareStatement(
+					"INSERT INTO jugement (id_dossier, id_document, id_juge, date_effet, recevable, fonde) VALUES (?, ?, ?, ?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+			prepareStatement.setLong(1, idDossier);
+			prepareStatement.setLong(2, idDocument);
+			prepareStatement.setLong(3, idJuge);
+			prepareStatement.setDate(4, Date.valueOf(dateEffet));
+			prepareStatement.setString(5, recevable);
+			prepareStatement.setString(6, fonde);
+			prepareStatement.execute();
+			ResultSet generatedKeys = prepareStatement.getGeneratedKeys();
+			generatedKeys.next();
+			long id = generatedKeys.getLong(1);
+			return find(id);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	
 
 	public Jugement find(long id) {
 		Jugement jugement = null;
