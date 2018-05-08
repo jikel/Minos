@@ -54,13 +54,13 @@ public class RootLayoutController implements Initializable{
 		stage.initModality(Modality.APPLICATION_MODAL);
 		try{
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/NouvelleRequeteDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/NouveauDossierDialog.fxml"));
 			
 			nouvelleRequetePane = (AnchorPane) loader.load();
 			
 			Scene scene = new Scene(nouvelleRequetePane);
 			stage.setScene(scene);
-			stage.setTitle("Ajout nouvelle requête");
+			stage.setTitle("Ajout nouveau dossier");
 			stage.show();
 			
 		} catch (Exception e){
