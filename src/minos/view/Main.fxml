@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.controller.MainController">
+   <children>
+      <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Fichier">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#ajoutNouveauDossier" text="Nouveau dossier" />
+                  <MenuItem mnemonicParsing="false" onAction="#quitterMinos" text="Quitter" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Chercher">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#chercherDossierPersonne" text="Par personne" />
+                  <MenuItem mnemonicParsing="false" text="Par date" />
+                  <MenuItem mnemonicParsing="false" text="Par mot-clé" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Aide">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Version" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+         <items>
+            <fx:include fx:id="personneOverview" source="PersonneOverview.fxml" />
+            <fx:include fx:id="requeteOverview" source="RequeteOverview.fxml" />
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

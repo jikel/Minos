@@ -6,10 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Créer un nouveau dossier" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="20.0">
+      <Label text="Chercher dossier existant" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -33,6 +32,6 @@
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button layoutX="334.0" layoutY="161.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Créer" AnchorPane.rightAnchor="14.0" />
+      <Button layoutX="334.0" layoutY="161.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Chercher" AnchorPane.rightAnchor="14.0" />
    </children>
 </AnchorPane>

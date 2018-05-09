@@ -10,14 +10,14 @@
       <TabPane prefHeight="600.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab text="Info requete">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
+               <content>
+                  <fx:include source="InfoRequete.fxml" />
+               </content>
           </Tab>
           <Tab text="Correspondance">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
+               <content>
+                  <fx:include source="Correspondance.fxml" />
+               </content>
           </Tab>
             <Tab text="Notes">
                <content>
@@ -26,12 +26,12 @@
             </Tab>
             <Tab text="Calendrier">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <fx:include source="Calendrier.fxml" />
                </content>
             </Tab>
             <Tab text="Historique">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <fx:include source="Historique.fxml" />
                </content>
             </Tab>
         </tabs>

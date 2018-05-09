@@ -218,7 +218,9 @@ public class TestPopulateDB {
 				LocalDateTime.now());
 		document = documentMinosDAO.create(document);
 
-		Personne requerant = new Personne(TypePersonne.physique, "hubain", "roger", null, null);
+		Adresse adresse = new Adresse("grand place", "10", "bte 4", "7700", "belgique");
+		adresse = adresseDAO.create(adresse);
+		Personne requerant = new Personne(TypePersonne.physique, "Dupont", "Jean", "98765432145", adresse);
 		requerant = personneDAO.create(requerant);
 		Requete requete1 = new Requete(dossier.getId(), requerant.getId(), document.getId(), LocalDate.now(),
 				"54564/151", "RG 56+556");
