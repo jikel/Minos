@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.controller.CorrespondanceController">
+<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.controller.requeteoverview.CorrespondanceController">
    <children>
-      <TableView layoutX="14.0" layoutY="14.0" prefHeight="313.0" prefWidth="372.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="20.0">
+      <TableView fx:id="tableCorrespondances" layoutX="14.0" layoutY="14.0" prefHeight="313.0" prefWidth="372.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="20.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Nom document" />
-          <TableColumn prefWidth="75.0" text="Date" />
+          <TableColumn fx:id="colNomDocument" prefWidth="75.0" text="Nom document" />
+          <TableColumn fx:id="colDateDocument" prefWidth="75.0" text="Date" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

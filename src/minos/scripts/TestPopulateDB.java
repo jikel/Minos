@@ -59,9 +59,9 @@ public class TestPopulateDB {
 		// populateDB.testRequeteDAO();
 		// populateDB.testRoleAdresse();
 		// populateDB.testRendezVous();
-		// populateDB.testDossierAvecDocument();
+		 populateDB.testDossierAvecDocument();
 		// populateDB.testDossierAvecJugements();
-		 populateDB.testDossierAvecRequete();
+//		 populateDB.testDossierAvecRequete();
 		// populateDB.testAssignationTribunal();
 		// populateDB.testDossierAvecAssignationsTribunal();
 	}

@@ -1,4 +1,4 @@
-package minos.controller;
+package minos.controller.requeteoverview;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,16 +26,17 @@ public class InfoRequeteController implements Initializable{
 	private Label dateJugement;
 	@FXML
 	private Label dispositif;
+	private Requete requete;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		PersonneDAO personneDAO = new PersonneDAO();
-		Personne personne = personneDAO.find(18);
-		RequeteDAO requeteDAO = new RequeteDAO();
-		Requete requete = requeteDAO.findRequeteWithPersonne(personne);
-		numeroAuditorat.setText(requete.getNumeroRole());
-		numeroRole.setText(requete.getNumeroRG());
-		dateCreation.setText(requete.getDateEffet().toString());
+//		PersonneDAO personneDAO = new PersonneDAO();
+//		Personne personne = personneDAO.find(18);
+//		RequeteDAO requeteDAO = new RequeteDAO();
+//		Requete requete = requeteDAO.findRequeteWithPersonne(personne);
+//		numeroAuditorat.setText(requete.getNumeroRole());
+//		numeroRole.setText(requete.getNumeroRG());
+//		dateCreation.setText(requete.getDateEffet().toString());
 		
 		etat.setText("en cours");
 		avocat.setText("pas d'avocat");
@@ -72,5 +73,15 @@ public class InfoRequeteController implements Initializable{
 	@FXML
 	public void modifDispositif(){
 		System.out.println("dispositif modifié");
+	}
+
+	public void setRequete(Requete requete) {
+		this.requete = requete;
+		numeroAuditorat.setText(requete.getNumeroRole());
+		numeroRole.setText(requete.getNumeroRG());
+		dateCreation.setText(requete.getDateEffet().toString());
+
+		//TODO: avocat (?), jugement
+		
 	}
 }

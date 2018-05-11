@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import minos.controller.MainController;
 
 
 public class Main extends Application {
@@ -19,6 +20,9 @@ public class Main extends Application {
 //            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
             loader.setLocation(Main.class.getResource("../minos/view/Main.fxml"));
             root = (AnchorPane) loader.load();
+            
+            MainController mainController = loader.getController();
+            mainController.demo();
 			
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

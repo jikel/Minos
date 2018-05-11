@@ -5,33 +5,33 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.controller.requeteoverview.RequeteOverviewController">
    <children>
       <TabPane prefHeight="600.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab text="Info requete">
                <content>
-                  <fx:include source="InfoRequete.fxml" />
+                  <fx:include fx:id="infoRequete" source="InfoRequete.fxml" />
                </content>
           </Tab>
           <Tab text="Correspondance">
                <content>
-                  <fx:include source="Correspondance.fxml" />
+                  <fx:include fx:id="correspondance" source="Correspondance.fxml" />
                </content>
           </Tab>
             <Tab text="Notes">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <fx:include fx:id="notes" source="Notes.fxml" />
                </content>
             </Tab>
             <Tab text="Calendrier">
                <content>
-                  <fx:include source="Calendrier.fxml" />
+                  <fx:include fx:id="calendrier" source="Calendrier.fxml" />
                </content>
             </Tab>
             <Tab text="Historique">
                <content>
-                  <fx:include source="Historique.fxml" />
+                  <fx:include fx:id="historique" source="Historique.fxml" />
                </content>
             </Tab>
         </tabs>

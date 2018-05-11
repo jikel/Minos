@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.controller.ChercherDossierPersonneController">
    <children>
       <Label text="Chercher dossier existant" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="20.0">
          <font>
@@ -27,11 +27,11 @@
             <Label text="Nom" />
             <Label text="Prénom" GridPane.rowIndex="1" />
             <Label text="NISS" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="nom" GridPane.columnIndex="1" />
+            <TextField fx:id="prenom" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="niss" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button layoutX="334.0" layoutY="161.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Chercher" AnchorPane.rightAnchor="14.0" />
+      <Button fx:id="btnChercher" layoutX="334.0" layoutY="161.0" mnemonicParsing="false" onAction="#chercherDossier" prefHeight="25.0" prefWidth="70.0" text="Chercher" AnchorPane.rightAnchor="14.0" />
    </children>
 </AnchorPane>

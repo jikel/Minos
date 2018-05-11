@@ -1,5 +1,7 @@
 package minos.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,6 +9,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import minos.controller.requeteoverview.InfoRequeteController;
+import minos.controller.requeteoverview.RequeteOverviewController;
+import minos.model.bean.Dossier;
+import minos.model.bean.Personne;
+import minos.model.bean.Requete;
+import minos.model.dao.DossierDAO;
+import minos.model.dao.PersonneDAO;
 
 public class MainController {
 
@@ -15,12 +24,20 @@ public class MainController {
 	@FXML
 	PersonneOverviewController personneOverviewController;
 	@FXML
-	InfoRequeteController infoRequeteController;
+	RequeteOverviewController requeteOverviewController;
+	private Dossier dossier;
+	private Requete requete;
+	
+	
 
 	@FXML
 	public void initialize() {
 		System.out.println("application started");
+		personneOverviewController.setMainController(this);
+		requeteOverviewController.setMainController(this);
 	}
+	
+
 
 	@FXML
 	public void ajoutNouveauDossier() {
@@ -49,9 +66,9 @@ public class MainController {
 	public void quitterMinos() {
 		System.exit(0);
 	}
-	
+
 	@FXML
-	public void chercherDossierPersonne(){
+	public void chercherDossierPersonne() {
 		System.out.println("chercher dossier");
 		AnchorPane nouvelleRequetePane;
 		Stage stage = new Stage();
@@ -59,9 +76,10 @@ public class MainController {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainController.class.getResource("../view/ChercherDossierPersonne.fxml"));
-
+		
 			nouvelleRequetePane = (AnchorPane) loader.load();
-
+			ChercherDossierPersonneController chercherDossierPersonneController = loader.getController();
+			chercherDossierPersonneController.setMainController(this);
 			Scene scene = new Scene(nouvelleRequetePane);
 			stage.setScene(scene);
 			stage.setTitle("Chercher dossier");
@@ -70,6 +88,25 @@ public class MainController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setDossier(Dossier dossier) {
+		this.dossier = dossier;
+		personneOverviewController.setDossier(dossier);
+		requeteOverviewController.setDossier(dossier);
+	}
+
+
+
+	public void demo() {
+		setDossier(new DossierDAO().find(1));
+	}
+
+
+
+	public void setRequete(Requete requete) {
+		this.requete = requete;
+		requeteOverviewController.setRequete(requete);
 	}
 
 }

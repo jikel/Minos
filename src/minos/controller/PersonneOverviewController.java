@@ -3,26 +3,42 @@ package minos.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventTarget;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableRow;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import minos.model.bean.Adresse;
+import minos.model.bean.Dossier;
 import minos.model.bean.Personne;
 import minos.model.bean.Requete;
 import minos.model.dao.PersonneDAO;
 
 public class PersonneOverviewController implements Initializable {
-	
-	private MainController main;
 
 	// info personne
 	@FXML
@@ -37,7 +53,7 @@ public class PersonneOverviewController implements Initializable {
 	private Label nationalite;
 	@FXML
 	private Label adresseGUI;
-	
+
 	// info requetes
 	@FXML
 	private TableView<Requete> requeteTable;
@@ -45,32 +61,54 @@ public class PersonneOverviewController implements Initializable {
 	private TableColumn<Requete, String> roleColonne;
 	@FXML
 	private TableColumn<Requete, String> dateColonne;
-	@FXML
-	private TableColumn<Requete, String> etatColonne;
 
 	@FXML
 	private Button btnTransferPersonne;
 	@FXML
 	public Label idPersonne;
 
+	private Dossier dossier;
+
+	private PersonneDAO personneDAO;
+
+	private ObservableList<Requete> requeteData = FXCollections.observableArrayList();
+
+	private MainController mainController;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// cherche dans la DB
-		PersonneDAO personneDAO = new PersonneDAO();
-		Personne personne = personneDAO.find(18);
-		Adresse adresse = personne.getAdresse();
+		roleColonne.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Requete, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<Requete, String> param) {
+						return new SimpleStringProperty(param.getValue().getNumeroRole());
+					}
+				});
+		dateColonne.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Requete, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<Requete, String> param) {
+						return new SimpleStringProperty(param.getValue().getDateEffet().toString());
+					}
+				});
+		requeteTable.setItems(requeteData);
+		requeteTable.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<Event>() {
 
-		// complete les Label
-		prenom.setText(personne.getPrenom());
-		nom.setText(personne.getNom());
-		niss.setText(personne.getNiss());
-		etatCivil.setText("Célibataire");
-		nationalite.setText("Belge");
+			@Override
+			public void handle(Event event) {
+				updateTableSelection();
+			}
+		});
+		personneDAO = new PersonneDAO();
+	}
 
-		adresseGUI.setText(adresse.getRue() + " " + adresse.getNumero() + " " + adresse.getBoite() + "\n"
-				+ adresse.getCodePostal() + "\n " + adresse.getPays());
-		
+	public ObservableList<Requete> getRequeteData() {
+		return requeteData;
+	}
 
+	private void updateTableSelection() {
+		Requete selectedItem = requeteTable.getSelectionModel().getSelectedItem();
+		mainController.setRequete(selectedItem);
 	}
 
 	@FXML
@@ -94,14 +132,41 @@ public class PersonneOverviewController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
-	private void btnTransferClicked(ActionEvent event){
+	private void btnTransferClicked(ActionEvent event) {
 		System.out.println("cliqué");
 	}
-	
-	public void init(MainController mainController){
-		main = mainController;
+
+	public void setDossier(Dossier dossier) {
+		this.dossier = dossier;
+		updateInfoPersonne();
+		requeteData.clear();
+		for (Requete requete : dossier.getRequetes()) {
+			requeteData.add(requete);
+		}
+		requeteTable.refresh();
+	}
+
+	private void updateInfoPersonne() {
+		long idRequerant = dossier.getRequetes().iterator().next().getIdRequerant();
+		Personne personne = personneDAO.find(idRequerant);
+
+		Adresse adresse = personne.getAdresse();
+
+		// complete les Label
+		prenom.setText(personne.getPrenom());
+		nom.setText(personne.getNom());
+		niss.setText(personne.getNiss());
+		etatCivil.setText("Célibataire");
+		nationalite.setText("Belge");
+
+		adresseGUI.setText(adresse.getRue() + " " + adresse.getNumero() + " " + adresse.getBoite() + "\n"
+				+ adresse.getCodePostal() + "\n " + adresse.getPays());
+	}
+
+	public void setMainController(MainController mainController) {
+		this.mainController = mainController;
 	}
 
 }
