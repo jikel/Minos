@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import minos.MainApp;
 
 
 public class Main extends Application {
@@ -18,7 +17,7 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader();
             // ajout d'un ressources bundle pour les tag des versions multilangues
 //            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
-            loader.setLocation(MainApp.class.getResource("view/Main.fxml"));
+            loader.setLocation(Main.class.getResource("../minos/view/Main.fxml"));
             root = (AnchorPane) loader.load();
 			
 			Scene scene = new Scene(root);

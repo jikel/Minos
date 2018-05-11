@@ -7,7 +7,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import minos.MainApp;
 
 public class MainController {
 
@@ -31,7 +30,7 @@ public class MainController {
 		stage.initModality(Modality.APPLICATION_MODAL);
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/NouveauDossierDialog.fxml"));
+			loader.setLocation(MainController.class.getResource("../view/NouveauDossierDialog.fxml"));
 
 			nouvelleRequetePane = (AnchorPane) loader.load();
 
@@ -59,7 +58,7 @@ public class MainController {
 		stage.initModality(Modality.APPLICATION_MODAL);
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/ChercherDossierPersonne.fxml"));
+			loader.setLocation(MainController.class.getResource("../view/ChercherDossierPersonne.fxml"));
 
 			nouvelleRequetePane = (AnchorPane) loader.load();
 

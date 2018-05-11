@@ -15,7 +15,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import minos.MainApp;
 import minos.model.bean.Adresse;
 import minos.model.bean.Personne;
 import minos.model.bean.Requete;
@@ -82,7 +81,7 @@ public class PersonneOverviewController implements Initializable {
 		stage.initModality(Modality.APPLICATION_MODAL);
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/NouvelleRequeteDialog.fxml"));
+			loader.setLocation(PersonneOverviewController.class.getResource("../view/NouvelleRequeteDialog.fxml"));
 
 			nouvelleRequetePane = (AnchorPane) loader.load();
 
