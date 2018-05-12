@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import minos.controller.MainController;
+import minos.recherche.MinosIndex;
 
 
 public class Main extends Application {
@@ -22,7 +23,9 @@ public class Main extends Application {
             root = (AnchorPane) loader.load();
             
             MainController mainController = loader.getController();
-            mainController.demo();
+//            mainController.demo();
+            
+            MinosIndex.getInstance().chargerIndexLucene();
 			
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

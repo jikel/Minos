@@ -134,5 +134,25 @@ public class MainController {
 		this.requete = requete;
 		requeteOverviewController.setRequete(requete);
 	}
+	
+	@FXML
+	public void chercherDocument() {
+		AnchorPane nouvelleRecherchePane;
+		Stage stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainController.class.getResource("../view/ChercherDocument.fxml"));
+		
+			nouvelleRecherchePane = (AnchorPane) loader.load();
+			Scene scene = new Scene(nouvelleRecherchePane);
+			stage.setScene(scene);
+			stage.setTitle("Chercher dossier");
+			stage.show();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

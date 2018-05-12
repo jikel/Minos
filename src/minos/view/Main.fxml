@@ -19,8 +19,7 @@
           <Menu mnemonicParsing="false" text="Chercher">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#chercherDossierPersonne" text="Par personne" />
-                  <MenuItem mnemonicParsing="false" text="Par date" />
-                  <MenuItem mnemonicParsing="false" text="Par mot-clé" />
+                  <MenuItem mnemonicParsing="false" onAction="#chercherDocument" text="Document" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Aide">

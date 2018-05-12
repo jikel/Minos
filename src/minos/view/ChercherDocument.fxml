@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.controller.ChercherDocumentController">
+   <children>
+      <TableView fx:id="tableResult" layoutX="14.0" layoutY="69.0" prefHeight="508.0" prefWidth="477.0">
+        <columns>
+          <TableColumn fx:id="colIdDocument" prefWidth="75.0" text="id document" />
+          <TableColumn fx:id="colNomDocument" prefWidth="75.0" text="nom document" />
+            <TableColumn fx:id="colIdDossier" prefWidth="75.0" text="id dossier" />
+            <TableColumn fx:id="colDateReception" prefWidth="75.0" text="date reception" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <TextField fx:id="champRecherche" layoutX="25.0" layoutY="24.0" prefHeight="25.0" prefWidth="268.0" />
+      <Button fx:id="btnChercher" layoutX="311.0" layoutY="24.0" mnemonicParsing="false" onAction="#chercher" text="Chercher" />
+      <Button layoutX="388.0" layoutY="24.0" mnemonicParsing="false" onAction="#indexer" text="Indexer" />
+   </children>
+</AnchorPane>

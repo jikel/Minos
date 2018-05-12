@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import minos.model.bean.DocumentMinos;
 import minos.model.bean.Dossier;
@@ -95,6 +97,22 @@ public class DocumentMinosDAO {
 			prepareStatement.setLong(5, document.getId());
 			prepareStatement.execute();
 			return find(document.getId());
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public Collection<Long> tousLesDocumentIds() {
+		Collection<Long> ids = new ArrayList<>();
+		ResultSet result;
+		try {
+			result = MinosConnection.getInstance()
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT id FROM document");
+			while (result.next()) {
+				ids.add(result.getLong("id"));
+			}
+			return ids;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
