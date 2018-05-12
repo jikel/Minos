@@ -5,7 +5,8 @@ public enum TypeDocumentMinos {
 	conclusion("conclusion"), 
 	rapportAdministratif("rapport_administratif"), 
 	requeteSFP("requete_sfp"), 
-	jugement("jugement");
+	jugement("jugement"),
+	note("note");
 	
 	private String dbValue;
 

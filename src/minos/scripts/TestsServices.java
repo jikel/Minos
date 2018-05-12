@@ -52,7 +52,7 @@ public class TestsServices {
 	private void testDossierAvecAssignationsTribunal() {
 		Dossier dossier = dossierDAO.create();
 
-		DocumentMinos document = createDocument();
+		DocumentMinos document = createDocument(dossier);
 		Adresse adresse = createAdresse();
 		RoleAdresse tribunalDuTravail = createTribunal(adresse, "tribunal du travail");
 		RoleAdresse tribunalCoursDAppel = createTribunal(adresse, "cours d'appel");
@@ -73,10 +73,10 @@ public class TestsServices {
 		System.out.println(tribunalCourant.getNom());
 	}
 
-	private DocumentMinos createDocument() {
+	private DocumentMinos createDocument(Dossier dossier) {
 		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.requeteSFP, "blablabla".getBytes(),
 				LocalDateTime.now());
-		document = documentMinosDAO.create(document);
+		document = documentMinosDAO.create(document, dossier);
 		return document;
 	}
 

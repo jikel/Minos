@@ -7,15 +7,19 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.controller.requeteoverview.CorrespondanceController">
    <children>
-      <TableView fx:id="tableCorrespondances" layoutX="14.0" layoutY="14.0" prefHeight="313.0" prefWidth="372.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="20.0">
+      <TableView fx:id="tableCorrespondances" layoutX="14.0" layoutY="14.0" prefHeight="490.0" prefWidth="372.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="20.0">
         <columns>
           <TableColumn fx:id="colNomDocument" prefWidth="75.0" text="Nom document" />
           <TableColumn fx:id="colDateDocument" prefWidth="75.0" text="Date" />
+            <TableColumn fx:id="colType" prefWidth="75.0" text="Type" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
       <Button fx:id="btnAjoutDoc" contentDisplay="BOTTOM" layoutX="275.0" layoutY="335.0" mnemonicParsing="false" onAction="#ajouterDocument" text="Ajouter document" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="14.0" />
+      <Button fx:id="btnTelecharger" layoutX="319.0" layoutY="520.0" mnemonicParsing="false" onAction="#telecharger" text="Telecharger" />
+      <ComboBox fx:id="comboTypeDoc" layoutX="110.0" layoutY="555.0" prefWidth="150.0" />
+      <Label layoutX="52.0" layoutY="559.0" text="Type:" />
    </children>
 </AnchorPane>

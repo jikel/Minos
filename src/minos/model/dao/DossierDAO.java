@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -99,6 +100,24 @@ public class DossierDAO {
 			}
 			dossier.setNomsDocument(documents);
 			return dossier;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public Collection<Dossier> tousLesDossiers() {
+		Collection<Dossier> dossiers = new ArrayList<>();
+		ResultSet result;
+		try {
+			PreparedStatement prepareStatement = MinosConnection.getInstance()
+					.prepareStatement("SELECT id FROM dossier");
+			result = prepareStatement.executeQuery();
+			while (result.next()) {
+				long idDossier = result.getLong("id");
+				Dossier dossier = find(idDossier);
+				dossiers.add(dossier);
+			}
+			return dossiers;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

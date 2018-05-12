@@ -58,7 +58,7 @@ public class RequeteOverviewController implements Initializable {
 	public void setRequete(Requete requete) {
 		this.requete = requete;
 		infoRequeteController.setRequete(requete);
-		notesController.setRequete(requete);
+		
 		calendrierController.setRequete(requete);
 		historiqueController.setRequete(requete);
 	}
@@ -66,6 +66,8 @@ public class RequeteOverviewController implements Initializable {
 	public void setDossier(Dossier dossier) {
 		this.dossier = dossier;
 		correspondanceController.setDossier(dossier);
+		infoRequeteController.setDossier(dossier);
+		notesController.setDossier(dossier);
 	}
 
 	public void setMainController(MainController mainController) {

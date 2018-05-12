@@ -50,6 +50,9 @@ public class MainController {
 			loader.setLocation(MainController.class.getResource("../view/NouveauDossierDialog.fxml"));
 
 			nouvelleRequetePane = (AnchorPane) loader.load();
+			
+			NouveauDossierDialogController nouveauDossierDialogController = loader.getController();
+			nouveauDossierDialogController.setMainController(this);
 
 			Scene scene = new Scene(nouvelleRequetePane);
 			stage.setScene(scene);
@@ -60,6 +63,29 @@ public class MainController {
 			e.printStackTrace();
 		}
 
+	}
+	
+	@FXML
+	public void ajoutPersonne() {
+		// ouverture d'une nouvelle fenetre
+		AnchorPane nouvelleRequetePane;
+		Stage stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainController.class.getResource("../view/AjoutPersonneDialog.fxml"));
+			
+			nouvelleRequetePane = (AnchorPane) loader.load();
+			
+			Scene scene = new Scene(nouvelleRequetePane);
+			stage.setScene(scene);
+			stage.setTitle("Ajout nouveau dossier");
+			stage.show();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@FXML
@@ -99,7 +125,7 @@ public class MainController {
 
 
 	public void demo() {
-		setDossier(new DossierDAO().find(1));
+		setDossier(new DossierDAO().find(2));
 	}
 
 

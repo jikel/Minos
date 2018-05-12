@@ -1,7 +1,7 @@
 package minos.model.bean;
 
 public enum TypePersonne {
-	morale("m"), physique("p");
+	morale("m"), physique("p"), juge("j");
 	
 	private String dbValue;
 

@@ -12,6 +12,7 @@
           <Menu mnemonicParsing="false" text="Fichier">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#ajoutNouveauDossier" text="Nouveau dossier" />
+                  <MenuItem mnemonicParsing="false" onAction="#ajoutPersonne" text="Nouvelle personne" />
                   <MenuItem mnemonicParsing="false" onAction="#quitterMinos" text="Quitter" />
             </items>
           </Menu>

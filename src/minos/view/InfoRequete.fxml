@@ -39,12 +39,11 @@
             <Hyperlink onAction="#modifAuditorat" text="Modifier" GridPane.columnIndex="2" />
             <Hyperlink onAction="#modifRole" text="Modifier" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Hyperlink onAction="#modifEtat" text="Modifier" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Hyperlink onAction="#modifDispositif" text="Modifier" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <DatePicker onAction="#modifDateJugement" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <Label text="Avocat" GridPane.rowIndex="4" />
             <Label fx:id="avocat" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Hyperlink onAction="#modifAvocat" text="Modifier" GridPane.columnIndex="2" GridPane.rowIndex="4" />
          </children>
       </GridPane>
+      <Button fx:id="btnAjoutJugement" layoutX="239.0" layoutY="279.0" mnemonicParsing="false" onAction="#ajoutJugement" text="Ajout Jugement" />
    </children>
 </AnchorPane>

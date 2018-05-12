@@ -64,9 +64,7 @@ public class DemoPopulateDB {
 		// 1ere requete
 		DocumentMinos documentRequete = new DocumentMinos("la_bible", TypeDocumentMinos.requeteSFP, la_bible.getBytes(),
 				LocalDateTime.now());
-		documentRequete = documentMinosDAO.create(documentRequete);
-		
-		dossier.getNomsDocument().put(documentRequete.getId(), documentRequete.getNom());
+		documentRequete = documentMinosDAO.create(documentRequete, dossier);
 		
 	
 
@@ -81,12 +79,10 @@ public class DemoPopulateDB {
 		
 		// 2eme requete
 		DocumentMinos deuxiemeRequete = new DocumentMinos("pas_la_bible", TypeDocumentMinos.requeteSFP, la_bible.getBytes(), LocalDateTime.now());
-		deuxiemeRequete = documentMinosDAO.create(deuxiemeRequete);
+		deuxiemeRequete = documentMinosDAO.create(deuxiemeRequete, dossier);
 		Requete requete2 = new Requete(dossier.getId(), requerant.getId(), deuxiemeRequete.getId(), LocalDate.now(), "12364/789", "RG 63978");
 		requete2 = requeteDAO.create(requete2);
 		
-		dossier.getNomsDocument().put(deuxiemeRequete.getId(), deuxiemeRequete.getNom());
-
 		
 		// ASSIGNATION TRIBUNAL	
 		Adresse adresseTribunal = new Adresse("Place Poelaert", "3", "", "1000", "belgique");
@@ -126,10 +122,8 @@ public class DemoPopulateDB {
 		// JUGEMENT
 		DocumentMinos documentJugement = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(),
 				LocalDateTime.now());
-		documentJugement = documentMinosDAO.create(documentJugement);
+		documentJugement = documentMinosDAO.create(documentJugement, dossier);
 		
-		dossier.getNomsDocument().put(documentJugement.getId(), documentJugement.getNom());
-
 		Personne juge = new Personne(TypePersonne.physique, "hubain", "roger", null, null);
 		juge = personneDAO.create(juge);
 		Jugement jugement = new Jugement(dossier.getId(), documentJugement.getId(), juge.getId(), LocalDate.now(), "recevable",

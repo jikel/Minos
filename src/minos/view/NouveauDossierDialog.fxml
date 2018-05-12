@@ -6,10 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="593.0" prefWidth="716.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.controller.NouveauDossierDialogController">
    <children>
-      <Label text="Créer un nouveau dossier" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="20.0">
+      <Label text="Créer un nouveau dossier sur base d'une requête" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -22,17 +21,42 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Nom" />
             <Label text="Prénom" GridPane.rowIndex="1" />
-            <Label text="NISS" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Rue" GridPane.rowIndex="2" />
+            <Label text="Numéro" GridPane.rowIndex="3" />
+            <Label text="Boite" GridPane.rowIndex="4" />
+            <Label text="Code Postal" GridPane.rowIndex="5" />
+            <Label text="Pays" GridPane.rowIndex="6" />
+            <Label text="NISS" GridPane.rowIndex="7" />
+            <Label text="Numéro Auditorat" GridPane.rowIndex="8" />
+            <Label text="Numéro RG" GridPane.rowIndex="9" />
+            <TextField fx:id="nom" GridPane.columnIndex="1" />
+            <TextField fx:id="prenom" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="rue" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="numero" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="boite" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="codePostal" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="pays" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="niss" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="numAudit" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="numRG" GridPane.columnIndex="1" GridPane.rowIndex="9" />
          </children>
       </GridPane>
-      <Button layoutX="334.0" layoutY="161.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Créer" AnchorPane.rightAnchor="14.0" />
+      <Button fx:id="btnCreer" layoutX="574.0" layoutY="554.0" mnemonicParsing="false" onAction="#creer" prefHeight="25.0" prefWidth="70.0" text="Créer" AnchorPane.rightAnchor="72.0" />
+      <Button fx:id="btnBrowse" layoutX="408.0" layoutY="406.0" mnemonicParsing="false" onAction="#browse" text="Browse" />
+      <TextField fx:id="chemin" layoutX="238.0" layoutY="406.0" />
+      <Label layoutX="103.0" layoutY="410.0" text="Document" />
+      <Button fx:id="btnAnnuler" layoutX="650.0" layoutY="554.0" mnemonicParsing="false" onAction="#annuler" text="Annuler" />
    </children>
 </AnchorPane>

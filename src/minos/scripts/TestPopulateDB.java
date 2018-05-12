@@ -79,7 +79,7 @@ public class TestPopulateDB {
 	private void testDocumentDAO() {
 		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(),
 				LocalDateTime.now());
-		document = documentMinosDAO.create(document);
+		document = documentMinosDAO.create(document, dossierDAO.create());
 		System.out.println(new String(document.getContenu()));
 	}
 
@@ -87,7 +87,7 @@ public class TestPopulateDB {
 		Dossier dossier = dossierDAO.create();
 		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(),
 				LocalDateTime.now());
-		document = documentMinosDAO.create(document);
+		document = documentMinosDAO.create(document, dossier);
 
 		Personne juge = new Personne(TypePersonne.physique, "hubain", "roger", null, null);
 		juge = personneDAO.create(juge);
@@ -101,7 +101,7 @@ public class TestPopulateDB {
 		Dossier dossier = dossierDAO.create();
 		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(),
 				LocalDateTime.now());
-		document = documentMinosDAO.create(document);
+		document = documentMinosDAO.create(document, dossier);
 		Adresse adresse = new Adresse("chaussee de mons", "65", "truc", "7300", "belgique");
 		adresse = adresseDAO.create(adresse);
 		Personne simonSA = new Personne(TypePersonne.morale, "SimonSA", adresse);
@@ -153,13 +153,11 @@ public class TestPopulateDB {
 
 		DocumentMinos bibleDocument = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(),
 				LocalDateTime.now());
-		bibleDocument = documentMinosDAO.create(bibleDocument);
-		dossier.getNomsDocument().put(bibleDocument.getId(), bibleDocument.getNom());
+		bibleDocument = documentMinosDAO.create(bibleDocument, dossier);
 
 		DocumentMinos journal = new DocumentMinos("journal", TypeDocumentMinos.pieceInventaire,
 				"contenu journal".getBytes(), LocalDateTime.now());
-		journal = documentMinosDAO.create(journal);
-		dossier.getNomsDocument().put(journal.getId(), journal.getNom());
+		journal = documentMinosDAO.create(journal, dossier);
 
 		dossier = dossierDAO.updateAll(dossier);
 
@@ -183,7 +181,7 @@ public class TestPopulateDB {
 
 		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.jugement, la_bible.getBytes(),
 				LocalDateTime.now());
-		document = documentMinosDAO.create(document);
+		document = documentMinosDAO.create(document, dossier);
 
 		Personne juge = new Personne(TypePersonne.physique, "hubain", "roger", null, null);
 		juge = personneDAO.create(juge);
@@ -216,7 +214,7 @@ public class TestPopulateDB {
 
 		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.requeteSFP, la_bible.getBytes(),
 				LocalDateTime.now());
-		document = documentMinosDAO.create(document);
+		document = documentMinosDAO.create(document, dossier);
 
 		Adresse adresse = new Adresse("grand place", "10", "bte 4", "7700", "belgique");
 		adresse = adresseDAO.create(adresse);
@@ -243,7 +241,7 @@ public class TestPopulateDB {
 		Dossier dossier = dossierDAO.create();
 		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.requeteSFP, la_bible.getBytes(),
 				LocalDateTime.now());
-		document = documentMinosDAO.create(document);
+		document = documentMinosDAO.create(document, dossier);
 
 		Adresse adresse = new Adresse("chaussee de mons", "65", "truc", "7300", "belgique");
 		adresse = adresseDAO.create(adresse);
@@ -270,7 +268,7 @@ public class TestPopulateDB {
 
 		DocumentMinos document = new DocumentMinos("la_bible", TypeDocumentMinos.requeteSFP, la_bible.getBytes(),
 				LocalDateTime.now());
-		document = documentMinosDAO.create(document);
+		document = documentMinosDAO.create(document, dossier);
 
 		Adresse adresse = new Adresse("chaussee de mons", "65", "truc", "7300", "belgique");
 		adresse = adresseDAO.create(adresse);
