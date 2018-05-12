@@ -36,6 +36,7 @@ import minos.model.bean.Adresse;
 import minos.model.bean.Dossier;
 import minos.model.bean.Personne;
 import minos.model.bean.Requete;
+import minos.model.dao.DossierDAO;
 import minos.model.dao.PersonneDAO;
 
 public class PersonneOverviewController implements Initializable {
@@ -74,6 +75,7 @@ public class PersonneOverviewController implements Initializable {
 	private ObservableList<Requete> requeteData = FXCollections.observableArrayList();
 
 	private MainController mainController;
+	private DossierDAO dossierDAO;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -100,10 +102,7 @@ public class PersonneOverviewController implements Initializable {
 			}
 		});
 		personneDAO = new PersonneDAO();
-	}
-
-	public ObservableList<Requete> getRequeteData() {
-		return requeteData;
+		dossierDAO = new DossierDAO();
 	}
 
 	private void updateTableSelection() {
@@ -122,6 +121,10 @@ public class PersonneOverviewController implements Initializable {
 			loader.setLocation(PersonneOverviewController.class.getResource("../view/NouvelleRequeteDialog.fxml"));
 
 			nouvelleRequetePane = (AnchorPane) loader.load();
+			
+			NouvelleRequeteDialogController nouvelleRequeteDialogController = loader.getController();
+			nouvelleRequeteDialogController.setDossier(dossier);
+			nouvelleRequeteDialogController.setPersonneOverviewController(this);
 
 			Scene scene = new Scene(nouvelleRequetePane);
 			stage.setScene(scene);
@@ -140,12 +143,7 @@ public class PersonneOverviewController implements Initializable {
 
 	public void setDossier(Dossier dossier) {
 		this.dossier = dossier;
-		updateInfoPersonne();
-		requeteData.clear();
-		for (Requete requete : dossier.getRequetes()) {
-			requeteData.add(requete);
-		}
-		requeteTable.refresh();
+		rafraichir();
 	}
 
 	private void updateInfoPersonne() {
@@ -167,6 +165,16 @@ public class PersonneOverviewController implements Initializable {
 
 	public void setMainController(MainController mainController) {
 		this.mainController = mainController;
+	}
+
+	public void rafraichir() {
+		dossier = dossierDAO.find(dossier.getId());
+		updateInfoPersonne();
+		requeteData.clear();
+		for (Requete requete : dossier.getRequetes()) {
+			requeteData.add(requete);
+		}
+		requeteTable.refresh();
 	}
 
 }

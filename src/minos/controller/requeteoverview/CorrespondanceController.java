@@ -32,55 +32,55 @@ import minos.model.dao.JugementDAO;
 public class CorrespondanceController implements Initializable {
 	@FXML
 	private Button btnAjoutDoc;
-	
+
 	@FXML
 	private Button btnTelecharger;
-	
+
 	private ObservableList<TypeDocumentMinos> comboData = FXCollections.observableArrayList();
-	
+
 	@FXML
 	private ComboBox<TypeDocumentMinos> comboTypeDoc;
-	
+
 	private ObservableList<DocumentMinos> tableData = FXCollections.observableArrayList();
-	
+
 	@FXML
 	private TableView<DocumentMinos> tableCorrespondances;
-	
+
 	@FXML
 	private TableColumn<DocumentMinos, String> colNomDocument;
-	
+
 	@FXML
 	private TableColumn<DocumentMinos, String> colDateDocument;
-	
+
 	@FXML
 	private TableColumn<DocumentMinos, String> colType;
 
 	private Dossier dossier;
-	
+
 	private DocumentMinosDAO documentMinosDAO;
 
 	private JugementDAO jugementDAO;
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		documentMinosDAO = new DocumentMinosDAO();
 		jugementDAO = new JugementDAO();
-		colNomDocument.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<DocumentMinos,String>, ObservableValue<String>>() {
+		colNomDocument.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<DocumentMinos, String>, ObservableValue<String>>() {
 
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<DocumentMinos, String> param) {
 				return new SimpleStringProperty(param.getValue().getNom());
 			}
 		});
-		colDateDocument.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<DocumentMinos,String>, ObservableValue<String>>() {
-			
+		colDateDocument.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<DocumentMinos, String>, ObservableValue<String>>() {
+
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<DocumentMinos, String> param) {
 				return new SimpleStringProperty(param.getValue().getDateReception().toString());
 			}
 		});
-		colType.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<DocumentMinos,String>, ObservableValue<String>>() {
-			
+		colType.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<DocumentMinos, String>, ObservableValue<String>>() {
+
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<DocumentMinos, String> param) {
 				return new SimpleStringProperty(param.getValue().getType().getDbValue());
@@ -90,7 +90,7 @@ public class CorrespondanceController implements Initializable {
 		createComboData();
 		comboTypeDoc.setItems(comboData);
 	}
-	
+
 	private void createComboData() {
 		List<TypeDocumentMinos> typesAutorises = Arrays.asList(TypeDocumentMinos.conclusion, TypeDocumentMinos.pieceInventaire, TypeDocumentMinos.rapportAdministratif);
 		for (TypeDocumentMinos typeDocumentMinos : typesAutorises) {
@@ -99,7 +99,7 @@ public class CorrespondanceController implements Initializable {
 	}
 
 	@FXML
-	public void ajouterDocument(){
+	public void ajouterDocument() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Sélectionner document");
 		File file = fileChooser.showOpenDialog(btnAjoutDoc.getScene().getWindow());
@@ -113,7 +113,7 @@ public class CorrespondanceController implements Initializable {
 			TypeDocumentMinos typeDocumentMinos = comboTypeDoc.getSelectionModel().getSelectedItem();
 			DocumentMinos document = new DocumentMinos(file.getName(), typeDocumentMinos, contenuFichier, LocalDateTime.now());
 			document = documentMinosDAO.create(document, dossier);
-			
+
 			rafraichirTable();
 		}
 	}
@@ -133,22 +133,24 @@ public class CorrespondanceController implements Initializable {
 		tableCorrespondances.refresh();
 	}
 
-	
 	@FXML
 	public void telecharger() {
 		DocumentMinos selectedItem = tableCorrespondances.getSelectionModel().getSelectedItem();
-		
+
 		String nomFichier = selectedItem.getNom();
-		String extension = nomFichier.substring(nomFichier.lastIndexOf("."), nomFichier.length());
-		
+		String extension = "";
+		if (nomFichier.contains("."))
+			extension = nomFichier.substring(nomFichier.lastIndexOf("."), nomFichier.length());
+
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Sauvegarder document");
 		fileChooser.setInitialFileName(nomFichier);
-		
-		
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(extension, "*." + extension);
-        fileChooser.getExtensionFilters().add(extFilter);
-		
+
+		if (!extension.isEmpty()) {
+			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(extension, "*." + extension);
+			fileChooser.getExtensionFilters().add(extFilter);
+		}
+
 		File file = fileChooser.showSaveDialog(btnTelecharger.getScene().getWindow());
 		if (file != null) {
 			try {
@@ -158,6 +160,5 @@ public class CorrespondanceController implements Initializable {
 			}
 		}
 	}
-
 
 }
