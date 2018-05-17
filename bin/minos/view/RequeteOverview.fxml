@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.controller.requeteoverview.RequeteOverviewController">
+<AnchorPane minHeight="500.0" minWidth="400.0" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.controller.requeteoverview.RequeteOverviewController">
    <children>
       <TabPane prefHeight="600.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -27,11 +27,6 @@
             <Tab text="Calendrier">
                <content>
                   <fx:include fx:id="calendrier" source="Calendrier.fxml" />
-               </content>
-            </Tab>
-            <Tab text="Historique">
-               <content>
-                  <fx:include fx:id="historique" source="Historique.fxml" />
                </content>
             </Tab>
         </tabs>

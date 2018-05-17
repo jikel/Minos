@@ -24,13 +24,9 @@ public class InfoRequeteController implements Initializable {
 	@FXML
 	private Label numeroAuditorat;
 	@FXML
-	private Label numeroRole;
+	private Label numeroRG;
 	@FXML
 	private Label dateCreation;
-	@FXML
-	private Label etat;
-	@FXML
-	private Label avocat;
 	@FXML
 	private Label dateJugement;
 	@FXML
@@ -44,19 +40,8 @@ public class InfoRequeteController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// PersonneDAO personneDAO = new PersonneDAO();
-		// Personne personne = personneDAO.find(18);
-		// RequeteDAO requeteDAO = new RequeteDAO();
-		// Requete requete = requeteDAO.findRequeteWithPersonne(personne);
-		// numeroAuditorat.setText(requete.getNumeroRole());
-		// numeroRole.setText(requete.getNumeroRG());
-		// dateCreation.setText(requete.getDateEffet().toString());
-
-		etat.setText("en cours");
-		avocat.setText("pas d'avocat");
 		dateJugement.setText("pas de jugement");
 		dispositif.setText("pas de jugement");
-
 	}
 
 	@FXML
@@ -92,7 +77,7 @@ public class InfoRequeteController implements Initializable {
 	public void setRequete(Requete requete) {
 		this.requete = requete;
 		numeroAuditorat.setText(requete.getNumeroRole());
-		numeroRole.setText(requete.getNumeroRG());
+		numeroRG.setText(requete.getNumeroRG());
 		dateCreation.setText(requete.getDateEffet().toString());
 
 		// TODO: avocat (?), 

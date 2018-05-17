@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.controller.NouvelleRequeteDialogController">
+<AnchorPane prefHeight="275.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.controller.NouvelleRequeteDialogController">
    <children>
       <GridPane layoutX="14.0" layoutY="44.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -15,20 +15,18 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Numéro de l'auditorat" />
             <Label text="Numéro de role" GridPane.rowIndex="1" />
             <TextField fx:id="numeroAuditorat" GridPane.columnIndex="1" />
             <TextField fx:id="numeroRole" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="chemin" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Button fx:id="annuler" layoutX="334.0" layoutY="261.0" mnemonicParsing="false" onAction="#annulerRequete" text="Annuler" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="20.0" />
-      <Button layoutX="263.0" layoutY="261.0" mnemonicParsing="false" onAction="#ajoutRequeteDB" text="OK" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="100.0" />
-      <Button fx:id="btnParcourir" layoutX="316.0" layoutY="98.0" mnemonicParsing="false" onAction="#parcourir" text="Parcourir" />
-      <Label layoutX="40.0" layoutY="137.0" text="Document" />
+      <Button fx:id="annuler" layoutX="322.0" layoutY="179.0" mnemonicParsing="false" onAction="#annulerRequete" text="Annuler" AnchorPane.rightAnchor="20.0" />
+      <Button layoutX="240.0" layoutY="179.0" mnemonicParsing="false" onAction="#ajoutRequeteDB" text="OK" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="100.0" />
+      <Button fx:id="btnParcourir" layoutX="296.0" layoutY="112.0" mnemonicParsing="false" onAction="#parcourir" prefHeight="25.0" prefWidth="84.0" text="Parcourir" />
+      <Label layoutX="20.0" layoutY="116.0" text="Document" />
+      <TextField fx:id="chemin" layoutX="121.0" layoutY="112.0" />
    </children>
 </AnchorPane>

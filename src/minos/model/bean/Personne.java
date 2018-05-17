@@ -25,7 +25,7 @@ public class Personne {
 		this.nom = nom;
 		this.adresse = adresse;
 	}
-	
+
 	public Personne(TypePersonne typePersonne, String nom, String prenom, String niss, Adresse adresse) {
 		super();
 		this.typePersonne = typePersonne;

@@ -60,7 +60,7 @@ public class RequeteOverviewController implements Initializable {
 		infoRequeteController.setRequete(requete);
 		
 		calendrierController.setRequete(requete);
-		historiqueController.setRequete(requete);
+//		historiqueController.setRequete(requete);
 	}
 	
 	public void setDossier(Dossier dossier) {

@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.controller.requeteoverview.CorrespondanceController">
+<AnchorPane prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.controller.requeteoverview.CorrespondanceController">
    <children>
-      <TableView fx:id="tableCorrespondances" layoutX="14.0" layoutY="14.0" prefHeight="490.0" prefWidth="372.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="20.0">
+      <TableView fx:id="tableCorrespondances" layoutX="14.0" layoutY="14.0" prefHeight="355.0" prefWidth="372.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="20.0">
         <columns>
           <TableColumn fx:id="colNomDocument" prefWidth="75.0" text="Nom document" />
           <TableColumn fx:id="colDateDocument" prefWidth="75.0" text="Date" />
@@ -17,9 +17,9 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="btnAjoutDoc" contentDisplay="BOTTOM" layoutX="275.0" layoutY="335.0" mnemonicParsing="false" onAction="#ajouterDocument" text="Ajouter document" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="14.0" />
-      <Button fx:id="btnTelecharger" layoutX="319.0" layoutY="520.0" mnemonicParsing="false" onAction="#telecharger" text="Telecharger" />
-      <ComboBox fx:id="comboTypeDoc" layoutX="110.0" layoutY="555.0" prefWidth="150.0" />
-      <Label layoutX="52.0" layoutY="559.0" text="Type:" />
+      <Button fx:id="btnAjoutDoc" contentDisplay="BOTTOM" layoutX="293.0" layoutY="460.0" mnemonicParsing="false" onAction="#ajouterDocument" text="Ajouter document" AnchorPane.rightAnchor="94.0" />
+      <Button fx:id="btnTelecharger" layoutX="13.0" layoutY="406.0" mnemonicParsing="false" onAction="#telecharger" text="Telecharger" />
+      <ComboBox fx:id="comboTypeDoc" layoutX="91.0" layoutY="460.0" prefHeight="25.0" prefWidth="167.0" />
+      <Label layoutX="14.0" layoutY="464.0" text="Type:" />
    </children>
 </AnchorPane>

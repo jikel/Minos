@@ -22,7 +22,9 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("../minos/view/Main.fxml"));
             root = (AnchorPane) loader.load();
             
-            MainController mainController = loader.getController();
+           MainController mainController = loader.getController();
+           
+           // ATTENTION
 //            mainController.demo();
             
             MinosIndex.getInstance().chargerIndexLucene();

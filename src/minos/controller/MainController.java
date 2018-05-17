@@ -32,7 +32,6 @@ public class MainController {
 
 	@FXML
 	public void initialize() {
-		System.out.println("application started");
 		personneOverviewController.setMainController(this);
 		requeteOverviewController.setMainController(this);
 	}
@@ -123,7 +122,7 @@ public class MainController {
 	}
 
 
-
+	// ATTENTION NE PAS OUBLIER DE COMMENTER CETTE PARTIE DU CODE POUR EVITER QUE LE PROGRAMME UTILISE DES DONNEES NON FIABLES
 	public void demo() {
 		setDossier(new DossierDAO().find(2));
 	}

@@ -20,30 +20,22 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Numéro d'auditorat" />
-            <Label fx:id="numeroAuditorat" text="Label" GridPane.columnIndex="1" />
-            <Label text="Numéro de role" GridPane.rowIndex="1" />
-            <Label fx:id="numeroRole" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="numeroAuditorat" GridPane.columnIndex="1" />
+            <Label text="Numéro R.G." GridPane.rowIndex="1" />
+            <Label fx:id="numeroRG" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Date de création" GridPane.rowIndex="2" />
-            <Label fx:id="dateCreation" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="Etat" GridPane.rowIndex="3" />
-            <Label fx:id="etat" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Date jugement" GridPane.rowIndex="6" />
-            <Label fx:id="dateJugement" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label text="Dispositif" GridPane.rowIndex="7" />
-            <Label fx:id="dispositif" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label fx:id="dateCreation" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Date jugement" GridPane.rowIndex="4" />
+            <Label fx:id="dateJugement" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Dispositif" GridPane.rowIndex="5" />
+            <Label fx:id="dispositif" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Hyperlink onAction="#modifAuditorat" text="Modifier" GridPane.columnIndex="2" />
             <Hyperlink onAction="#modifRole" text="Modifier" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Hyperlink onAction="#modifEtat" text="Modifier" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Label text="Avocat" GridPane.rowIndex="4" />
-            <Label fx:id="avocat" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Hyperlink onAction="#modifAvocat" text="Modifier" GridPane.columnIndex="2" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <Button fx:id="btnAjoutJugement" layoutX="239.0" layoutY="279.0" mnemonicParsing="false" onAction="#ajoutJugement" text="Ajout Jugement" />
+      <Button fx:id="btnAjoutJugement" layoutX="14.0" layoutY="237.0" mnemonicParsing="false" onAction="#ajoutJugement" text="Ajout Jugement" />
    </children>
 </AnchorPane>

@@ -49,10 +49,6 @@ public class PersonneOverviewController implements Initializable {
 	@FXML
 	private Label niss;
 	@FXML
-	private Label etatCivil;
-	@FXML
-	private Label nationalite;
-	@FXML
 	private Label adresseGUI;
 
 	// info requetes
@@ -156,8 +152,6 @@ public class PersonneOverviewController implements Initializable {
 		prenom.setText(personne.getPrenom());
 		nom.setText(personne.getNom());
 		niss.setText(personne.getNiss());
-		etatCivil.setText("Célibataire");
-		nationalite.setText("Belge");
 
 		adresseGUI.setText(adresse.getRue() + " " + adresse.getNumero() + " " + adresse.getBoite() + "\n"
 				+ adresse.getCodePostal() + "\n " + adresse.getPays());
