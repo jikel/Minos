@@ -123,9 +123,9 @@ public class MainController {
 
 
 	// ATTENTION NE PAS OUBLIER DE COMMENTER CETTE PARTIE DU CODE POUR EVITER QUE LE PROGRAMME UTILISE DES DONNEES NON FIABLES
-	public void demo() {
-		setDossier(new DossierDAO().find(2));
-	}
+//	public void demo() {
+//		setDossier(new DossierDAO().find(2));
+//	}
 
 
 
@@ -146,7 +146,7 @@ public class MainController {
 			nouvelleRecherchePane = (AnchorPane) loader.load();
 			Scene scene = new Scene(nouvelleRecherchePane);
 			stage.setScene(scene);
-			stage.setTitle("Chercher dossier");
+			stage.setTitle("Chercher document");
 			stage.show();
 
 		} catch (Exception e) {
