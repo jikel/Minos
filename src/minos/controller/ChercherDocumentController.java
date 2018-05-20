@@ -1,16 +1,8 @@
 package minos.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.ResourceBundle;
-
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.RAMDirectory;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;

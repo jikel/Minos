@@ -114,7 +114,7 @@ public class PersonneOverviewController implements Initializable {
 		stage.initModality(Modality.APPLICATION_MODAL);
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(PersonneOverviewController.class.getResource("../view/NouvelleRequeteDialog.fxml"));
+			loader.setLocation(PersonneOverviewController.class.getResource("/minos/view/NouvelleRequeteDialog.fxml"));
 
 			nouvelleRequetePane = (AnchorPane) loader.load();
 			

@@ -20,7 +20,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Nom" />
+            <Label text="%name" />
             <Label text="Prenom" GridPane.rowIndex="1" />
             <Label text="Type" GridPane.rowIndex="2" />
             <ComboBox fx:id="type" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

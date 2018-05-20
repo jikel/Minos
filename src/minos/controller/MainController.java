@@ -1,5 +1,6 @@
 package minos.controller;
 
+import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -46,7 +47,7 @@ public class MainController {
 		stage.initModality(Modality.APPLICATION_MODAL);
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainController.class.getResource("../view/NouveauDossierDialog.fxml"));
+			loader.setLocation(MainController.class.getResource("/minos/view/NouveauDossierDialog.fxml"));
 
 			nouvelleRequetePane = (AnchorPane) loader.load();
 			
@@ -72,7 +73,8 @@ public class MainController {
 		stage.initModality(Modality.APPLICATION_MODAL);
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainController.class.getResource("../view/AjoutPersonneDialog.fxml"));
+			loader.setResources(Main.minosResourceBundle);
+			loader.setLocation(MainController.class.getResource("/minos/view/AjoutPersonneDialog.fxml"));
 			
 			nouvelleRequetePane = (AnchorPane) loader.load();
 			
@@ -100,7 +102,7 @@ public class MainController {
 		stage.initModality(Modality.APPLICATION_MODAL);
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainController.class.getResource("../view/ChercherDossierPersonne.fxml"));
+			loader.setLocation(MainController.class.getResource("/minos/view/ChercherDossierPersonne.fxml"));
 		
 			nouvelleRequetePane = (AnchorPane) loader.load();
 			ChercherDossierPersonneController chercherDossierPersonneController = loader.getController();
@@ -141,7 +143,7 @@ public class MainController {
 		stage.initModality(Modality.APPLICATION_MODAL);
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainController.class.getResource("../view/ChercherDocument.fxml"));
+			loader.setLocation(MainController.class.getResource("/minos/view/ChercherDocument.fxml"));
 		
 			nouvelleRecherchePane = (AnchorPane) loader.load();
 			Scene scene = new Scene(nouvelleRecherchePane);

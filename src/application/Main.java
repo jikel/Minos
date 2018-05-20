@@ -1,5 +1,8 @@
 package application;
 	
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,16 +13,27 @@ import minos.recherche.MinosIndex;
 
 
 public class Main extends Application {
+	
+	public static ResourceBundle minosResourceBundle;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			
+//			minosResourceBundle = ResourceBundle.getBundle("minos", new Locale("fr", "BE"));
+
+            minosResourceBundle = ResourceBundle.getBundle("minos", new Locale("nl", "BE"));
+			
 			AnchorPane root = new AnchorPane();
 			
 			  // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             // ajout d'un ressources bundle pour les tag des versions multilangues
-//            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
-            loader.setLocation(Main.class.getResource("../minos/view/Main.fxml"));
+            
+            loader.setResources(minosResourceBundle);
+            
+//            loader.setLocation(MainApp.class.getResource("/minos/view/RootLayout.fxml"));
+            loader.setLocation(Main.class.getResource("/minos/view/Main.fxml"));
             root = (AnchorPane) loader.load();
             
            MainController mainController = loader.getController();

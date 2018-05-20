@@ -97,7 +97,7 @@ public class InfoRequeteController implements Initializable {
 		stage.initModality(Modality.APPLICATION_MODAL);
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(InfoRequeteController.class.getResource("../../view/AjoutJugementDialog.fxml"));
+			loader.setLocation(InfoRequeteController.class.getResource("/minos/view/AjoutJugementDialog.fxml"));
 
 			nouvelleRequetePane = (AnchorPane) loader.load();
 
