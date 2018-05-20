@@ -40,7 +40,7 @@
             </AnchorPane>
         </content>
       </TitledPane>
-      <TitledPane animated="false" layoutX="14.0" layoutY="284.0" text="Requete" AnchorPane.bottomAnchor="210.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+      <TitledPane animated="false" layoutX="5.0" layoutY="338.0" text="Requete" AnchorPane.bottomAnchor="256.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -56,6 +56,6 @@
                </children></AnchorPane>
         </content>
       </TitledPane>
-      <Button layoutX="14.0" layoutY="665.0" mnemonicParsing="false" onAction="#ajoutRequete" text="Nouvelle requete" />
+      <Button layoutX="14.0" layoutY="574.0" mnemonicParsing="false" onAction="#ajoutRequete" text="Nouvelle requete" />
    </children>
 </AnchorPane>
