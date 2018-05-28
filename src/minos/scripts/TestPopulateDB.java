@@ -58,12 +58,13 @@ public class TestPopulateDB {
 		// populateDB.testJugementDAO();
 		// populateDB.testRequeteDAO();
 		// populateDB.testRoleAdresse();
-		// populateDB.testRendezVous();
-		 populateDB.testDossierAvecDocument();
+		 populateDB.testRendezVous();
+//		 populateDB.testDossierAvecDocument();
 		// populateDB.testDossierAvecJugements();
 //		 populateDB.testDossierAvecRequete();
 		// populateDB.testAssignationTribunal();
 		// populateDB.testDossierAvecAssignationsTribunal();
+//		populateDB.testAjoutTribunaux();
 	}
 
 	private void testAdresseEtPersonne() {
@@ -290,5 +291,42 @@ public class TestPopulateDB {
 			System.out.println(assignationTribunal.getId());
 		}
 		System.out.println(" -- ");
+	}
+	private void testAjoutTribunaux(){
+		System.out.println("completer la DB avec tous les tribunaux existants");
+		Adresse adresse = new Adresse("Place Poelaert", "3", "bte 3", "1000", "Belgique");
+		adresse = adresseDAO.create(adresse);
+		String nom = "Tribunal de Bruxelles";
+		String niveauTribunal = "Tribunal du travail francophone de Bruxelles";
+		RoleAdresse roleAdresseTribunal = new RoleAdresse(adresse, nom, niveauTribunal);
+		roleAdresseTribunal = roleAdresseDAO.create(roleAdresseTribunal);
+
+		Adresse adresseCharleroi = new Adresse("Boulevard Paul Janson", "87", "/3", "6000", "Belgique");
+		adresseCharleroi = adresseDAO.create(adresseCharleroi);
+		nom = "Tribunal de Charleroi";
+		niveauTribunal = "Tribunal du travail du Hainaut - Division Charleroi";
+		RoleAdresse charleroiRoleAdresseTribunal = new RoleAdresse(adresseCharleroi, nom, niveauTribunal);
+		charleroiRoleAdresseTribunal = roleAdresseDAO.create(charleroiRoleAdresseTribunal);
+		
+		Adresse monsAdresse = new Adresse("Rue de Nimy", "70", "", "7000", "Belgique");
+		monsAdresse = adresseDAO.create(monsAdresse);
+		nom = "Tribunal de Mons";
+		niveauTribunal = "Tribunal du travail du Hainaut - Division Mons";
+		RoleAdresse monsRoleAdresseTribunal = new RoleAdresse(monsAdresse, nom, niveauTribunal);
+		monsRoleAdresseTribunal = roleAdresseDAO.create(monsRoleAdresseTribunal);
+		
+		Adresse nivellesAdresse = new Adresse("Rue Clarisse", "115", "", "1400", "Belgique");
+		nivellesAdresse = adresseDAO.create(nivellesAdresse);
+		nom = "Tribunal de Nivelles";
+		niveauTribunal = "Tribunal du travail du Brabant wallon - Division Nivelles";
+		RoleAdresse nivellesRoleAdresseTribunal = new RoleAdresse(nivellesAdresse, nom, niveauTribunal);
+		nivellesRoleAdresseTribunal = roleAdresseDAO.create(nivellesRoleAdresseTribunal);	
+		
+		Adresse liegeAdresse = new Adresse("Place Saint-Lambert", "30", "/0004", "4000", "Belgique");
+		liegeAdresse = adresseDAO.create(liegeAdresse);
+		nom = "Tribunal de Liège";
+		niveauTribunal = "Tribunal du travail Liège - Division Liège";
+		RoleAdresse liegeRoleAdresseTribunal = new RoleAdresse(liegeAdresse, nom, niveauTribunal);
+		liegeRoleAdresseTribunal = roleAdresseDAO.create(liegeRoleAdresseTribunal);
 	}
 }

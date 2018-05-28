@@ -12,11 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import minos.controller.MainController;
-import minos.controller.NouveauDossierDialogController;
 import minos.model.bean.Dossier;
 import minos.model.bean.Jugement;
 import minos.model.bean.Requete;
+import minos.model.bean.RoleAdresse;
 import minos.model.dao.DossierDAO;
 import minos.model.service.DossierService;
 
@@ -27,6 +26,8 @@ public class InfoRequeteController implements Initializable {
 	private Label numeroRG;
 	@FXML
 	private Label dateCreation;
+	@FXML
+	private Label tribunalCompetent;
 	@FXML
 	private Label dateJugement;
 	@FXML
@@ -86,6 +87,15 @@ public class InfoRequeteController implements Initializable {
 
 	public void setDossier(Dossier dossier) {
 		this.dossier = dossier;
+		
+		RoleAdresse dernierTribunal = DossierService.tribunalCourant(dossier);
+		if (dernierTribunal != null){
+			tribunalCompetent.setText(dernierTribunal.getNom());
+		}
+		else {
+			tribunalCompetent.setText("pas d'assignation");
+		}
+		
 		rafraichir();
 	}
 

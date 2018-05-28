@@ -28,6 +28,7 @@ import minos.model.bean.Dossier;
 import minos.model.bean.TypeDocumentMinos;
 import minos.model.dao.DocumentMinosDAO;
 import minos.model.dao.JugementDAO;
+import minos.view.utils.MinosDateFormatter;
 
 public class CorrespondanceController implements Initializable {
 	@FXML
@@ -76,7 +77,8 @@ public class CorrespondanceController implements Initializable {
 
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<DocumentMinos, String> param) {
-				return new SimpleStringProperty(param.getValue().getDateReception().toString());
+				String dateAAfficher = MinosDateFormatter.format(param.getValue().getDateReception());
+				return new SimpleStringProperty(dateAAfficher);
 			}
 		});
 		colType.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<DocumentMinos, String>, ObservableValue<String>>() {

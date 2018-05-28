@@ -6,7 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 
+import minos.model.bean.AssignationTribunal;
+import minos.model.bean.Dossier;
 import minos.model.bean.RendezVous;
 import minos.model.bean.RoleAdresse;
 
@@ -36,7 +40,7 @@ public class RendezVousDAO {
 			throw new RuntimeException(e);
 		}
 	}
-
+	
 	public RendezVous find(long id) {
 		RendezVous rendezVous = null;
 		ResultSet result;
@@ -56,5 +60,34 @@ public class RendezVousDAO {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public Collection<RendezVous> findRendezVousForDossier(long idDossier) {
+		ResultSet result;
+		try {
+			result = MinosConnection.getInstance()
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT id FROM rendez_vous WHERE id_dossier = " + idDossier);
+			Collection<RendezVous> rendezVousCollection = new ArrayList<>();
+			while (result.next()) {
+				long idRendezVous = result.getLong("id");
+				RendezVous rendezVous = find(idRendezVous);
+				rendezVousCollection.add(rendezVous);
+			}
+			return rendezVousCollection;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
+	public void delete (RendezVous rendezVous){
+		PreparedStatement prepareStatement;
+		try {
+			prepareStatement = MinosConnection.getInstance().prepareStatement(
+					"DELETE FROM rendez_vous where id = ?");
+			prepareStatement.setLong(1, rendezVous.getId());
+			prepareStatement.execute();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

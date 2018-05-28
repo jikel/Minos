@@ -39,7 +39,7 @@ public class Main extends Application {
            MainController mainController = loader.getController();
            
            // ATTENTION
-//            mainController.demo();
+            mainController.demo();
             
             MinosIndex.getInstance().chargerIndexLucene();
 			

@@ -115,10 +115,15 @@ public class ChercherDossierPersonneController implements Initializable {
 	private void remplirTableData() {
 		tableData.clear();
 		for (Dossier dossier : dossierDAO.tousLesDossiers()) {
-			Requete premiereRequete = dossier.getRequetes().iterator().next(); // au moins une!
-			long idRequerant = premiereRequete.getIdRequerant(); // toujours le meme pour l'instant
-			Personne personne = personneDAO.find(idRequerant);
-			tableData.add(new LigneTable(dossier, personne));
+			if (dossier.getRequetes().isEmpty()) {
+				System.err.println("Dossier n°" + dossier.getId() + " n'a pas de requete (ce n'est pas normal)");
+			} else {
+				Requete premiereRequete = dossier.getRequetes().iterator().next();
+				long idRequerant = premiereRequete.getIdRequerant(); // toujours le meme pour l'instant
+				Personne personne = personneDAO.find(idRequerant);
+				tableData.add(new LigneTable(dossier, personne));
+			}
+
 		}
 	}
 

@@ -1,15 +1,19 @@
 package minos.model.bean;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Dossier {
 	private long id;
 	// representation de la relation dossier_document en DB
-	private Map<Long, String> nomsDocument;
-	private Collection<Jugement> jugements;
-	private Collection<Requete> requetes;
-	private Collection<AssignationTribunal> assignationsTribunal;
+	private Map<Long, String> nomsDocument = new HashMap<>();
+	private Collection<Jugement> jugements = new ArrayList<>();
+	private Collection<Requete> requetes = new ArrayList<>();
+	private Collection<AssignationTribunal> assignationsTribunal = new ArrayList<>();
+	
+	private Collection<RendezVous> rendezVous = new ArrayList<>();
 
 	public Dossier(long id) {
 		super();
@@ -54,5 +58,13 @@ public class Dossier {
 
 	public void setAssignationsTribunal(Collection<AssignationTribunal> assignationsTribunal) {
 		this.assignationsTribunal = assignationsTribunal;
+	}
+	
+	public Collection<RendezVous> getRendezVous() {
+		return rendezVous;
+	}
+
+	public void setRendezVous(Collection<RendezVous> rendezVous) {
+		this.rendezVous = rendezVous;
 	}
 }

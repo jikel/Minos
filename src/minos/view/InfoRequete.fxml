@@ -20,6 +20,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Numéro d'auditorat" />
@@ -28,14 +30,16 @@
             <Label fx:id="numeroRG" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Date de création" GridPane.rowIndex="2" />
             <Label fx:id="dateCreation" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="Date jugement" GridPane.rowIndex="4" />
-            <Label fx:id="dateJugement" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label text="Dispositif" GridPane.rowIndex="5" />
-            <Label fx:id="dispositif" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Date jugement" GridPane.rowIndex="6" />
+            <Label fx:id="dateJugement" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label text="Dispositif" GridPane.rowIndex="7" />
+            <Label fx:id="dispositif" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Hyperlink onAction="#modifAuditorat" text="Modifier" GridPane.columnIndex="2" />
             <Hyperlink onAction="#modifRole" text="Modifier" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label text="Tribunal compétent" GridPane.rowIndex="4" />
+            <Label fx:id="tribunalCompetent" text=" " GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <Button fx:id="btnAjoutJugement" layoutX="14.0" layoutY="237.0" mnemonicParsing="false" onAction="#ajoutJugement" text="Ajout Jugement" />
+      <Button fx:id="btnAjoutJugement" layoutX="14.0" layoutY="301.0" mnemonicParsing="false" onAction="#ajoutJugement" text="Ajout Jugement" />
    </children>
 </AnchorPane>

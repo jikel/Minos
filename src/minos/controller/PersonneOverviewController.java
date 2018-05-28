@@ -38,6 +38,7 @@ import minos.model.bean.Personne;
 import minos.model.bean.Requete;
 import minos.model.dao.DossierDAO;
 import minos.model.dao.PersonneDAO;
+import minos.view.utils.MinosDateFormatter;
 
 public class PersonneOverviewController implements Initializable {
 
@@ -86,7 +87,8 @@ public class PersonneOverviewController implements Initializable {
 				new Callback<TableColumn.CellDataFeatures<Requete, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Requete, String> param) {
-						return new SimpleStringProperty(param.getValue().getDateEffet().toString());
+						String dateAAfficher = MinosDateFormatter.format(param.getValue().getDateEffet());
+						return new SimpleStringProperty(dateAAfficher);
 					}
 				});
 		requeteTable.setItems(requeteData);
@@ -102,8 +104,12 @@ public class PersonneOverviewController implements Initializable {
 	}
 
 	private void updateTableSelection() {
+		
 		Requete selectedItem = requeteTable.getSelectionModel().getSelectedItem();
-		mainController.setRequete(selectedItem);
+		if(selectedItem != null){
+			mainController.setRequete(selectedItem);
+		}
+		
 	}
 
 	@FXML

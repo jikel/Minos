@@ -38,7 +38,6 @@ public class MainController {
 	}
 	
 
-
 	@FXML
 	public void ajoutNouveauDossier() {
 		// ouverture d'une nouvelle fenetre
@@ -125,9 +124,9 @@ public class MainController {
 
 
 	// ATTENTION NE PAS OUBLIER DE COMMENTER CETTE PARTIE DU CODE POUR EVITER QUE LE PROGRAMME UTILISE DES DONNEES NON FIABLES
-//	public void demo() {
-//		setDossier(new DossierDAO().find(2));
-//	}
+	public void demo() {
+		setDossier(new DossierDAO().find(8));
+	}
 
 
 

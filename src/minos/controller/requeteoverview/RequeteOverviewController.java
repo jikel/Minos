@@ -19,61 +19,62 @@ public class RequeteOverviewController implements Initializable {
 
 	@FXML
 	private TabPane tabPane;
+
 	@FXML
-	
 	private AnchorPane infoRequete;
-	@FXML 
+	@FXML
 	private InfoRequeteController infoRequeteController;
-	
+
 	@FXML
 	private AnchorPane correspondance;
 	@FXML
 	private CorrespondanceController correspondanceController;
-	
+
 	@FXML
 	private AnchorPane notes;
 	@FXML
 	private NotesController notesController;
-	
+
 	@FXML
 	private AnchorPane calendrier;
 	@FXML
 	private CalendrierController calendrierController;
-	
+
 	@FXML
 	private AnchorPane historique;
 	@FXML
 	private HistoriqueController historiqueController;
-	
+
 	private MainController mainController;
-	
+
 	private Requete requete;
 	private Dossier dossier;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-	
+
 	}
 
 	public void setRequete(Requete requete) {
 		this.requete = requete;
 		infoRequeteController.setRequete(requete);
-		
+
 		calendrierController.setRequete(requete);
-//		historiqueController.setRequete(requete);
+		// ajouter l'onglet historique dans les fonctionalites futures
+		//		historiqueController.setRequete(requete);
 	}
-	
+
 	public void setDossier(Dossier dossier) {
 		this.dossier = dossier;
 		correspondanceController.setDossier(dossier);
 		infoRequeteController.setDossier(dossier);
 		notesController.setDossier(dossier);
+		calendrierController.setDossier(dossier);
 	}
 
 	public void setMainController(MainController mainController) {
 		this.mainController = mainController;
 
 	}
-
 
 }
