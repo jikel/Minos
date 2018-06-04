@@ -17,6 +17,7 @@ import minos.model.bean.Jugement;
 import minos.model.bean.Requete;
 import minos.model.bean.RoleAdresse;
 import minos.model.dao.DossierDAO;
+import minos.model.dao.RequeteDAO;
 import minos.model.service.DossierService;
 
 public class InfoRequeteController implements Initializable {
@@ -38,21 +39,68 @@ public class InfoRequeteController implements Initializable {
 
 	private Requete requete;
 	private Dossier dossier;
+	
+	private RequeteDAO requeteDAO;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		requeteDAO = new RequeteDAO();
 		dateJugement.setText("pas de jugement");
 		dispositif.setText("pas de jugement");
 	}
 
 	@FXML
 	public void modifAuditorat() {
-		System.out.println("auditorat modifié");
+		// ouverture d'une nouvelle fenetre
+				AnchorPane modifierRequetePane;
+				Stage stage = new Stage();
+				stage.initModality(Modality.APPLICATION_MODAL);
+				try {
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(InfoRequeteController.class.getResource("/minos/view/ModifierRequete.fxml"));
+
+					modifierRequetePane = (AnchorPane) loader.load();
+
+					ModifierRequeteController modifierRequeteController = loader.getController();
+					modifierRequeteController.setDossier(dossier);
+					modifierRequeteController.setRequete(requete);
+					modifierRequeteController.setInfoRequeteController(this);
+
+					Scene scene = new Scene(modifierRequetePane);
+					stage.setScene(scene);
+					stage.setTitle("Modifier requête");
+					stage.show();
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 	}
 
 	@FXML
 	public void modifRole() {
-		System.out.println("role modifié");
+		// ouverture d'une nouvelle fenetre
+		AnchorPane modifierRequetePane;
+		Stage stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(InfoRequeteController.class.getResource("/minos/view/ModifierRequete.fxml"));
+
+			modifierRequetePane = (AnchorPane) loader.load();
+
+			ModifierRequeteController modifierRequeteController = loader.getController();
+			modifierRequeteController.setDossier(dossier);
+			modifierRequeteController.setRequete(requete);
+			modifierRequeteController.setInfoRequeteController(this);
+
+			Scene scene = new Scene(modifierRequetePane);
+			stage.setScene(scene);
+			stage.setTitle("Modifier requête");
+			stage.show();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		};
 	}
 
 	@FXML
@@ -102,20 +150,20 @@ public class InfoRequeteController implements Initializable {
 	@FXML
 	public void ajoutJugement() {
 		// ouverture d'une nouvelle fenetre
-		AnchorPane nouvelleRequetePane;
+		AnchorPane nouveauJugementPane;
 		Stage stage = new Stage();
 		stage.initModality(Modality.APPLICATION_MODAL);
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(InfoRequeteController.class.getResource("/minos/view/AjoutJugementDialog.fxml"));
 
-			nouvelleRequetePane = (AnchorPane) loader.load();
+			nouveauJugementPane = (AnchorPane) loader.load();
 
 			AjoutJugementDialogController ajoutJugementDialogController = loader.getController();
 			ajoutJugementDialogController.setDossier(dossier);
 			ajoutJugementDialogController.setInfoRequeteController(this);
 
-			Scene scene = new Scene(nouvelleRequetePane);
+			Scene scene = new Scene(nouveauJugementPane);
 			stage.setScene(scene);
 			stage.setTitle("Ajout nouveau dossier");
 			stage.show();

@@ -58,13 +58,14 @@ public class TestPopulateDB {
 		// populateDB.testJugementDAO();
 		// populateDB.testRequeteDAO();
 		// populateDB.testRoleAdresse();
-		 populateDB.testRendezVous();
+//		 populateDB.testRendezVous();
 //		 populateDB.testDossierAvecDocument();
 		// populateDB.testDossierAvecJugements();
 //		 populateDB.testDossierAvecRequete();
 		// populateDB.testAssignationTribunal();
 		// populateDB.testDossierAvecAssignationsTribunal();
 //		populateDB.testAjoutTribunaux();
+		 populateDB.testUpdateRequete();
 	}
 
 	private void testAdresseEtPersonne() {
@@ -255,6 +256,23 @@ public class TestPopulateDB {
 		AssignationTribunal assignationTribunal = new AssignationTribunal(dossier.getId(), document.getId(), date,
 				roleAdresseTribunal);
 		assignationTribunal = assignationTribunalDAO.create(assignationTribunal);
+	}
+	
+	private void testUpdateRequete (){
+		Dossier dossier = dossierDAO.create();
+		Adresse adresse = new Adresse("chaussee de mons", "65", "truc", "7300", "belgique");
+		adresse = adresseDAO.create(adresse);
+		Personne personne = new Personne(TypePersonne.physique, "Dubois", "Simon", "12345678901", adresse); 
+		personne = personneDAO.create(personne);
+		DocumentMinos document = new DocumentMinos("nomDoc", TypeDocumentMinos.requeteSFP, la_bible.getBytes(), LocalDateTime.now());
+		document = documentMinosDAO.create(document, dossier);
+	
+		Requete requete = new Requete(dossier.getId(), personne.getId(), document.getId(), LocalDate.now(), "truc audit", "truc RG");
+		requete = requeteDAO.create(requete);
+		
+		String nouvelAudit = "nouvelAudit";
+		String nouveauRG = "nouveauRG";
+		requeteDAO.update(requete, nouvelAudit, nouveauRG);
 	}
 
 	private void testDossierAvecAssignationsTribunal() {

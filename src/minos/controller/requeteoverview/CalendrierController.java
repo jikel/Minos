@@ -50,7 +50,6 @@ public class CalendrierController implements Initializable {
 	private Requete requete;
 	private Dossier dossier;
 	
-	private LocalDate dateSelectionnee;
 	
 	private RendezVousDAO rendezVousDAO;
 	private DossierDAO dossierDAO;
@@ -84,8 +83,6 @@ public class CalendrierController implements Initializable {
 	@FXML
 	public void selectionnerDate(ActionEvent event){
 		System.out.println("date selectionnee");
-		dateSelectionnee = dpChoixDate.getValue();
-		System.out.println(dateSelectionnee.toString());
 	}
 	
 	@FXML

@@ -20,6 +20,5 @@
       <Label layoutX="58.0" layoutY="514.0" text="Sélectionner une date" AnchorPane.bottomAnchor="69.0" AnchorPane.leftAnchor="58.0" />
       <Button fx:id="btnAjouter" layoutX="238.0" layoutY="553.0" mnemonicParsing="false" onAction="#ajouterRdv" text="Ajouter" />
       <Button fx:id="btnSupprimer" layoutX="314.0" layoutY="553.0" mnemonicParsing="false" onAction="#supprimerRdv" text="Supprimer" />
-      <Label fx:id="showdatalbl" layoutX="174.0" layoutY="557.0" text="Date" />
    </children>
 </AnchorPane>

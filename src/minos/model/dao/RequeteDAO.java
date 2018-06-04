@@ -35,6 +35,35 @@ public class RequeteDAO {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public void update (Requete requete, String audit, String RG){
+		PreparedStatement prepareStatement;
+		try {
+			prepareStatement = MinosConnection.getInstance().prepareStatement(
+					"UPDATE requete SET numero_role = ?, numero_rg = ? WHERE id = ?");
+//		"UPDATE requete SET id = ?, id_dossier = ?, id_requerant = ?, id_document = ?, date_effet = ?, numero_role = ?, numero_rg = ? WHERE id = ?");
+			prepareStatement.setString(1, audit);
+			prepareStatement.setString(2, RG);
+			prepareStatement.setLong(3, requete.getId());
+			prepareStatement.execute();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}	
+	}
+
+	public void updateRG (Requete requete, String RG){
+		PreparedStatement prepareStatement;
+		try {
+			prepareStatement = MinosConnection.getInstance().prepareStatement(
+					"UPDATE requete SET numero_rg = ? WHERE id = ?");
+//		"UPDATE requete SET id = ?, id_dossier = ?, id_requerant = ?, id_document = ?, date_effet = ?, numero_role = ?, numero_rg = ? WHERE id = ?");
+			prepareStatement.setString(1, RG);
+			prepareStatement.setLong(2, requete.getId());
+			prepareStatement.execute();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}	
+	}
 
 	public Requete find(long id) {
 		Requete requete = null;
