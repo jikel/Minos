@@ -65,7 +65,8 @@ public class TestPopulateDB {
 		// populateDB.testAssignationTribunal();
 		// populateDB.testDossierAvecAssignationsTribunal();
 //		populateDB.testAjoutTribunaux();
-		 populateDB.testUpdateRequete();
+//		 populateDB.testUpdateRequete();
+		populateDB.testFindNiss();
 	}
 
 	private void testAdresseEtPersonne() {
@@ -310,6 +311,22 @@ public class TestPopulateDB {
 		}
 		System.out.println(" -- ");
 	}
+	
+	private void testFindNiss(){
+		System.out.println("verification si NISS existe dans la db");
+		// faux niss
+//		Personne personneTrouvee = personneDAO.findNISS("489491616");
+		//vrai niss
+		Personne personneTrouvee = personneDAO.findNISS("4894915616");
+		if(personneTrouvee!=null){
+			System.out.println(personneTrouvee.getNom() + "  "+ personneTrouvee.getPrenom());
+		}
+		else{
+			System.out.println("niss introuvable");
+		}
+	}
+	
+	
 	private void testAjoutTribunaux(){
 		System.out.println("completer la DB avec tous les tribunaux existants");
 		Adresse adresse = new Adresse("Place Poelaert", "3", "bte 3", "1000", "Belgique");

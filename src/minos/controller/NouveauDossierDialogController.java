@@ -12,6 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
@@ -146,38 +148,84 @@ public class NouveauDossierDialogController implements Initializable {
 		adresse = adresseDAO.create(adresse);
 
 		Personne personne = new Personne(TypePersonne.physique, nom.getText(), prenom.getText(), niss.getText(), adresse);
-		personne = personneDAO.create(personne);
+		if(controlNISS(personne.getNiss())){
+			personne = personneDAO.create(personne);
 
-		String nomFichier = file.getName();
-		byte[] contenuFichier;
-		try {
-			contenuFichier = Files.readAllBytes(file.toPath());
-		} catch (IOException e) {
-			throw new RuntimeException(e);
+			String nomFichier = file.getName();
+			byte[] contenuFichier;
+			try {
+				contenuFichier = Files.readAllBytes(file.toPath());
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+
+			DocumentMinos document = new DocumentMinos(nomFichier, TypeDocumentMinos.requeteSFP, contenuFichier, LocalDateTime.now());
+			document = documentMinosDAO.create(document, dossier);
+
+			// création de la requete
+			Requete requete = new Requete(dossier.getId(), personne.getId(), document.getId(), LocalDate.now(), numAudit.getText(), numRG.getText());
+			requete = requeteDAO.create(requete);
+			
+			// créer le lien entre le tribunal compétent et le dossier juridique créé
+			RoleAdresse tribunalCompetent = comboTribunal.getSelectionModel().getSelectedItem();
+			AssignationTribunal assignationTribunal = new AssignationTribunal(dossier.getId(), document.getId(), LocalDate.now(), tribunalCompetent);
+			assignationTribunal = assignationTribunalDAO.create(assignationTribunal);
+			
+
+			dossier = dossierDAO.find(dossier.getId()); // recharger le dossier avec les informations mises à jour
+
+			mainController.setDossier(dossier);
+			Stage stage = (Stage) btnCreer.getScene().getWindow();
+			stage.close();	
 		}
-
-		DocumentMinos document = new DocumentMinos(nomFichier, TypeDocumentMinos.requeteSFP, contenuFichier, LocalDateTime.now());
-		document = documentMinosDAO.create(document, dossier);
-
-		// création de la requete
-		Requete requete = new Requete(dossier.getId(), personne.getId(), document.getId(), LocalDate.now(), numAudit.getText(), numRG.getText());
-		requete = requeteDAO.create(requete);
 		
-		// créer le lien entre le tribunal compétent et le dossier juridique créé
-		RoleAdresse tribunalCompetent = comboTribunal.getSelectionModel().getSelectedItem();
-		AssignationTribunal assignationTribunal = new AssignationTribunal(dossier.getId(), document.getId(), LocalDate.now(), tribunalCompetent);
-		assignationTribunal = assignationTribunalDAO.create(assignationTribunal);
-		
-
-		dossier = dossierDAO.find(dossier.getId()); // recharger le dossier avec les informations mises à jour
-
-		mainController.setDossier(dossier);
-		Stage stage = (Stage) btnCreer.getScene().getWindow();
-		stage.close();
+		// eventuellement, il faudrait supprimer l'adresse creee pour eviter les doublons
+		else{
+			System.out.println("niss incorrect");
+		}
 	}
 
 	public void setMainController(MainController mainController) {
 		this.mainController = mainController;
 	}
+	
+	// attention ce type de controle ne fonctionne uniquement avec les personnes physiques
+	public boolean controlNISS(String niss){
+		//verification nombre de chiffres
+		if (niss.length()!=11){
+			System.out.println("il faut absolument que le NISS comporte 11 chiffres");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("NISS incorrect");
+			alert.setHeaderText("Encodage incorrect");
+			alert.setContentText("Le NISS doit comporter 11 chiffres!");
 
+			alert.showAndWait();
+			return false;
+		}
+		else if(!niss.matches("[0-9]+")){
+			System.out.println("il faut absolument que le NISS ne comporte que des chiffres");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("NISS incorrect");
+			alert.setHeaderText("Encodage incorrect");
+			alert.setContentText("Le NISS ne doit comporter que des chiffres!");
+
+			alert.showAndWait();
+			return false;
+		}
+		else if(personneDAO.findNISS(niss)!=null){
+			System.out.println("le NISS existe déjà");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("NISS incorrect");
+			alert.setHeaderText("Encodage incorrect");
+			alert.setContentText("Le NISS existe déjà !");
+
+			alert.showAndWait();
+			return false;
+		}
+		else{
+			System.out.println("le NISS est correct");
+			return true;
+		}
+	}
+	
 }

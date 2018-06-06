@@ -25,13 +25,9 @@ public class PersonneDAO {
 		try {
 			if (personne.getTypePersonne().equals(TypePersonne.physique)) {
 				if (personne.getAdresse() != null) {
-					prepareStatement = MinosConnection.getInstance().prepareStatement(
-							"INSERT INTO personne (type, nom, prenom, niss, id_adresse) VALUES (?, ?, ?, ?, ?)",
-							Statement.RETURN_GENERATED_KEYS);
+					prepareStatement = MinosConnection.getInstance().prepareStatement("INSERT INTO personne (type, nom, prenom, niss, id_adresse) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 				} else {
-					prepareStatement = MinosConnection.getInstance().prepareStatement(
-							"INSERT INTO personne (type, nom, prenom, niss) VALUES (?, ?, ?, ?)",
-							Statement.RETURN_GENERATED_KEYS);
+					prepareStatement = MinosConnection.getInstance().prepareStatement("INSERT INTO personne (type, nom, prenom, niss) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 				}
 				prepareStatement.setString(1, personne.getTypePersonne().getDbValue());
 				prepareStatement.setString(2, personne.getNom());
@@ -41,16 +37,12 @@ public class PersonneDAO {
 					prepareStatement.setLong(5, personne.getAdresse().getId());
 				}
 			} else if (TypePersonne.morale.equals(personne.getTypePersonne())) {
-				prepareStatement = MinosConnection.getInstance().prepareStatement(
-						"INSERT INTO personne (type, nom, id_adresse) VALUES (?, ?, ?)",
-						Statement.RETURN_GENERATED_KEYS);
+				prepareStatement = MinosConnection.getInstance().prepareStatement("INSERT INTO personne (type, nom, id_adresse) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 				prepareStatement.setString(1, personne.getTypePersonne().getDbValue());
 				prepareStatement.setString(2, personne.getNom());
 				prepareStatement.setLong(3, personne.getAdresse().getId());
 			} else if (TypePersonne.juge.equals(personne.getTypePersonne())) {
-				prepareStatement = MinosConnection.getInstance().prepareStatement(
-						"INSERT INTO personne (type, nom, prenom) VALUES (?, ?, ?)",
-						Statement.RETURN_GENERATED_KEYS);
+				prepareStatement = MinosConnection.getInstance().prepareStatement("INSERT INTO personne (type, nom, prenom) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 				prepareStatement.setString(1, personne.getTypePersonne().getDbValue());
 				prepareStatement.setString(2, personne.getNom());
 				prepareStatement.setString(3, personne.getPrenom());
@@ -67,13 +59,12 @@ public class PersonneDAO {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public Personne find(long id) {
 		Personne personne = null;
 		ResultSet result;
 		try {
-			result = MinosConnection.getInstance().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-					.executeQuery("SELECT * FROM personne WHERE id = " + id);
+			result = MinosConnection.getInstance().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM personne WHERE id = " + id);
 			if (result.first()) {
 				long idAdresse = result.getLong("id_adresse");
 				Adresse adresse = null;
@@ -98,13 +89,40 @@ public class PersonneDAO {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
+	// cette fonction de recherche ne marche que pour les personnes physiques
+	public Personne findNISS(String niss) {
+		Personne personne = null;
+		ResultSet result;
+		try {
+			result = MinosConnection.getInstance().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM personne WHERE niss = " + niss);
+			if (result.first()) {
+				long idAdresse = result.getLong("id_adresse");
+				Adresse adresse = null;
+				if (idAdresse != 0) {
+					adresse = adresseDAO.find(idAdresse);
+				}
+				long id = result.getLong("id");
+				String typeString = result.getString("type");
+				TypePersonne typePersonne;
+				String nom = result.getString("nom");
+
+				typePersonne = TypePersonne.physique;
+				String prenom = result.getString("prenom");
+				personne = new Personne(id, typePersonne, nom, prenom, niss, adresse);
+
+			}
+			return personne;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	public Collection<Personne> findJuges() {
 		Collection<Personne> juges = new ArrayList<>();
 		ResultSet result;
 		try {
-			result = MinosConnection.getInstance().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-					.executeQuery("SELECT id FROM personne WHERE type = '" + TypePersonne.juge.getDbValue() + "'");
+			result = MinosConnection.getInstance().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT id FROM personne WHERE type = '" + TypePersonne.juge.getDbValue() + "'");
 			while (result.next()) {
 				juges.add(find(result.getLong("id")));
 			}
