@@ -66,7 +66,9 @@ public class TestPopulateDB {
 		// populateDB.testDossierAvecAssignationsTribunal();
 //		populateDB.testAjoutTribunaux();
 //		 populateDB.testUpdateRequete();
-		populateDB.testFindNiss();
+		populateDB.testFindPersonneWithNiss();
+//		populateDB.testFindRequeteWithRG();
+//		populateDB.testFindRequeteWithRole();
 	}
 
 	private void testAdresseEtPersonne() {
@@ -312,12 +314,12 @@ public class TestPopulateDB {
 		System.out.println(" -- ");
 	}
 	
-	private void testFindNiss(){
+	private void testFindPersonneWithNiss(){
 		System.out.println("verification si NISS existe dans la db");
 		// faux niss
-//		Personne personneTrouvee = personneDAO.findNISS("489491616");
+//		Personne personneTrouvee = personneDAO.findPersonneWithNISS("job");
 		//vrai niss
-		Personne personneTrouvee = personneDAO.findNISS("4894915616");
+		Personne personneTrouvee = personneDAO.findPersonneWithNISS("4894915616");
 		if(personneTrouvee!=null){
 			System.out.println(personneTrouvee.getNom() + "  "+ personneTrouvee.getPrenom());
 		}
@@ -326,6 +328,29 @@ public class TestPopulateDB {
 		}
 	}
 	
+	private void testFindRequeteWithRG(){
+		System.out.println("chercher requete avec num RG");
+		String rg = "FUBAR";
+		Requete requete = requeteDAO.findRequeteWithRG(rg);
+		if(requete==null){
+			System.out.println("la requete n'existe pas");
+		}
+		else{
+			System.out.println("la requete existe : "+ requete.getNumeroRole());
+		}
+	}
+
+	private void testFindRequeteWithRole(){
+		System.out.println("chercher requete avec num Role");
+		String role = "bidule";
+		Requete requete = requeteDAO.findRequeteWithRole(role);
+		if(requete==null){
+			System.out.println("la requete n'existe pas");
+		}
+		else{
+			System.out.println("la requete existe : "+ requete.getNumeroRG());
+		}
+	}
 	
 	private void testAjoutTribunaux(){
 		System.out.println("completer la DB avec tous les tribunaux existants");

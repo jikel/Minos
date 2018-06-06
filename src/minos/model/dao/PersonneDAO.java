@@ -91,11 +91,13 @@ public class PersonneDAO {
 	}
 
 	// cette fonction de recherche ne marche que pour les personnes physiques
-	public Personne findNISS(String niss) {
+	public Personne findPersonneWithNISS(String niss) {
 		Personne personne = null;
 		ResultSet result;
 		try {
-			result = MinosConnection.getInstance().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM personne WHERE niss = " + niss);
+			result = MinosConnection.getInstance()
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT * FROM personne WHERE niss = '" + niss + "'");
 			if (result.first()) {
 				long idAdresse = result.getLong("id_adresse");
 				Adresse adresse = null;

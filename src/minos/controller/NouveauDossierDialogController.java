@@ -38,6 +38,7 @@ import minos.model.dao.DossierDAO;
 import minos.model.dao.PersonneDAO;
 import minos.model.dao.RequeteDAO;
 import minos.model.dao.RoleAdresseDAO;
+import minos.model.service.PersonneService;
 
 public class NouveauDossierDialogController implements Initializable {
 
@@ -148,7 +149,8 @@ public class NouveauDossierDialogController implements Initializable {
 		adresse = adresseDAO.create(adresse);
 
 		Personne personne = new Personne(TypePersonne.physique, nom.getText(), prenom.getText(), niss.getText(), adresse);
-		if(controlNISS(personne.getNiss())){
+//		if(controlNISS(personne.getNiss())){
+			if(PersonneService.controlNISS(personne.getNiss())){
 			personne = personneDAO.create(personne);
 
 			String nomFichier = file.getName();
@@ -212,7 +214,7 @@ public class NouveauDossierDialogController implements Initializable {
 			alert.showAndWait();
 			return false;
 		}
-		else if(personneDAO.findNISS(niss)!=null){
+		else if(personneDAO.findPersonneWithNISS(niss)!=null){
 			System.out.println("le NISS existe déjà");
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("NISS incorrect");

@@ -112,6 +112,54 @@ public class RequeteDAO {
 		}
 	}
 	
+	public Requete findRequeteWithRole(String role){
+		Requete requete = null;
+
+		ResultSet result;
+		try {
+			result = MinosConnection.getInstance()
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT * FROM requete WHERE numero_role = '" + role+"'");
+			if (result.next()) {
+				long id = result.getLong("id");
+				long idDossier = result.getLong("id_dossier");
+				long idRequerant = result.getLong("id_requerant");
+				long idDocument = result.getLong("id_document");
+				LocalDate dateEffet = result.getDate("date_effet").toLocalDate();
+				String numeroRole = result.getString("numero_role");
+				String numeroRG = result.getString("numero_rg");
+				requete = new Requete(id, idDossier, idRequerant, idDocument, dateEffet, numeroRole, numeroRG);
+			}
+			return requete;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public Requete findRequeteWithRG(String rg){
+		Requete requete = null;
+
+		ResultSet result;
+		try {
+			result = MinosConnection.getInstance()
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT * FROM requete WHERE numero_rg = '" + rg+"'");
+			if (result.next()) {
+				long id = result.getLong("id");
+				long idDossier = result.getLong("id_dossier");
+				long idRequerant = result.getLong("id_requerant");
+				long idDocument = result.getLong("id_document");
+				LocalDate dateEffet = result.getDate("date_effet").toLocalDate();
+				String numeroRole = result.getString("numero_role");
+				String numeroRG = result.getString("numero_rg");
+				requete = new Requete(id, idDossier, idRequerant, idDocument, dateEffet, numeroRole, numeroRG);
+			}
+			return requete;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public Collection<Requete> findRequetesForDossier(long idDossier) {
 		ResultSet result;
 		try {
