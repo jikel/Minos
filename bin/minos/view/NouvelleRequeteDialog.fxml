@@ -18,7 +18,7 @@
         </rowConstraints>
          <children>
             <Label text="Numéro de l'auditorat" />
-            <Label text="Numéro de role" GridPane.rowIndex="1" />
+            <Label text="Numéro de rôle" GridPane.rowIndex="1" />
             <TextField fx:id="numeroAuditorat" GridPane.columnIndex="1" />
             <TextField fx:id="numeroRole" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>

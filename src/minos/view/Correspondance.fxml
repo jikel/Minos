@@ -18,7 +18,7 @@
          </columnResizePolicy>
       </TableView>
       <Button fx:id="btnAjoutDoc" contentDisplay="BOTTOM" layoutX="293.0" layoutY="460.0" mnemonicParsing="false" onAction="#ajouterDocument" text="Ajouter document" AnchorPane.rightAnchor="94.0" />
-      <Button fx:id="btnTelecharger" layoutX="13.0" layoutY="406.0" mnemonicParsing="false" onAction="#telecharger" text="Telecharger" />
+      <Button fx:id="btnTelecharger" layoutX="13.0" layoutY="406.0" mnemonicParsing="false" onAction="#telecharger" text="Télécharger" />
       <ComboBox fx:id="comboTypeDoc" layoutX="91.0" layoutY="460.0" prefHeight="25.0" prefWidth="167.0" />
       <Label layoutX="14.0" layoutY="464.0" text="Type:" />
    </children>

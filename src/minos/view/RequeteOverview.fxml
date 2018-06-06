@@ -9,7 +9,7 @@
    <children>
       <TabPane prefHeight="600.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Info requete">
+          <Tab text="Info requête">
                <content>
                   <fx:include fx:id="infoRequete" source="InfoRequete.fxml" />
                </content>

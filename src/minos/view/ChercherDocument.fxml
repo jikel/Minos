@@ -9,10 +9,10 @@
    <children>
       <TableView fx:id="tableResult" layoutX="14.0" layoutY="69.0" prefHeight="508.0" prefWidth="477.0">
         <columns>
-          <TableColumn fx:id="colIdDocument" prefWidth="75.0" text="id document" />
-          <TableColumn fx:id="colNomDocument" prefWidth="75.0" text="nom document" />
-            <TableColumn fx:id="colIdDossier" prefWidth="75.0" text="id dossier" />
-            <TableColumn fx:id="colDateReception" prefWidth="75.0" text="date reception" />
+          <TableColumn fx:id="colIdDocument" prefWidth="75.0" text="Id Document" />
+          <TableColumn fx:id="colNomDocument" prefWidth="75.0" text="Nom Document" />
+            <TableColumn fx:id="colIdDossier" prefWidth="75.0" text="Id Dossier" />
+            <TableColumn fx:id="colDateReception" prefWidth="75.0" text="Date Réception" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
