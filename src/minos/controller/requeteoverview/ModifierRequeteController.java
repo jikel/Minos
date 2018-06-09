@@ -13,8 +13,8 @@ import minos.model.bean.Requete;
 import minos.model.dao.RequeteDAO;
 import minos.model.service.RequeteService;
 
-public class ModifierRequeteController implements Initializable{
-	
+public class ModifierRequeteController implements Initializable {
+
 	@FXML
 	private TextField numeroAuditorat;
 	@FXML
@@ -28,29 +28,26 @@ public class ModifierRequeteController implements Initializable{
 	private Requete requete;
 	private InfoRequeteController infoRequeteController;
 	private RequeteDAO requeteDAO;
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		requeteDAO = new RequeteDAO();
-//		numeroAuditorat.setText(requete.getNumeroRole());;
-//		numeroRG.setText(requete.getNumeroRG());
+		//		numeroAuditorat.setText(requete.getNumeroRole());;
+		//		numeroRG.setText(requete.getNumeroRG());
 	}
-	
+
 	@FXML
-	public void modifierRequete(){
+	public void modifierRequete() {
 		System.out.println("modifier requete");
-		// PROBLEME CAR LA REQUETE EST CONSIDEREE COMME ETANT VIDE POUR INFO ESSAYER DE FUSIONNER LES METHODES UPDATE
-		
+
 		// verifier que les TextField ne soient pas vides
-//		if (RequeteService.controlRole(numeroAuditorat.getText())){
-			if (RequeteService.controleAuditoratRequeteActive(requete, numeroAuditorat.getText()) && RequeteService.controleRGRequeteActive(requete, numeroRG.getText())){
+		if (RequeteService.controleAuditoratRequeteActive(requete, numeroAuditorat.getText()) && RequeteService.controleRGRequeteActive(requete, numeroRG.getText())) {
 			requeteDAO.update(requete, numeroAuditorat.getText(), numeroRG.getText());
-			
+
 			infoRequeteController.rafraichirRequete();
 			Stage stage = (Stage) btnModifier.getScene().getWindow();
-			stage.close();	
-		}
-		else{
+			stage.close();
+		} else {
 			System.out.println("requete incorrecte: aucune modification dans la DB");
 		}
 	}
@@ -60,19 +57,17 @@ public class ModifierRequeteController implements Initializable{
 		Stage stage = (Stage) btnAnnuler.getScene().getWindow();
 		stage.close();
 	}
-	
+
 	public void setDossier(Dossier dossier) {
 		this.dossier = dossier;
 	}
-	
-	public void setRequete(Requete requete){
+
+	public void setRequete(Requete requete) {
 		this.requete = requete;
 	}
 
 	public void setInfoRequeteController(InfoRequeteController infoRequeteController) {
 		this.infoRequeteController = infoRequeteController;
 	}
-
-
 
 }

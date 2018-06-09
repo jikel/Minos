@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import minos.model.bean.Adresse;
+import minos.model.bean.Requete;
 
 public class AdresseDAO {
 
@@ -50,4 +51,20 @@ public class AdresseDAO {
 		}
 	}
 
+	public void update (Adresse adresse, String rue, String numero, String boite, String codePostal, String pays){
+		PreparedStatement prepareStatement;
+		try {
+			prepareStatement = MinosConnection.getInstance().prepareStatement(
+					"UPDATE adresse SET rue = ?, numero = ?, boite = ?, code_postal = ?, pays = ? WHERE id = ?");
+			prepareStatement.setString(1, rue);
+			prepareStatement.setString(2, numero);
+			prepareStatement.setString(3, boite);
+			prepareStatement.setString(4, codePostal);
+			prepareStatement.setString(5, pays);
+			prepareStatement.setLong(6, adresse.getId());
+			prepareStatement.execute();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}	
+	}
 }

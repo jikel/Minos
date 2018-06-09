@@ -33,7 +33,7 @@
                         <Label fx:id="prenom" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="niss" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label fx:id="adresseGUI" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Hyperlink text="Modifier" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Hyperlink onAction="#modifierAdresse" text="Modifier" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>

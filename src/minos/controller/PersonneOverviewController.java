@@ -66,6 +66,7 @@ public class PersonneOverviewController implements Initializable {
 	public Label idPersonne;
 
 	private Dossier dossier;
+	private Adresse adresse;
 
 	private PersonneDAO personneDAO;
 
@@ -114,7 +115,7 @@ public class PersonneOverviewController implements Initializable {
 
 	@FXML
 	private void ajoutRequete() {
-		// ouverture de la fenetre
+// ouverture de la fenetre
 		AnchorPane nouvelleRequetePane;
 		Stage stage = new Stage();
 		stage.initModality(Modality.APPLICATION_MODAL);
@@ -137,6 +138,33 @@ public class PersonneOverviewController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	@FXML
+	private void modifierAdresse(){
+		// ouverture de la fenetre
+				AnchorPane modifAdressePane;
+				Stage stage = new Stage();
+				stage.initModality(Modality.APPLICATION_MODAL);
+				try {
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(PersonneOverviewController.class.getResource("/minos/view/ModifierAdresse.fxml"));
+
+					modifAdressePane = (AnchorPane) loader.load();
+					
+					ModifierAdresseController modifierAdresseController = loader.getController();
+					modifierAdresseController.setDossier(dossier);
+					modifierAdresseController.setAdresse(adresse);
+					modifierAdresseController.setPersonneOverviewController(this);
+					
+					Scene scene = new Scene(modifAdressePane);
+					stage.setScene(scene);
+					stage.setTitle("Modifier adresse du requérant");
+					stage.show();
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+	}
 
 	@FXML
 	private void btnTransferClicked(ActionEvent event) {
@@ -147,17 +175,32 @@ public class PersonneOverviewController implements Initializable {
 		this.dossier = dossier;
 		rafraichir();
 	}
+	
+	public void setAdresse(Adresse adresse){
+		this.adresse = adresse;
+	}
 
 	private void updateInfoPersonne() {
 		long idRequerant = dossier.getRequetes().iterator().next().getIdRequerant();
 		Personne personne = personneDAO.find(idRequerant);
 
 		Adresse adresse = personne.getAdresse();
+		mainController.setAdresse(adresse);
 
 		// complete les Label
 		prenom.setText(personne.getPrenom());
 		nom.setText(personne.getNom());
 		niss.setText(personne.getNiss());
+
+		adresseGUI.setText(adresse.getRue() + " " + adresse.getNumero() + " " + adresse.getBoite() + "\n"
+				+ adresse.getCodePostal() + "\n " + adresse.getPays());
+	}
+	
+	public void rafraichirAdressePersonne(){
+		long idRequerant = dossier.getRequetes().iterator().next().getIdRequerant();
+		Personne personne = personneDAO.find(idRequerant);
+
+		Adresse adresse = personne.getAdresse();	
 
 		adresseGUI.setText(adresse.getRue() + " " + adresse.getNumero() + " " + adresse.getBoite() + "\n"
 				+ adresse.getCodePostal() + "\n " + adresse.getPays());

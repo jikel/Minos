@@ -66,9 +66,10 @@ public class TestPopulateDB {
 		// populateDB.testDossierAvecAssignationsTribunal();
 //		populateDB.testAjoutTribunaux();
 //		 populateDB.testUpdateRequete();
-		populateDB.testFindPersonneWithNiss();
+//		populateDB.testFindPersonneWithNiss();
 //		populateDB.testFindRequeteWithRG();
 //		populateDB.testFindRequeteWithRole();
+		populateDB.testUpdateAdresse();
 	}
 
 	private void testAdresseEtPersonne() {
@@ -326,6 +327,19 @@ public class TestPopulateDB {
 		else{
 			System.out.println("niss introuvable");
 		}
+	}
+	
+	private void testUpdateAdresse(){
+		System.out.println("update adresse");
+		
+		Adresse adresseExistante = adresseDAO.find(1);
+		String rue = "rue du changement";
+		String numero = "456";
+		String boite = "b 5";
+		String codePostal = "1250";
+		String pays = "Belgique";
+		
+		adresseDAO.update(adresseExistante, rue, numero, boite, codePostal, pays);
 	}
 	
 	private void testFindRequeteWithRG(){

@@ -1,8 +1,6 @@
 package minos.controller;
 
 import application.Main;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,13 +8,11 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import minos.controller.requeteoverview.InfoRequeteController;
 import minos.controller.requeteoverview.RequeteOverviewController;
+import minos.model.bean.Adresse;
 import minos.model.bean.Dossier;
-import minos.model.bean.Personne;
 import minos.model.bean.Requete;
 import minos.model.dao.DossierDAO;
-import minos.model.dao.PersonneDAO;
 
 public class MainController {
 
@@ -28,6 +24,7 @@ public class MainController {
 	RequeteOverviewController requeteOverviewController;
 	private Dossier dossier;
 	private Requete requete;
+	private Adresse adresse;
 	
 	
 
@@ -133,6 +130,11 @@ public class MainController {
 	public void setRequete(Requete requete) {
 		this.requete = requete;
 		requeteOverviewController.setRequete(requete);
+	}
+	
+	public void setAdresse(Adresse adresse){
+		this.adresse = adresse;
+		personneOverviewController.setAdresse(adresse);
 	}
 	
 	@FXML
