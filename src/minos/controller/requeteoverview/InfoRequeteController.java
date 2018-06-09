@@ -172,6 +172,16 @@ public class InfoRequeteController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void rafraichirRequete(){
+		dossier = new DossierDAO().find(dossier.getId());
+		// ATTENTION j'ai cherche uniquement la derniere requete mais normalement il faudrait modifier que la requete selectionnee
+		Requete derniereRequete = DossierService.derniereRequete(dossier);
+		if (derniereRequete != null){
+			numeroAuditorat.setText(derniereRequete.getNumeroRole());
+			numeroRG.setText(derniereRequete.getNumeroRG());
+		}
+	}
 
 	public void rafraichir() {
 		dossier = new DossierDAO().find(dossier.getId());

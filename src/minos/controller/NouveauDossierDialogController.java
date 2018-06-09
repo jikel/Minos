@@ -39,6 +39,7 @@ import minos.model.dao.PersonneDAO;
 import minos.model.dao.RequeteDAO;
 import minos.model.dao.RoleAdresseDAO;
 import minos.model.service.PersonneService;
+import minos.model.service.RequeteService;
 
 public class NouveauDossierDialogController implements Initializable {
 
@@ -166,68 +167,35 @@ public class NouveauDossierDialogController implements Initializable {
 
 			// création de la requete
 			Requete requete = new Requete(dossier.getId(), personne.getId(), document.getId(), LocalDate.now(), numAudit.getText(), numRG.getText());
-			requete = requeteDAO.create(requete);
-			
-			// créer le lien entre le tribunal compétent et le dossier juridique créé
-			RoleAdresse tribunalCompetent = comboTribunal.getSelectionModel().getSelectedItem();
-			AssignationTribunal assignationTribunal = new AssignationTribunal(dossier.getId(), document.getId(), LocalDate.now(), tribunalCompetent);
-			assignationTribunal = assignationTribunalDAO.create(assignationTribunal);
-			
+			if(RequeteService.controlRole(requete.getNumeroRole()) && RequeteService.controlRG(requete.getNumeroRG())){
+				requete = requeteDAO.create(requete);
+				
+				// créer le lien entre le tribunal compétent et le dossier juridique créé
+				RoleAdresse tribunalCompetent = comboTribunal.getSelectionModel().getSelectedItem();
+				AssignationTribunal assignationTribunal = new AssignationTribunal(dossier.getId(), document.getId(), LocalDate.now(), tribunalCompetent);
+				assignationTribunal = assignationTribunalDAO.create(assignationTribunal);
+				
 
-			dossier = dossierDAO.find(dossier.getId()); // recharger le dossier avec les informations mises à jour
+				dossier = dossierDAO.find(dossier.getId()); // recharger le dossier avec les informations mises à jour
 
-			mainController.setDossier(dossier);
-			Stage stage = (Stage) btnCreer.getScene().getWindow();
-			stage.close();	
+				mainController.setDossier(dossier);
+				Stage stage = (Stage) btnCreer.getScene().getWindow();
+				stage.close();	
+			}
+			else{
+				System.out.println("requete incorrecte: aucune modification dans la DB");
+			}
 		}
 		
 		// eventuellement, il faudrait supprimer l'adresse creee pour eviter les doublons
 		else{
-			System.out.println("niss incorrect");
+			System.out.println("niss incorrect: aucune modification dans la DB");
 		}
 	}
+		
 
 	public void setMainController(MainController mainController) {
 		this.mainController = mainController;
-	}
-	
-	// attention ce type de controle ne fonctionne uniquement avec les personnes physiques
-	public boolean controlNISS(String niss){
-		//verification nombre de chiffres
-		if (niss.length()!=11){
-			System.out.println("il faut absolument que le NISS comporte 11 chiffres");
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("NISS incorrect");
-			alert.setHeaderText("Encodage incorrect");
-			alert.setContentText("Le NISS doit comporter 11 chiffres!");
-
-			alert.showAndWait();
-			return false;
-		}
-		else if(!niss.matches("[0-9]+")){
-			System.out.println("il faut absolument que le NISS ne comporte que des chiffres");
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("NISS incorrect");
-			alert.setHeaderText("Encodage incorrect");
-			alert.setContentText("Le NISS ne doit comporter que des chiffres!");
-
-			alert.showAndWait();
-			return false;
-		}
-		else if(personneDAO.findPersonneWithNISS(niss)!=null){
-			System.out.println("le NISS existe déjà");
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("NISS incorrect");
-			alert.setHeaderText("Encodage incorrect");
-			alert.setContentText("Le NISS existe déjà !");
-
-			alert.showAndWait();
-			return false;
-		}
-		else{
-			System.out.println("le NISS est correct");
-			return true;
-		}
 	}
 	
 }

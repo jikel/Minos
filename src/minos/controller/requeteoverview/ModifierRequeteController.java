@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import minos.model.bean.Dossier;
 import minos.model.bean.Requete;
 import minos.model.dao.RequeteDAO;
+import minos.model.service.RequeteService;
 
 public class ModifierRequeteController implements Initializable{
 	
@@ -41,11 +42,16 @@ public class ModifierRequeteController implements Initializable{
 		// PROBLEME CAR LA REQUETE EST CONSIDEREE COMME ETANT VIDE POUR INFO ESSAYER DE FUSIONNER LES METHODES UPDATE
 		
 		// verifier que les TextField ne soient pas vides
-		requeteDAO.update(requete, numeroAuditorat.getText(), numeroRG.getText());
-		
-		infoRequeteController.rafraichir();
-		Stage stage = (Stage) btnModifier.getScene().getWindow();
-		stage.close();
+		if (RequeteService.controlRole(numeroAuditorat.getText()) && RequeteService.controlRG(numeroRG.getText())){
+			requeteDAO.update(requete, numeroAuditorat.getText(), numeroRG.getText());
+			
+			infoRequeteController.rafraichirRequete();
+			Stage stage = (Stage) btnModifier.getScene().getWindow();
+			stage.close();	
+		}
+		else{
+			System.out.println("requete incorrecte: aucune modification dans la DB");
+		}
 	}
 
 	@FXML
