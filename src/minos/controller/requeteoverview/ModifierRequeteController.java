@@ -42,7 +42,8 @@ public class ModifierRequeteController implements Initializable{
 		// PROBLEME CAR LA REQUETE EST CONSIDEREE COMME ETANT VIDE POUR INFO ESSAYER DE FUSIONNER LES METHODES UPDATE
 		
 		// verifier que les TextField ne soient pas vides
-		if (RequeteService.controlRole(numeroAuditorat.getText()) && RequeteService.controlRG(numeroRG.getText())){
+//		if (RequeteService.controlRole(numeroAuditorat.getText())){
+			if (RequeteService.controleAuditoratRequeteActive(requete, numeroAuditorat.getText()) && RequeteService.controleRGRequeteActive(requete, numeroRG.getText())){
 			requeteDAO.update(requete, numeroAuditorat.getText(), numeroRG.getText());
 			
 			infoRequeteController.rafraichirRequete();
