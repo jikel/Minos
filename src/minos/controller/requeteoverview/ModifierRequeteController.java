@@ -32,8 +32,6 @@ public class ModifierRequeteController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		requeteDAO = new RequeteDAO();
-		//		numeroAuditorat.setText(requete.getNumeroRole());;
-		//		numeroRG.setText(requete.getNumeroRG());
 	}
 
 	@FXML

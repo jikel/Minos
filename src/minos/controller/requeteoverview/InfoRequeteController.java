@@ -7,8 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -51,6 +53,7 @@ public class InfoRequeteController implements Initializable {
 
 	@FXML
 	public void modifAuditorat() {
+		if(requete != null){
 		// ouverture d'une nouvelle fenetre
 				AnchorPane modifierRequetePane;
 				Stage stage = new Stage();
@@ -75,10 +78,21 @@ public class InfoRequeteController implements Initializable {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+		}
+		else{
+			System.out.println("il faut selectionner une requete");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erreur");
+			alert.setHeaderText("Modification impossible ");
+			alert.setContentText("Il est nécessaire de sélectionner une requête !");
+			
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
 	public void modifRole() {
+		if(requete != null){
 		// ouverture d'une nouvelle fenetre
 		AnchorPane modifierRequetePane;
 		Stage stage = new Stage();
@@ -103,6 +117,16 @@ public class InfoRequeteController implements Initializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		};
+		}
+		else {
+			System.out.println("il faut selectionner une requete");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erreur");
+			alert.setHeaderText("Modification impossible ");
+			alert.setContentText("Il est nécessaire de sélectionner une requête !");
+			
+			alert.showAndWait();
+		}
 	}
 
 	// pas encore d'actualité
@@ -145,6 +169,7 @@ public class InfoRequeteController implements Initializable {
 
 	@FXML
 	public void ajoutJugement() {
+		if(requete != null){
 		// ouverture d'une nouvelle fenetre
 		AnchorPane nouveauJugementPane;
 		Stage stage = new Stage();
@@ -168,6 +193,16 @@ public class InfoRequeteController implements Initializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		}
+		else{
+			System.out.println("il faut selectionner une requete");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erreur");
+			alert.setHeaderText("Ajout impossible ");
+			alert.setContentText("Il est nécessaire de sélectionner une requête !");
+			
+			alert.showAndWait();
+		}
 	}
 	
 	public void rafraichirRequete(){
@@ -178,6 +213,10 @@ public class InfoRequeteController implements Initializable {
 			numeroAuditorat.setText(derniereRequete.getNumeroRole());
 			numeroRG.setText(derniereRequete.getNumeroRG());
 		}
+
+		
+//			numeroAuditorat.setText(requete.getNumeroRole());
+//			numeroRG.setText(requete.getNumeroRG());
 	}
 
 	public void rafraichir() {

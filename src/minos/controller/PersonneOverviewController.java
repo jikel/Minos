@@ -20,11 +20,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableRow;
@@ -115,6 +117,7 @@ public class PersonneOverviewController implements Initializable {
 
 	@FXML
 	private void ajoutRequete() {
+		if (dossier != null){
 // ouverture de la fenetre
 		AnchorPane nouvelleRequetePane;
 		Stage stage = new Stage();
@@ -138,10 +141,21 @@ public class PersonneOverviewController implements Initializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		}
+		else {
+			System.out.println("il faut selectionner un dossier");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erreur");
+			alert.setHeaderText("Ajout impossible ");
+			alert.setContentText("Il est nécessaire de sélectionner un dossier !");
+			
+			alert.showAndWait();
+		}
 	}
 	
 	@FXML
 	private void modifierAdresse(){
+		if (dossier != null){
 		// ouverture de la fenetre
 				AnchorPane modifAdressePane;
 				Stage stage = new Stage();
@@ -166,6 +180,16 @@ public class PersonneOverviewController implements Initializable {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+		}
+		else {
+			System.out.println("il faut selectionner un dossier");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erreur");
+			alert.setHeaderText("Modification impossible ");
+			alert.setContentText("Il est nécessaire de sélectionner un dossier !");
+			
+			alert.showAndWait();
+		}
 	}
 
 	@FXML

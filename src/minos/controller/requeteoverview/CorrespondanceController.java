@@ -16,11 +16,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
 import minos.model.bean.DocumentMinos;
@@ -102,21 +104,31 @@ public class CorrespondanceController implements Initializable {
 
 	@FXML
 	public void ajouterDocument() {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Sélectionner document");
-		File file = fileChooser.showOpenDialog(btnAjoutDoc.getScene().getWindow());
-		if (file != null) {
-			byte[] contenuFichier;
-			try {
-				contenuFichier = Files.readAllBytes(file.toPath());
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-			TypeDocumentMinos typeDocumentMinos = comboTypeDoc.getSelectionModel().getSelectedItem();
-			DocumentMinos document = new DocumentMinos(file.getName(), typeDocumentMinos, contenuFichier, LocalDateTime.now());
-			document = documentMinosDAO.create(document, dossier);
+		if (comboTypeDoc.getSelectionModel().getSelectedItem() != null) {
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Sélectionner document");
+			File file = fileChooser.showOpenDialog(btnAjoutDoc.getScene().getWindow());
+			if (file != null) {
+				byte[] contenuFichier;
+				try {
+					contenuFichier = Files.readAllBytes(file.toPath());
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+				TypeDocumentMinos typeDocumentMinos = comboTypeDoc.getSelectionModel().getSelectedItem();
+				DocumentMinos document = new DocumentMinos(file.getName(), typeDocumentMinos, contenuFichier, LocalDateTime.now());
+				document = documentMinosDAO.create(document, dossier);
 
-			rafraichirTable();
+				rafraichirTable();
+			}
+		} else {
+			System.out.println("il faut selectionner un type de document");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erreur");
+			alert.setHeaderText("Ajout impossible ");
+			alert.setContentText("Il est nécessaire de sélectionner un type de document !");
+
+			alert.showAndWait();
 		}
 	}
 
@@ -137,29 +149,39 @@ public class CorrespondanceController implements Initializable {
 
 	@FXML
 	public void telecharger() {
-		DocumentMinos selectedItem = tableCorrespondances.getSelectionModel().getSelectedItem();
+		if (tableCorrespondances.getSelectionModel().getSelectedItem() != null) {
+			DocumentMinos selectedItem = tableCorrespondances.getSelectionModel().getSelectedItem();
 
-		String nomFichier = selectedItem.getNom();
-		String extension = "";
-		if (nomFichier.contains("."))
-			extension = nomFichier.substring(nomFichier.lastIndexOf("."), nomFichier.length());
+			String nomFichier = selectedItem.getNom();
+			String extension = "";
+			if (nomFichier.contains("."))
+				extension = nomFichier.substring(nomFichier.lastIndexOf("."), nomFichier.length());
 
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Sauvegarder document");
-		fileChooser.setInitialFileName(nomFichier);
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Sauvegarder document");
+			fileChooser.setInitialFileName(nomFichier);
 
-		if (!extension.isEmpty()) {
-			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(extension, "*." + extension);
-			fileChooser.getExtensionFilters().add(extFilter);
-		}
-
-		File file = fileChooser.showSaveDialog(btnTelecharger.getScene().getWindow());
-		if (file != null) {
-			try {
-				Files.write(file.toPath(), selectedItem.getContenu());
-			} catch (IOException e) {
-				throw new RuntimeException(e);
+			if (!extension.isEmpty()) {
+				FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(extension, "*." + extension);
+				fileChooser.getExtensionFilters().add(extFilter);
 			}
+
+			File file = fileChooser.showSaveDialog(btnTelecharger.getScene().getWindow());
+			if (file != null) {
+				try {
+					Files.write(file.toPath(), selectedItem.getContenu());
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		} else {
+			System.out.println("il faut selectionner un document");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erreur");
+			alert.setHeaderText("Téléchargement impossible ");
+			alert.setContentText("Il est nécessaire de sélectionner un document !");
+
+			alert.showAndWait();
 		}
 	}
 
