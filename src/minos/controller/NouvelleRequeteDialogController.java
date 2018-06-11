@@ -22,6 +22,7 @@ import minos.model.bean.TypeDocumentMinos;
 import minos.model.dao.DocumentMinosDAO;
 import minos.model.dao.PersonneDAO;
 import minos.model.dao.RequeteDAO;
+import minos.model.service.RequeteService;
 
 public class NouvelleRequeteDialogController implements Initializable {
 
@@ -72,11 +73,19 @@ public class NouvelleRequeteDialogController implements Initializable {
 		DocumentMinos document = new DocumentMinos(fichier.getName(), TypeDocumentMinos.requeteSFP, contenuFichier, LocalDateTime.now());
 		document = documentMinosDAO.create(document, dossier);
 
-		requeteDAO.create(new Requete(dossier.getId(), idRequerant, document.getId(), LocalDate.now(), numeroAuditorat.getText(), numeroRole.getText()));
+		if(RequeteService.controlRole(numeroAuditorat.getText()) && RequeteService.controlRG(numeroRole.getText())){
+			Requete requete = new Requete(dossier.getId(), idRequerant, document.getId(), LocalDate.now(), numeroAuditorat.getText(), numeroRole.getText());
+			requete = requeteDAO.create(requete);
+//			requeteDAO.create(new Requete(dossier.getId(), idRequerant, document.getId(), LocalDate.now(), numeroAuditorat.getText(), numeroRole.getText()));
+			
+			personneOverviewController.rafraichir();
+			Stage stage = (Stage) annuler.getScene().getWindow();
+			stage.close();	
+		}
+		else{
+			System.out.println("pas de creation de nouvelle requete dans la DB");
+		}
 		
-		personneOverviewController.rafraichir();
-		Stage stage = (Stage) annuler.getScene().getWindow();
-		stage.close();
 	}
 
 	@FXML

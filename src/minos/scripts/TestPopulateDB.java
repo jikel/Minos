@@ -71,6 +71,10 @@ public class TestPopulateDB {
 //		populateDB.testFindRequeteWithRole();
 		populateDB.testUpdateAdresse();
 	}
+	
+	private void remplirDB(){
+		
+	}
 
 	private void testAdresseEtPersonne() {
 		Adresse adresse = new Adresse("chaussee de mons", "65", "truc", "7300", "belgique");

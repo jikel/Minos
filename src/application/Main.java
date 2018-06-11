@@ -32,14 +32,13 @@ public class Main extends Application {
             
             loader.setResources(minosResourceBundle);
             
-//            loader.setLocation(MainApp.class.getResource("/minos/view/RootLayout.fxml"));
             loader.setLocation(Main.class.getResource("/minos/view/Main.fxml"));
             root = (AnchorPane) loader.load();
             
            MainController mainController = loader.getController();
            
            // ATTENTION
-            mainController.demo();
+//            mainController.demo();
             
             MinosIndex.getInstance().chargerIndexLucene();
 			
@@ -47,6 +46,7 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Minos");
+			primaryStage.setResizable(false);
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

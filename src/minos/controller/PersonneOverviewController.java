@@ -132,6 +132,7 @@ public class PersonneOverviewController implements Initializable {
 			Scene scene = new Scene(nouvelleRequetePane);
 			stage.setScene(scene);
 			stage.setTitle("Ajout nouvelle requête");
+			stage.setResizable(false);
 			stage.show();
 
 		} catch (Exception e) {
@@ -159,6 +160,7 @@ public class PersonneOverviewController implements Initializable {
 					Scene scene = new Scene(modifAdressePane);
 					stage.setScene(scene);
 					stage.setTitle("Modifier adresse du requérant");
+					stage.setResizable(false);
 					stage.show();
 
 				} catch (Exception e) {

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="593.0" prefWidth="716.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.controller.NouveauDossierDialogController">
+<AnchorPane minHeight="593.0" minWidth="716.0" prefHeight="593.0" prefWidth="716.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minos.controller.NouveauDossierDialogController">
    <children>
       <Label text="Créer un nouveau dossier sur base d'une requête" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="20.0">
          <font>

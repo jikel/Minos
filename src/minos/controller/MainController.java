@@ -53,6 +53,7 @@ public class MainController {
 			Scene scene = new Scene(nouvelleRequetePane);
 			stage.setScene(scene);
 			stage.setTitle("Ajout nouveau dossier");
+			stage.setResizable(false);
 			stage.show();
 
 		} catch (Exception e) {
@@ -77,6 +78,7 @@ public class MainController {
 			Scene scene = new Scene(nouvelleRequetePane);
 			stage.setScene(scene);
 			stage.setTitle("Ajout nouveau dossier");
+			stage.setResizable(false);
 			stage.show();
 			
 		} catch (Exception e) {
@@ -106,6 +108,7 @@ public class MainController {
 			Scene scene = new Scene(nouvelleRequetePane);
 			stage.setScene(scene);
 			stage.setTitle("Chercher dossier");
+			stage.setResizable(false);
 			stage.show();
 
 		} catch (Exception e) {
@@ -150,6 +153,7 @@ public class MainController {
 			Scene scene = new Scene(nouvelleRecherchePane);
 			stage.setScene(scene);
 			stage.setTitle("Chercher document");
+			stage.setResizable(false);
 			stage.show();
 
 		} catch (Exception e) {

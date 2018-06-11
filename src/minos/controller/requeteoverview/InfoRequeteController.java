@@ -69,6 +69,7 @@ public class InfoRequeteController implements Initializable {
 					Scene scene = new Scene(modifierRequetePane);
 					stage.setScene(scene);
 					stage.setTitle("Modifier requête");
+					stage.setResizable(false);
 					stage.show();
 
 				} catch (Exception e) {
@@ -96,6 +97,7 @@ public class InfoRequeteController implements Initializable {
 			Scene scene = new Scene(modifierRequetePane);
 			stage.setScene(scene);
 			stage.setTitle("Modifier requête");
+			stage.setResizable(false);
 			stage.show();
 
 		} catch (Exception e) {
@@ -103,11 +105,7 @@ public class InfoRequeteController implements Initializable {
 		};
 	}
 
-	@FXML
-	public void modifEtat() {
-		System.out.println("état modifié");
-	}
-
+	// pas encore d'actualité
 	@FXML
 	public void modifAvocat() {
 		System.out.println("avocat modifié");
@@ -128,8 +126,6 @@ public class InfoRequeteController implements Initializable {
 		numeroAuditorat.setText(requete.getNumeroRole());
 		numeroRG.setText(requete.getNumeroRG());
 		dateCreation.setText(requete.getDateEffet().toString());
-
-		// TODO: avocat (?), 
 
 	}
 
@@ -166,6 +162,7 @@ public class InfoRequeteController implements Initializable {
 			Scene scene = new Scene(nouveauJugementPane);
 			stage.setScene(scene);
 			stage.setTitle("Ajout nouveau dossier");
+			stage.setResizable(false);
 			stage.show();
 
 		} catch (Exception e) {

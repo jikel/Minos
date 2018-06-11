@@ -13,11 +13,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.util.Callback;
 import minos.model.bean.Adresse;
 import minos.model.bean.Dossier;
@@ -40,7 +42,7 @@ public class CalendrierController implements Initializable {
 	private TableColumn<RendezVous, String> colType;
 	@FXML
 	private TableColumn<RendezVous, String> colDateRendezVous;
-	
+
 	@FXML
 	private DatePicker dpChoixDate;
 	@FXML
@@ -49,27 +51,26 @@ public class CalendrierController implements Initializable {
 	private Button btnSupprimer;
 	private Requete requete;
 	private Dossier dossier;
-	
-	
+
 	private RendezVousDAO rendezVousDAO;
 	private DossierDAO dossierDAO;
 	private RoleAdresseDAO roleAdresseDAO;
 	private AdresseDAO adresseDAO;
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		rendezVousDAO = new RendezVousDAO();
 		dossierDAO = new DossierDAO();
-		
-		colType.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<RendezVous,String>, ObservableValue<String>>() {
-			
+
+		colType.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<RendezVous, String>, ObservableValue<String>>() {
+
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<RendezVous, String> param) {
 				return new SimpleStringProperty(param.getValue().getRoleAdresse().getNom());
 			}
 		});
-		
-		colDateRendezVous.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<RendezVous,String>, ObservableValue<String>>() {
+
+		colDateRendezVous.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<RendezVous, String>, ObservableValue<String>>() {
 
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<RendezVous, String> param) {
@@ -79,39 +80,54 @@ public class CalendrierController implements Initializable {
 		});
 		rendezVousTable.setItems(rendezVousData);
 	}
-	
+
 	@FXML
-	public void selectionnerDate(ActionEvent event){
+	public void selectionnerDate(ActionEvent event) {
 		System.out.println("date selectionnee");
 	}
-	
+
 	@FXML
-	public void ajouterRdv(){
-		System.out.println("ajout RDV");
+	public void ajouterRdv() {
 		RoleAdresse tribunal = DossierService.tribunalCourant(dossier);
-		if (dpChoixDate.getValue() != null){
+		if (dpChoixDate.getValue() != null) {
+			System.out.println("ajout RDV");
 			RendezVous rendezVous = new RendezVous(dossier.getId(), tribunal, LocalDateTime.of(dpChoixDate.getValue(), LocalTime.of(14, 30)));
 			rendezVous = rendezVousDAO.create(rendezVous);
+			rafraichirRendezVous();
+		} else {
+			System.out.println("il faut sélectionner une date pour ajouter un rdv");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Ajout rendez-vous impossible");
+			alert.setHeaderText("Ajout impossible");
+			alert.setContentText("Il est nécessaire de sélectionner une date pour ajouter un rendez-vous !");
+
+			alert.showAndWait();
 		}
-		
-		
-		rafraichirRendezVous();
+
 	}
-	
+
 	@FXML
 	public void supprimerRdv() {
 		System.out.println("suppression RDV");
-	
+
 		RendezVous rendezVousSelectionne = rendezVousTable.getSelectionModel().getSelectedItem();
 
-		if(rendezVousSelectionne != null){
+		if (rendezVousSelectionne != null) {
 			rendezVousDAO.delete(rendezVousSelectionne);
+			rafraichirRendezVous();
+		} else {
+			System.out.println("il faut sélectionner un rdv pour pouvoir le supprimer ");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Suppression rendez-vous impossible");
+			alert.setHeaderText("Suppression impossible");
+			alert.setContentText("Il est nécessaire de sélectionner un rendez-vous pour pouvoir le supprimer !");
+
+			alert.showAndWait();
 		}
-		
-		rafraichirRendezVous();
+
 	}
-	
-	public void setDossier(Dossier dossier){
+
+	public void setDossier(Dossier dossier) {
 		this.dossier = dossier;
 		rafraichirRendezVous();
 	}
@@ -119,12 +135,11 @@ public class CalendrierController implements Initializable {
 	public void setRequete(Requete requete) {
 		this.requete = requete;
 	}
-	
-	public void rafraichirRendezVous(){
+
+	public void rafraichirRendezVous() {
 		dossier = dossierDAO.find(dossier.getId());
-		// normalement il y a la methode updateInfo de PersonneOverview mais ce n'est pas necessaire normalemement
 		rendezVousData.clear();
-		for(RendezVous rendezVous: dossier.getRendezVous()){
+		for (RendezVous rendezVous : dossier.getRendezVous()) {
 			rendezVousData.add(rendezVous);
 		}
 		rendezVousTable.refresh();
