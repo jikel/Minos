@@ -89,4 +89,10 @@ public class Personne {
 	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;
 	}
+
+	@Override
+	public String toString() {
+		return (nom + " " + prenom);
+	}
+	
 }

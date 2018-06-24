@@ -21,11 +21,11 @@
          <children>
             <ComboBox fx:id="comboJuge" prefHeight="25.0" prefWidth="237.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Date Jugement" />
-            <DatePicker fx:id="dateJugementPicker" GridPane.columnIndex="1" />
+            <DatePicker fx:id="dateJugementPicker" prefHeight="25.0" prefWidth="258.0" GridPane.columnIndex="1" />
             <Label text="Recevable" GridPane.rowIndex="1" />
-            <ComboBox fx:id="comboRecevable" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="comboRecevable" prefHeight="25.0" prefWidth="247.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Fondement" GridPane.rowIndex="2" />
-            <ComboBox fx:id="comboFondement" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="comboFondement" prefHeight="25.0" prefWidth="256.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Juge" GridPane.rowIndex="3" />
          </children>
       </GridPane>
