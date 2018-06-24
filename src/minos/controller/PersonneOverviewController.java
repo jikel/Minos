@@ -79,21 +79,19 @@ public class PersonneOverviewController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		roleColonne.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<Requete, String>, ObservableValue<String>>() {
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<Requete, String> param) {
-						return new SimpleStringProperty(param.getValue().getNumeroRole());
-					}
-				});
-		dateColonne.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<Requete, String>, ObservableValue<String>>() {
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<Requete, String> param) {
-						String dateAAfficher = MinosDateFormatter.format(param.getValue().getDateEffet());
-						return new SimpleStringProperty(dateAAfficher);
-					}
-				});
+		roleColonne.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Requete, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Requete, String> param) {
+				return new SimpleStringProperty(param.getValue().getNumeroRole());
+			}
+		});
+		dateColonne.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Requete, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Requete, String> param) {
+				String dateAAfficher = MinosDateFormatter.format(param.getValue().getDateEffet());
+				return new SimpleStringProperty(dateAAfficher);
+			}
+		});
 		requeteTable.setItems(requeteData);
 		requeteTable.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<Event>() {
 
@@ -107,87 +105,85 @@ public class PersonneOverviewController implements Initializable {
 	}
 
 	private void updateTableSelection() {
-		
+
 		Requete selectedItem = requeteTable.getSelectionModel().getSelectedItem();
-		if(selectedItem != null){
+		if (selectedItem != null) {
 			mainController.setRequete(selectedItem);
 		}
-		
+
 	}
 
 	@FXML
 	private void ajoutRequete() {
-		if (dossier != null){
-// ouverture de la fenetre
-		AnchorPane nouvelleRequetePane;
-		Stage stage = new Stage();
-		stage.initModality(Modality.APPLICATION_MODAL);
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(PersonneOverviewController.class.getResource("/minos/view/NouvelleRequeteDialog.fxml"));
+		if (dossier != null) {
+			// ouverture de la fenetre
+			AnchorPane nouvelleRequetePane;
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(PersonneOverviewController.class.getResource("/minos/view/NouvelleRequeteDialog.fxml"));
 
-			nouvelleRequetePane = (AnchorPane) loader.load();
-			
-			NouvelleRequeteDialogController nouvelleRequeteDialogController = loader.getController();
-			nouvelleRequeteDialogController.setDossier(dossier);
-			nouvelleRequeteDialogController.setPersonneOverviewController(this);
+				nouvelleRequetePane = (AnchorPane) loader.load();
 
-			Scene scene = new Scene(nouvelleRequetePane);
-			stage.setScene(scene);
-			stage.setTitle("Ajout nouvelle requête");
-			stage.setResizable(false);
-			stage.show();
+				NouvelleRequeteDialogController nouvelleRequeteDialogController = loader.getController();
+				nouvelleRequeteDialogController.setDossier(dossier);
+				nouvelleRequeteDialogController.setPersonneOverviewController(this);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		}
-		else {
+				Scene scene = new Scene(nouvelleRequetePane);
+				stage.setScene(scene);
+				stage.setTitle("Ajout nouvelle requête");
+				stage.setResizable(false);
+				stage.show();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
 			System.out.println("il faut selectionner un dossier");
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erreur");
 			alert.setHeaderText("Ajout impossible ");
 			alert.setContentText("Il est nécessaire de sélectionner un dossier !");
-			
+
 			alert.showAndWait();
 		}
 	}
-	
+
 	@FXML
-	private void modifierAdresse(){
-		if (dossier != null){
-		// ouverture de la fenetre
-				AnchorPane modifAdressePane;
-				Stage stage = new Stage();
-				stage.initModality(Modality.APPLICATION_MODAL);
-				try {
-					FXMLLoader loader = new FXMLLoader();
-					loader.setLocation(PersonneOverviewController.class.getResource("/minos/view/ModifierAdresse.fxml"));
+	private void modifierAdresse() {
+		if (dossier != null) {
+			// ouverture de la fenetre
+			AnchorPane modifAdressePane;
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(PersonneOverviewController.class.getResource("/minos/view/ModifierAdresse.fxml"));
 
-					modifAdressePane = (AnchorPane) loader.load();
-					
-					ModifierAdresseController modifierAdresseController = loader.getController();
-					modifierAdresseController.setDossier(dossier);
-					modifierAdresseController.setAdresse(adresse);
-					modifierAdresseController.setPersonneOverviewController(this);
-					
-					Scene scene = new Scene(modifAdressePane);
-					stage.setScene(scene);
-					stage.setTitle("Modifier adresse du requérant");
-					stage.setResizable(false);
-					stage.show();
+				modifAdressePane = (AnchorPane) loader.load();
 
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-		}
-		else {
+				ModifierAdresseController modifierAdresseController = loader.getController();
+				modifierAdresseController.setDossier(dossier);
+				modifierAdresseController.setAdresse(adresse);
+				modifierAdresseController.setPersonneOverviewController(this);
+
+				Scene scene = new Scene(modifAdressePane);
+				stage.setScene(scene);
+				stage.setTitle("Modifier adresse du requérant");
+				stage.setResizable(false);
+				stage.show();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
 			System.out.println("il faut selectionner un dossier");
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erreur");
 			alert.setHeaderText("Modification impossible ");
 			alert.setContentText("Il est nécessaire de sélectionner un dossier !");
-			
+
 			alert.showAndWait();
 		}
 	}
@@ -201,8 +197,8 @@ public class PersonneOverviewController implements Initializable {
 		this.dossier = dossier;
 		rafraichir();
 	}
-	
-	public void setAdresse(Adresse adresse){
+
+	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;
 	}
 
@@ -218,18 +214,16 @@ public class PersonneOverviewController implements Initializable {
 		nom.setText(personne.getNom());
 		niss.setText(personne.getNiss());
 
-		adresseGUI.setText(adresse.getRue() + " " + adresse.getNumero() + " " + adresse.getBoite() + "\n"
-				+ adresse.getCodePostal() + "\n " + adresse.getPays());
+		adresseGUI.setText(adresse.getRue() + " " + adresse.getNumero() + " " + adresse.getBoite() + "\n" + adresse.getCodePostal() + "\n " + adresse.getPays());
 	}
-	
-	public void rafraichirAdressePersonne(){
+
+	public void rafraichirAdressePersonne() {
 		long idRequerant = dossier.getRequetes().iterator().next().getIdRequerant();
 		Personne personne = personneDAO.find(idRequerant);
 
-		Adresse adresse = personne.getAdresse();	
+		Adresse adresse = personne.getAdresse();
 
-		adresseGUI.setText(adresse.getRue() + " " + adresse.getNumero() + " " + adresse.getBoite() + "\n"
-				+ adresse.getCodePostal() + "\n " + adresse.getPays());
+		adresseGUI.setText(adresse.getRue() + " " + adresse.getNumero() + " " + adresse.getBoite() + "\n" + adresse.getCodePostal() + "\n " + adresse.getPays());
 	}
 
 	public void setMainController(MainController mainController) {

@@ -15,18 +15,21 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Numéro de l'auditorat" />
             <Label text="Numéro de rôle" GridPane.rowIndex="1" />
             <TextField fx:id="numeroAuditorat" GridPane.columnIndex="1" />
             <TextField fx:id="numeroRole" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Tribunal compétent" GridPane.rowIndex="2" />
+            <ComboBox fx:id="comboTribunal" prefHeight="25.0" prefWidth="183.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button fx:id="annuler" layoutX="322.0" layoutY="179.0" mnemonicParsing="false" onAction="#annulerRequete" text="Annuler" AnchorPane.rightAnchor="20.0" />
-      <Button layoutX="240.0" layoutY="179.0" mnemonicParsing="false" onAction="#ajoutRequeteDB" text="OK" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="100.0" />
-      <Button fx:id="btnParcourir" layoutX="296.0" layoutY="112.0" mnemonicParsing="false" onAction="#parcourir" prefHeight="25.0" prefWidth="84.0" text="Parcourir" />
-      <Label layoutX="20.0" layoutY="116.0" text="Document" />
-      <TextField fx:id="chemin" layoutX="121.0" layoutY="112.0" />
+      <Button fx:id="annuler" layoutX="322.0" layoutY="192.0" mnemonicParsing="false" onAction="#annulerRequete" text="Annuler" AnchorPane.rightAnchor="20.0" />
+      <Button layoutX="240.0" layoutY="192.0" mnemonicParsing="false" onAction="#ajoutRequeteDB" text="OK" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="100.0" />
+      <Button fx:id="btnParcourir" layoutX="296.0" layoutY="133.0" mnemonicParsing="false" onAction="#parcourir" prefHeight="25.0" prefWidth="84.0" text="Parcourir" />
+      <Label layoutX="20.0" layoutY="137.0" text="Document" />
+      <TextField fx:id="chemin" layoutX="121.0" layoutY="133.0" />
    </children>
 </AnchorPane>

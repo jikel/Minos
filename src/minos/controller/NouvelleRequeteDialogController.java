@@ -8,20 +8,31 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import minos.model.bean.AssignationTribunal;
 import minos.model.bean.DocumentMinos;
 import minos.model.bean.Dossier;
 import minos.model.bean.Personne;
 import minos.model.bean.Requete;
+import minos.model.bean.RoleAdresse;
 import minos.model.bean.TypeDocumentMinos;
+import minos.model.dao.AdresseDAO;
+import minos.model.dao.AssignationTribunalDAO;
 import minos.model.dao.DocumentMinosDAO;
 import minos.model.dao.PersonneDAO;
 import minos.model.dao.RequeteDAO;
+import minos.model.dao.RoleAdresseDAO;
 import minos.model.service.RequeteService;
 
 public class NouvelleRequeteDialogController implements Initializable {
@@ -32,6 +43,10 @@ public class NouvelleRequeteDialogController implements Initializable {
 	@FXML
 	private TextField numeroRole;
 
+	@FXML
+	private ComboBox<RoleAdresse> comboTribunal;
+	private ObservableList<RoleAdresse> comboTribunalData = FXCollections.observableArrayList();
+	
 	@FXML
 	private TextField chemin;
 
@@ -49,6 +64,10 @@ public class NouvelleRequeteDialogController implements Initializable {
 	private RequeteDAO requeteDAO;
 
 	private DocumentMinosDAO documentMinosDAO;
+	
+	private AdresseDAO adresseDAO;
+	private RoleAdresseDAO roleAdresseDAO;
+	private AssignationTribunalDAO assignationTribunalDAO;
 
 	private Dossier dossier;
 
@@ -58,6 +77,35 @@ public class NouvelleRequeteDialogController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		requeteDAO = new RequeteDAO();
 		documentMinosDAO = new DocumentMinosDAO();
+		
+		adresseDAO = new AdresseDAO();
+		roleAdresseDAO = new RoleAdresseDAO();
+		assignationTribunalDAO = new AssignationTribunalDAO();
+		
+		for (RoleAdresse tribunal : roleAdresseDAO.findTribunals()) {
+			comboTribunalData.add(tribunal);
+		}
+		comboTribunal.setCellFactory(new Callback<ListView<RoleAdresse>, ListCell<RoleAdresse>>() {
+
+			@Override
+			public ListCell<RoleAdresse> call(ListView<RoleAdresse> param) {
+				return new ListCell<RoleAdresse>() {
+					@Override
+					protected void updateItem(RoleAdresse item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item != null) {
+							setText(item.getNom());
+						} else {
+							setText(null);
+						}
+
+					}
+				};
+			}
+		});
+
+		
+		comboTribunal.setItems(comboTribunalData);
 	}
 
 	@FXML
@@ -77,6 +125,11 @@ public class NouvelleRequeteDialogController implements Initializable {
 			Requete requete = new Requete(dossier.getId(), idRequerant, document.getId(), LocalDate.now(), numeroAuditorat.getText(), numeroRole.getText());
 			requete = requeteDAO.create(requete);
 //			requeteDAO.create(new Requete(dossier.getId(), idRequerant, document.getId(), LocalDate.now(), numeroAuditorat.getText(), numeroRole.getText()));
+			
+			// créer le lien entre le tribunal compétent et le dossier juridique créé
+			RoleAdresse tribunalCompetent = comboTribunal.getSelectionModel().getSelectedItem();
+			AssignationTribunal assignationTribunal = new AssignationTribunal(dossier.getId(), document.getId(), LocalDate.now(), tribunalCompetent);
+			assignationTribunal = assignationTribunalDAO.create(assignationTribunal);
 			
 			personneOverviewController.rafraichir();
 			Stage stage = (Stage) annuler.getScene().getWindow();

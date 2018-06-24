@@ -52,4 +52,11 @@ public class RoleAdresse {
 	public void setNiveauTribunal(String niveauTribunal) {
 		this.niveauTribunal = niveauTribunal;
 	}
+
+	@Override
+	public String toString() {
+		return nom;
+	}
+	
+	
 }

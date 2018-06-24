@@ -186,7 +186,7 @@ public class InfoRequeteController implements Initializable {
 
 			Scene scene = new Scene(nouveauJugementPane);
 			stage.setScene(scene);
-			stage.setTitle("Ajout nouveau dossier");
+			stage.setTitle("Ajout nouveau jugement");
 			stage.setResizable(false);
 			stage.show();
 

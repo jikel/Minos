@@ -104,29 +104,39 @@ public class CorrespondanceController implements Initializable {
 
 	@FXML
 	public void ajouterDocument() {
-		if (comboTypeDoc.getSelectionModel().getSelectedItem() != null) {
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Sélectionner document");
-			File file = fileChooser.showOpenDialog(btnAjoutDoc.getScene().getWindow());
-			if (file != null) {
-				byte[] contenuFichier;
-				try {
-					contenuFichier = Files.readAllBytes(file.toPath());
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}
-				TypeDocumentMinos typeDocumentMinos = comboTypeDoc.getSelectionModel().getSelectedItem();
-				DocumentMinos document = new DocumentMinos(file.getName(), typeDocumentMinos, contenuFichier, LocalDateTime.now());
-				document = documentMinosDAO.create(document, dossier);
+		if (dossier != null) {
+			if (comboTypeDoc.getSelectionModel().getSelectedItem() != null) {
+				FileChooser fileChooser = new FileChooser();
+				fileChooser.setTitle("Sélectionner document");
+				File file = fileChooser.showOpenDialog(btnAjoutDoc.getScene().getWindow());
+				if (file != null) {
+					byte[] contenuFichier;
+					try {
+						contenuFichier = Files.readAllBytes(file.toPath());
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+					TypeDocumentMinos typeDocumentMinos = comboTypeDoc.getSelectionModel().getSelectedItem();
+					DocumentMinos document = new DocumentMinos(file.getName(), typeDocumentMinos, contenuFichier, LocalDateTime.now());
+					document = documentMinosDAO.create(document, dossier);
 
-				rafraichirTable();
+					rafraichirTable();
+				}
+			} else {
+				System.out.println("il faut selectionner un type de document");
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Erreur");
+				alert.setHeaderText("Ajout impossible ");
+				alert.setContentText("Il est nécessaire de sélectionner un type de document !");
+
+				alert.showAndWait();
 			}
 		} else {
-			System.out.println("il faut selectionner un type de document");
+			System.out.println("il faut selectionner un dossier");
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erreur");
 			alert.setHeaderText("Ajout impossible ");
-			alert.setContentText("Il est nécessaire de sélectionner un type de document !");
+			alert.setContentText("Il est nécessaire de sélectionner un dossier !");
 
 			alert.showAndWait();
 		}

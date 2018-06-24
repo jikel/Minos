@@ -88,18 +88,28 @@ public class CalendrierController implements Initializable {
 
 	@FXML
 	public void ajouterRdv() {
-		RoleAdresse tribunal = DossierService.tribunalCourant(dossier);
-		if (dpChoixDate.getValue() != null) {
-			System.out.println("ajout RDV");
-			RendezVous rendezVous = new RendezVous(dossier.getId(), tribunal, LocalDateTime.of(dpChoixDate.getValue(), LocalTime.of(14, 30)));
-			rendezVous = rendezVousDAO.create(rendezVous);
-			rafraichirRendezVous();
+		if (dossier != null) {
+			RoleAdresse tribunal = DossierService.tribunalCourant(dossier);
+			if (dpChoixDate.getValue() != null) {
+				System.out.println("ajout RDV");
+				RendezVous rendezVous = new RendezVous(dossier.getId(), tribunal, LocalDateTime.of(dpChoixDate.getValue(), LocalTime.of(14, 30)));
+				rendezVous = rendezVousDAO.create(rendezVous);
+				rafraichirRendezVous();
+			} else {
+				System.out.println("il faut sélectionner une date pour ajouter un rdv");
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Ajout rendez-vous impossible");
+				alert.setHeaderText("Ajout impossible");
+				alert.setContentText("Il est nécessaire de sélectionner une date pour ajouter un rendez-vous !");
+
+				alert.showAndWait();
+			}
 		} else {
-			System.out.println("il faut sélectionner une date pour ajouter un rdv");
+			System.out.println("il faut sélectionner un dossier pour ajouter un rdv");
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Ajout rendez-vous impossible");
 			alert.setHeaderText("Ajout impossible");
-			alert.setContentText("Il est nécessaire de sélectionner une date pour ajouter un rendez-vous !");
+			alert.setContentText("Il est nécessaire de sélectionner un dossier pour ajouter un rendez-vous !");
 
 			alert.showAndWait();
 		}
@@ -111,7 +121,6 @@ public class CalendrierController implements Initializable {
 		System.out.println("suppression RDV");
 
 		RendezVous rendezVousSelectionne = rendezVousTable.getSelectionModel().getSelectedItem();
-
 		if (rendezVousSelectionne != null) {
 			rendezVousDAO.delete(rendezVousSelectionne);
 			rafraichirRendezVous();
